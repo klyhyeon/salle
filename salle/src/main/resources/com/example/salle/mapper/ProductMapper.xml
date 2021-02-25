@@ -7,7 +7,7 @@
 
     <!-- Product SQL-->
     <!-- parameterType: 구문에 전달될 파라미터의 패키지 경로를 포함한 전체 클래스명이나 별칭-->
-    <insert id="registerProduct" parameterType="Product"
+    <insert id="registerProduct" parameterType="com.example.salle.Product"
      useGeneratedKeys="true" keyProperty="pr_id">
         INSERT INTO
         product(pr_email, pr_reg_date, pr_img_1, pr_img_2, pr_img_3, pr_img_4, pr_img_5, pr_title, pr_category, pr_region, pr_price, pr_detail, pr_title_alias)
@@ -26,24 +26,24 @@
         FROM product;
     </delete>  -->
     
-    <select id="getProductInfo" resultType="Product">
+    <select id="getProductInfo" resultType="com.example.salle.Product">
     	SELECT *
     	FROM PRODUCT
     	WHERE PR_ID = #{pr_id}  
     </select>
 
-    <select id="getProductList" resultType="Product">
+    <select id="getProductList" resultType="com.example.salle.Product">
     	SELECT *
     	FROM PRODUCT;
     </select>
 
-    <select id="getCategoryProductList" resultType="Product">
+    <select id="getCategoryProductList" resultType="com.example.salle.Product">
     	SELECT *
     	FROM PRODUCT
     	WHERE PR_CATEGORY = #{pr_category};
     </select>
     
-    <select id="getMemberProductInfo" resultType="String">
+    <select id="getMemberProductInfo" resultType="com.example.salle.String">
     	SELECT m.nickname
 	    FROM member  AS m
 	    LEFT OUTER JOIN product AS p
@@ -51,7 +51,7 @@
 	    WHERE m.email = #{pr_email}
 	    LIMIT 1;
     </select>
-    <select id="search" resultType="Product">
+    <select id="search" resultType="com.example.salle.domain.Product">
     	<bind name="searchWordConcate" value="'%'+searchWord+'%'"></bind>
     	<bind name="searchWordNoSpaceConcate" value="'%'+searchWordNoSpace+'%'"></bind>
     	SELECT *
