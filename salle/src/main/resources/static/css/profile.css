@@ -1,0 +1,98 @@
+
+*{
+	box-sizing: border-box;
+	font-size: 11px;
+}
+
+a {
+	text-decoration: none;
+}
+
+span {
+	padding-left: 15px;
+}
+
+button {
+	border: medium;
+	border-radius: 2px;
+	padding: 6px 10px;
+	background-color: transparent; 
+	cursor: pointer;
+}
+
+/* profile wrap*/
+.wrap_profile {
+	width: 1000px;
+	display: block;
+}
+
+/* member Info */
+.member_info {
+	display: flex;
+	margin-left: 100px;
+}
+
+.productCount {
+	margin-left: 30px;
+}
+
+/* product Info */
+.wrap_productInfo {
+	display: flex;
+	flex-direction: row;
+	width: 500px;
+	max-width: 500px;
+	overflow: hidden;
+	height: 100px;
+	margin-left: 100px;
+	position: relative;
+}
+.wrap_img {
+	align-self: center;		
+}
+
+.wrap_title_price_hours {
+	align-self: center;
+}
+
+
+.pr_img {
+	width: 100px;
+	height: 70px;
+}
+
+.pr_title {
+	font-size: 13px;
+	font-weight: bold; 
+	color: black;
+	max-width: 180px;
+	white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.pr_price {
+	font-size: 12px;
+	font-weight: bold;
+	color: rgba(1, 112, 223, 1);
+}
+
+.wrap_update {
+	position: absolute;
+	top: 25px;
+	right: 100px;
+}
+
+.wrap_delete {
+	position: absolute;	
+	top: 55px;
+	right: 100px;
+}
+
+#update {
+	background-color: #bbdefb;
+}
+#delete{
+	background-color: #ffebee;
+}
+

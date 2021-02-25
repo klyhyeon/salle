@@ -1,0 +1,54 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap');
+
+* {
+	box-sizing: border-box;
+	font-family: 'Noto Sans KR', sans-serif;	
+}
+
+
+div[class^="chatMessageInfo"] {
+	display: flex;
+	flex-direction: row;
+	width: 500px;
+	max-width: 500px;
+	overflow: hidden;
+	height: 100px;
+	margin-left: 50px;
+	position: relative;
+}
+
+.chatListInfo {
+	display: block;
+}
+
+.wrapPr_img {
+	position: absolute;
+	top: 25px;
+	left: 0px;
+}
+
+div[class^="wrapSellerTitle"]{
+	position: absolute;
+	top: 30px;
+	left: 100px;
+}
+
+.pr_img {
+	width: 80px;
+	height: 50px;
+}
+
+#sellerName {
+	color: #0073e6;
+;
+}
+
+#message {
+	color: red;
+}
+
+
+
+
+
+
