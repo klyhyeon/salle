@@ -32,7 +32,7 @@ public class SalleApplication extends SpringBootServletInitializer {
 		SqlSessionFactoryBean sessionFactoryBean = new SqlSessionFactoryBean();
 		sessionFactoryBean.setDataSource(dataSource);
 		//Member 클래스 경로
-		sessionFactoryBean.setTypeAliasesPackage("com.example.salle.domain");
+		//sessionFactoryBean.setTypeAliasesPackage("com.example.salle.domain");
 		return sessionFactoryBean.getObject();
 	}
 
