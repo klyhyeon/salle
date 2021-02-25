@@ -8,14 +8,14 @@
     <!-- registerMember SQL-->
     <!-- parameterType: 구문에 전달될 파라미터의 패키지 경로를 포함한 전체 클래스명이나 별칭
          DB에 자동생성 되는 PK id가 있어서 useGeneratedKeys를 적어줌-->
-    <insert id="insertMember" parameterType="Member"
+    <insert id="insertMember" parameterType="com.example.salle.domain.Member"
             useGeneratedKeys="true" keyProperty="id">
         INSERT INTO
         member(phoneNum, name, email, nickName, password)
         VALUES(#{phoneNum}, #{name}, #{email}, #{nickName}, #{password})
     </insert>
 
-    <select id="memberInfo" parameterType="String" resultType="Member">
+    <select id="memberInfo" parameterType="String" resultType="com.example.salle.domain.Member">
         SELECT *
         FROM member
         WHERE email = #{email}
