@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.amazonaws.services.s3.AmazonS3Client;
+import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.example.salle.application.ProductService;
 import com.example.salle.domain.ChatRoom;
 import com.example.salle.domain.Login;
@@ -24,7 +26,10 @@ import com.example.salle.domain.Product;
 import com.example.salle.domain.UuidImgname;
 import com.example.salle.validation.SellProductValidation;
 
+import lombok.RequiredArgsConstructor;
+
 @Controller
+@RequiredArgsConstructor
 public class ProductController {
 	
 	@Autowired
@@ -32,7 +37,11 @@ public class ProductController {
 	
 	@Autowired
 	UuidImgname uuidImgname;
-
+	
+	private final AmazonS3Client amazonS3Client;
+	
+	@Value("${cloud.aws.s3.bucket}")
+	private String bucket;
 	
 	//상품등록 페이지
 	@RequestMapping(value = "/sell/register", method = RequestMethod.GET)
@@ -99,9 +108,6 @@ public class ProductController {
     
     //상품등록 이미지파일 업로드
     Product product_file = new Product();
-    
-    @Value("${file.upload.path}")
-    String fileUploadPath; 
 
     @RequestMapping(value= "/sell/ajax", method= RequestMethod.POST)
     public void ajax(HttpServletRequest req) throws Exception {
@@ -112,42 +118,41 @@ public class ProductController {
     	Iterator<String> iterator = multi.getFileNames(); 	
     	MultipartFile multipartFile = null;
     	System.out.println("fileUpload ajax get file");
-    	
 
-    	
     	int reps = 0;
     	
     	while(iterator.hasNext()) {
     		
     		multipartFile = multi.getFile(iterator.next());
-    		
+    		multipartFile.transferTo(new File(""));
     		
     		String fileOriname = multipartFile.getOriginalFilename();
-    		String filename = uuidImgname.makeFilename(fileOriname);
-    		String filepathSave = fileUploadPath + File.separator + filename;
-    		String filepath = "/resources/img/imgUpload/" + filename;
+    		String uniName = uuidImgname.makeFilename(fileOriname);
+    		String dirName = "/static/img";
+    		String fileName = dirName + "/" + uniName;
     		
-    		multipartFile.transferTo(new File(filepathSave));
+    		amazonS3Client.putObject(new PutObjectRequest(bucket, fileName, (File) multipartFile));
+    		
 
     		System.out.println("fileUpload ajax pre switch");
     		switch(reps) {
     		case 0: 
-    			product_file.setPr_img_1(filepath);
+    			product_file.setPr_img_1(fileName);
     			System.out.println("sell done 1: " + product_file.getPr_img_1());
     			break;
     		case 1: 
-    			product_file.setPr_img_2(filepath);
+    			product_file.setPr_img_2(fileName);
     			System.out.println("sell done 2: " + product_file.getPr_img_2());
     			break;
     		case 2: 
-    			product_file.setPr_img_3(filepath);
+    			product_file.setPr_img_3(fileName);
     			System.out.println("sell done 3: " + product_file.getPr_img_3());
     			break;
     		case 3: 
-    			product_file.setPr_img_4(filepath);
+    			product_file.setPr_img_4(fileName);
     			break;
     		case 4: 
-    			product_file.setPr_img_5(filepath);
+    			product_file.setPr_img_5(fileName);
     			break;
     		}
     		

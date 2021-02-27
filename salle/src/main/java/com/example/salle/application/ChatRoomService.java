@@ -5,10 +5,12 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 
@@ -16,20 +18,31 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import com.amazonaws.services.s3.AmazonS3Client;
+import com.amazonaws.services.s3.model.CannedAccessControlList;
+import com.amazonaws.services.s3.model.GetObjectRequest;
+import com.amazonaws.services.s3.model.PutObjectRequest;
+import com.amazonaws.services.s3.model.S3Object;
 import com.example.salle.domain.ChatList;
 import com.example.salle.domain.ChatRoom;
 import com.example.salle.mapper.ChatRoomMapper;
 
+import lombok.RequiredArgsConstructor;
+
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class ChatRoomService implements ChatRoomMapper {
+	
+	
+	private final AmazonS3Client amazonS3Client;
 	
 	@Autowired
 	ChatRoomMapper chatRoomMapper;
 	
 	//application.properties에 설정
-    @Value("${file.upload.path.txt}")
-    String fileUploadPath; 
+    @Value("${cloud.aws.s3.bucket}")
+    private String bucket;
 
 	@Override
 	public void addChatRoom(ChatRoom chatRoom) throws IOException {
@@ -45,10 +58,11 @@ public class ChatRoomService implements ChatRoomMapper {
 	//no connection with DB
 	public List<ChatRoom> readChatHistory(ChatRoom chatRoom) throws IOException {
 		
-		String pathName = fileUploadPath + chatRoom.getFileName();
-		
-		//DB에 저장된 chat.txt 파일을 읽어옴 
-		BufferedReader br = new BufferedReader(new FileReader(pathName));
+		//TODO: S3에서 해당파일 받아오기
+		String fileName = chatRoom.getFileName();
+		S3Object s3Object = amazonS3Client.getObject(new GetObjectRequest(bucket, fileName));
+		BufferedReader br = new BufferedReader(new InputStreamReader(s3Object.getObjectContent()));
+
 		//View에 ChatRoom 객체로 전달
 		ChatRoom chatRoomLines = new ChatRoom();
 		List<ChatRoom> chatHistory = new ArrayList<ChatRoom>();
@@ -82,6 +96,7 @@ public class ChatRoomService implements ChatRoomMapper {
 		return chatHistory;
 	}
 	
+	
 	@Override
 	public void updateFileName(int id, String fileName) {
 
@@ -90,14 +105,20 @@ public class ChatRoomService implements ChatRoomMapper {
 	
 	public void createFile(int pr_id, int id) throws IOException {
 		
+		String dirName = "/static/img";
 		String fileName = pr_id + "_" + id + ".txt";
-		String pathName = fileUploadPath + fileName;
+		String pathName = bucket + dirName + fileName;
 		//File 클래스에 pathName 할당
 		File txtFile = new File(pathName);
-		//로컬경로에 파일 생성
-		txtFile.createNewFile();
+		String uploadTxtUrl = putS3(txtFile, fileName);
 		
-		chatRoomMapper.updateFileName(id, fileName);
+		chatRoomMapper.updateFileName(id, uploadTxtUrl);
+	}
+	
+	private String putS3(File uploadFile, String fileName) {
+		//withCannedAcl, CannedAccessControList.PublicRead: Allow all users access(ACL) permitted 
+        amazonS3Client.putObject(new PutObjectRequest(bucket, fileName, uploadFile).withCannedAcl(CannedAccessControlList.PublicRead));
+		return amazonS3Client.getUrl(bucket, fileName).toString();
 	}
 
 	@Override
@@ -116,13 +137,18 @@ public class ChatRoomService implements ChatRoomMapper {
 	//no connection with DB
 	public void appendMessage(ChatRoom chatRoom) throws IOException {
 		
-		
+		//TODO: S3에서 파일 받아오기, 추가 후 업로드까지
+			//**사용자 채팅칠 때마다 S3object를 받아서 로컬파일로 만들고 채팅내용을 append해서 S3로 put해줘야한다?
+			//	과부하가 발생할 것임
 		int pr_id = chatRoom.getPr_id();
 		String buyerId = chatRoom.getBuyerId();
 		
 		ChatRoom chatRoomAppend = chatRoomMapper.findByChatId(pr_id, buyerId);
 				
-		String pathName = fileUploadPath + chatRoomAppend.getFileName();
+		String fileName = chatRoomAppend.getFileName();
+		
+		S3Object s3Object = amazonS3Client.getObject(new GetObjectRequest(bucket, fileName));
+		BufferedReader br = new BufferedReader(new InputStreamReader(s3Object.getObjectContent()));
 		
 		FileOutputStream fos = new FileOutputStream(pathName, true);
 		String content = chatRoom.getContent();

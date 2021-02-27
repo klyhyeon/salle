@@ -27,6 +27,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.amazonaws.services.s3.AmazonS3Client;
+import com.amazonaws.services.s3.model.DeleteObjectRequest;
+import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.example.salle.application.ProductService;
 import com.example.salle.domain.Login;
 import com.example.salle.domain.Member;
@@ -34,8 +37,13 @@ import com.example.salle.domain.Product;
 import com.example.salle.domain.UuidImgname;
 import com.example.salle.validation.SellProductValidation;
 
+import lombok.RequiredArgsConstructor;
+
 @Controller
+@RequiredArgsConstructor
 public class ProductEditController {
+	
+	private final AmazonS3Client amazonS3Client;
 	
 	@Autowired
     ProductService productService;
@@ -46,8 +54,8 @@ public class ProductEditController {
     //상품등록 이미지파일 업로드
     Product product_file = new Product();
     
-    @Value("${file.upload.path}")
-    String fileUploadPath; 
+    @Value("${cloud.aws.s3.bucket}")
+    String bucket; 
 
 	//profile에서 판매글 수정, 삭제하기
 	@RequestMapping(value= "/product/{pr_id}/edit", method = RequestMethod.GET)
@@ -100,6 +108,8 @@ public class ProductEditController {
 	@RequestMapping(value="/ajax/img/delete", method=RequestMethod.POST)
 	public void ajaxDeleteImg(@RequestBody String json) {
     	System.out.println("imgDelete in process");
+    	
+    	//TODO: 실제 파일 delete
 
 		JSONObject jsn = new JSONObject(json);
 		String pr_img_tmp = (String) jsn.get("pr_img");
@@ -114,28 +124,38 @@ public class ProductEditController {
 		
     	productTemp = productService.getProductInfo(pr_id);
     	
+    	String imgFileName = "";
+    	
    	 	switch (indexInt) {
 		
 		case 1:
 			productService.deleteImg1(pr_id);
+			imgFileName = productTemp.getPr_img_1();
 			break;
 		case 2:
 			productService.deleteImg2(pr_id);
+			imgFileName = productTemp.getPr_img_2();
 			break;
 		case 3:
 			productService.deleteImg3(pr_id);
+			imgFileName = productTemp.getPr_img_3();
 			break;
 		case 4:
 			productService.deleteImg4(pr_id);
+			imgFileName = productTemp.getPr_img_4();
 			break;
 		case 5:
 			productService.deleteImg5(pr_id);
+			imgFileName = productTemp.getPr_img_5();
 			break;
 
 		default:
 			break;
 		}
 		//productService.deleteImg(pr_id, pr_img_delete);
+   	 	//TODO: delete imgFileName from S3
+   	 	amazonS3Client.deleteObject(new DeleteObjectRequest(bucket, imgFileName));
+   	 	
 	}
 	
 	Product productTemp;
@@ -151,38 +171,37 @@ public class ProductEditController {
     	product.setPr_title_alias(product.getPr_title().replaceAll("\\s", ""));
     	
     	//DB pr_img_ 파일이 어디까지 차있는지 봐야함
-    	
     	productTemp = productService.getProductInfo(pr_id);
+    	String[] imgArr = new String[5];
+    	imgArr[0] = productTemp.getPr_img_1();
+    	imgArr[1] = productTemp.getPr_img_2();
+    	imgArr[2] = productTemp.getPr_img_3();
+    	imgArr[3] = productTemp.getPr_img_4();
+    	imgArr[4] = productTemp.getPr_img_5();
+    	
+    	//TODO: 기존 S3 img파일들을 모두 지워줌
+    	//		다시 올린 파일과 이전 파일이 동일한 지 검증하기 어려움
+    	for (int)
 
-    	int idxEmpty = 0;
+
+    	int idxEmpty;
     	
-    	String img1 = productTemp.getPr_img_1();
-    	String img2 = productTemp.getPr_img_2();
-    	String img3 = productTemp.getPr_img_3();
-    	String img4 = productTemp.getPr_img_4();
-    	String img5 = productTemp.getPr_img_5();
-    	
-    	if (img1 == null) {
-    		idxEmpty = 1;
-    	} else if (img2 == null) {
-    		idxEmpty = 2;
-    	} else if (img3 == null) {
-    		idxEmpty = 3;
-    	} else if (img4 == null) {
-    		idxEmpty = 4;
-    	} else if (img5 == null) {
-    		idxEmpty = 5;
+    	for (int i = 0; i < 5; i++) {
+    		if (imgArr[i] == null) {
+    			idxEmpty = i; 
+    			break;
+    		}
     	}
     	
     	System.out.println("idxEmpty: " + idxEmpty);
     	
     	switch (idxEmpty) {
     	case 0:
-    		product.setPr_img_1(img1);
-    		product.setPr_img_2(img2);
-    		product.setPr_img_3(img3);
-    		product.setPr_img_4(img4);
-    		product.setPr_img_5(img5);			
+    		product.setPr_img_1(imgArr[0]);
+    		product.setPr_img_2(imgArr[1]);
+    		product.setPr_img_3(imgArr[2]);
+    		product.setPr_img_4(imgArr[3]);
+    		product.setPr_img_5(imgArr[4]);			
     		break;
 		case 1:
 			product.setPr_img_1(product_file_edit.getPr_img_1());
@@ -245,6 +264,7 @@ public class ProductEditController {
     	
     	System.out.println("imgAdd in process");
     	
+    	
     	//formdata를 받은 req를 multipartfile로 타입 변환해줌
     	MultipartHttpServletRequest multi = (MultipartHttpServletRequest) req;
     	Iterator<String> iterator = multi.getFileNames(); 	
@@ -256,29 +276,32 @@ public class ProductEditController {
     		
     		multipartFile = multi.getFile(iterator.next());
     		
+    		multipartFile = multi.getFile(iterator.next());
+    		multipartFile.transferTo(new File(""));
     		
     		String fileOriname = multipartFile.getOriginalFilename();
-    		String filename = uuidImgname.makeFilename(fileOriname);
-    		String filepathSave = fileUploadPath + File.separator + filename;
-    		String filepath = "/resources/img/imgUpload/" + filename;
+    		String uniName = uuidImgname.makeFilename(fileOriname);
+    		String dirName = "/static/img";
+    		String fileName = dirName + "/" + uniName;
     		
-    		multipartFile.transferTo(new File(filepathSave));
+    		amazonS3Client.putObject(new PutObjectRequest(bucket, fileName, (File) multipartFile));
+    		
     		
     		switch(reps) {
     		case 0: 
-    			product_file_edit.setPr_img_1(filepath);
+    			product_file_edit.setPr_img_1(fileName);
     			break;
     		case 1: 
-    			product_file_edit.setPr_img_2(filepath);
+    			product_file_edit.setPr_img_2(fileName);
     			break;
     		case 2: 
-    			product_file_edit.setPr_img_3(filepath);
+    			product_file_edit.setPr_img_3(fileName);
     			break;
     		case 3: 
-    			product_file_edit.setPr_img_4(filepath);
+    			product_file_edit.setPr_img_4(fileName);
     			break;
     		case 4: 
-    			product_file_edit.setPr_img_5(filepath);
+    			product_file_edit.setPr_img_5(fileName);
     			break;
     		}
     		
