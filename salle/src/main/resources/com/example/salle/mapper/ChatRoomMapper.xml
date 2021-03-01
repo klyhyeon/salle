@@ -73,6 +73,18 @@
    		WHERE (SELLERID = #{email} AND CHATREADSELL = 0) OR 
    		(BUYERID = #{email} AND CHATREADBUY = 0);
    </select>
+   
+   <update id="insertChatMessage">
+   		UPDATE CHATROOM
+   		SET CHATMESSAGE = #{chatMessage}
+   		WHERE ID =#{id};
+   </update>
+   
+   <select id="getAllChatMessages" resultType="String">
+   		SELECT chatMessage
+   		FROM CHATROOM
+   		WHERE ID = #{id};
+   </select>
     
     
 </mapper>

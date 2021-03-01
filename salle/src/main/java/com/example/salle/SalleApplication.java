@@ -19,14 +19,14 @@ public class SalleApplication extends SpringBootServletInitializer {
 
 	public static final String APPLICATION_LOCATIONS = "spring.config.location="
             + "classpath:application.properties,"
-            + "classpath:aws.properties";
+            + "classpath:aws.properties"
+            + "classpath:";
 	
     public static void main(String[] args) {
         new SpringApplicationBuilder(SalleApplication.class)
         .properties(APPLICATION_LOCATIONS)
         .run(args);
     }
-
 
     @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {

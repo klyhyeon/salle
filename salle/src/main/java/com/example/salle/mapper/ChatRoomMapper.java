@@ -35,4 +35,8 @@ public interface ChatRoomMapper {
 	public int getUnreadMessages(String email);
 	
 	public List<Integer> getUnreadChatRoom(String email);
+
+	public void insertChatMessage(String chatMessage, int id);
+
+	public List<String> getAllChatMessages(int id);
 }

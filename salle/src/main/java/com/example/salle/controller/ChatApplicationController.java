@@ -49,7 +49,6 @@ public class ChatApplicationController {
 		chatRoom.setBuyerId(buyerId);
 		chatRoom.setBuyerName(buyerName);
 		
-		
 		//이미 chatRoom이 만들어져있는지 확인
 		if (chatRoomService.countByChatId(chatRoom.getPr_id(), chatRoom.getBuyerId()) > 0) {
 			//get ChatRoomInfo
@@ -58,12 +57,10 @@ public class ChatApplicationController {
 			List<ChatRoom> chatHistory = chatRoomService.readChatHistory(chatRoomTemp);
 			//transfer chatHistory Model to View
 			model.addAttribute("chatHistory", chatHistory);
-			
 		} else {
 			//chatRoom 생성			
 			chatRoomService.addChatRoom(chatRoom);			
 			//text file 생성
-			chatRoomService.createFile(chatRoom.getPr_id(), chatRoomService.getId(chatRoom.getPr_id(), chatRoom.getBuyerId()));								
 		}
 
 			//chatRoom Add 시 생성될 chatId
