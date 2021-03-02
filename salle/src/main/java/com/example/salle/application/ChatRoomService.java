@@ -11,10 +11,8 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import com.amazonaws.services.s3.AmazonS3Client;
 import com.example.salle.domain.ChatList;
 import com.example.salle.domain.ChatRoom;
 import com.example.salle.mapper.ChatRoomMapper;
@@ -27,14 +25,10 @@ import lombok.RequiredArgsConstructor;
 public class ChatRoomService implements ChatRoomMapper {
 	
 	
-	private final AmazonS3Client amazonS3Client;
-	
 	@Autowired
 	ChatRoomMapper chatRoomMapper;
 	
 	//application.properties에 설정
-    @Value("${cloud.aws.s3.bucket}")
-    private String bucket;
 
 	@Override
 	public void addChatRoom(ChatRoom chatRoom) throws IOException {
