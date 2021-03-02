@@ -18,8 +18,8 @@ import org.springframework.context.support.ResourceBundleMessageSource;
 public class SalleApplication extends SpringBootServletInitializer {
 
 	public static final String APPLICATION_LOCATIONS = "spring.config.location="
-            + "classpath:application.properties,"
-            + "classpath:aws.properties";
+            + "classpath:/application.properties,"
+            + "classpath:/aws.properties";
 	
     public static void main(String[] args) {
         new SpringApplicationBuilder(SalleApplication.class)
