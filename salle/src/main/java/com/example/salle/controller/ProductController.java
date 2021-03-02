@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.amazonaws.services.s3.AbstractAmazonS3;
+import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.example.salle.application.ProductService;
 import com.example.salle.domain.ChatRoom;
@@ -38,7 +38,7 @@ public class ProductController {
 	@Autowired
 	UuidImgname uuidImgname;
 	
-	private final AbstractAmazonS3 amazonS3;
+	private final AmazonS3 amazonS3;
 	
 	@Value("${cloud.aws.s3.bucket}")
 	private String bucket;
