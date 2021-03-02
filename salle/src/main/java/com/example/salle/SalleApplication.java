@@ -14,6 +14,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.support.ResourceBundleMessageSource;
 
+import com.amazonaws.auth.AWSCredentialsProvider;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3Builder;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
@@ -58,9 +59,11 @@ public class SalleApplication extends SpringBootServletInitializer {
 	
 	@Bean
 	public AmazonS3 amazonS3client() {
+		
 		AmazonS3 s3Client = 
 				AmazonS3ClientBuilder.standard()
 				.withRegion("ap-northeast-2")
+				.withCredentials(null)
 				.build();	
 		return s3Client;
 	}
