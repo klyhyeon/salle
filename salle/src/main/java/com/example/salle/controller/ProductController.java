@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.amazonaws.services.s3.AmazonS3Client;
+import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.example.salle.application.ProductService;
 import com.example.salle.domain.ChatRoom;
@@ -38,7 +38,7 @@ public class ProductController {
 	@Autowired
 	UuidImgname uuidImgname;
 	
-	private final AmazonS3Client amazonS3Client;
+	private final AmazonS3 amazonS3;
 	
 	@Value("${cloud.aws.s3.bucket}")
 	private String bucket;
@@ -131,7 +131,7 @@ public class ProductController {
     		String dirName = "/static/img";
     		String fileName = dirName + "/" + uniName;
     		
-    		amazonS3Client.putObject(new PutObjectRequest(bucket, fileName, (File) multipartFile));
+    		amazonS3.putObject(new PutObjectRequest(bucket, fileName, (File) multipartFile));
     		
 
     		System.out.println("fileUpload ajax pre switch");
