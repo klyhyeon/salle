@@ -260,15 +260,6 @@
 		</dependency>
 		
 	</dependencies>
-		
-	
-	<repositories>
-		<repository>
-		    <id>spring-repo</id>
-		    <name>Spring Repository</name>
-		    <url>https://repo.spring.io/release</url>
-		</repository>
-	</repositories>
 
 	<build>
 		<plugins>
