@@ -18,10 +18,11 @@ public class WebsocketBrokerConfig implements WebSocketMessageBrokerConfigurer {
 
 	@Override
 	public void configureMessageBroker(MessageBrokerRegistry registry) {
-		
+		ThreadPoolTaskScheduler thrpool = new ThreadPoolTaskScheduler();
+		thrpool.initialize();
 		//for subscribe prefix
 		registry.enableSimpleBroker("/user")
-				.setTaskScheduler(new ThreadPoolTaskScheduler());
+				.setTaskScheduler(thrpool);
 		//for publish prefix
 		registry.setApplicationDestinationPrefixes("/app");
 		//user destination provides ability to have unique user queue
