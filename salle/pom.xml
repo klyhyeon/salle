@@ -229,7 +229,36 @@
 		    <version>2.2.5.RELEASE</version>
 		</dependency>
 		
+		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-autoconfigure -->
+		<dependency>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-autoconfigure</artifactId>
+		    <version>2.4.2</version>
+		</dependency>		
+			
+				
+		<dependency>
+		    <groupId>com.amazonaws</groupId>
+		    <artifactId>aws-java-sdk</artifactId>
+		    <version>1.11.965</version>
+		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-aws-context -->
+		<dependency>
+		    <groupId>org.springframework.cloud</groupId>
+		    <artifactId>spring-cloud-aws-context</artifactId>
+		    <version>2.2.6.RELEASE</version>
+		</dependency>
+		
 	</dependencies>
+	
+	<repositories>
+		<repository>
+		    <id>spring-repo</id>
+		    <name>Spring Repository</name>
+		    <url>https://repo.spring.io/release</url>
+		</repository>
+	</repositories>
 
 	<build>
 		<plugins>
