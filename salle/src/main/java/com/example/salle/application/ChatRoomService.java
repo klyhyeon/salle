@@ -100,7 +100,6 @@ public class ChatRoomService implements ChatRoomMapper {
 		return chatRoomMapper.countByChatId(pr_id, buyerId);
 	}
 
-
 	//no connection with DB
 	public void appendMessage(ChatRoom chatRoom) throws IOException {
 		
