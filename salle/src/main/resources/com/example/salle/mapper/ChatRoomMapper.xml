@@ -8,8 +8,8 @@
     <insert id="addChatRoom" parameterType="com.example.salle.domain.ChatRoom"
     	useGeneratedKeys="true" keyProperty="id">
     	INSERT INTO 
-    	CHATROOM(pr_id, sellerId, buyerId, fileName, createdDate, sellerName, buyerName, pr_title, chatReadBuy, chatReadSell)
-    	VALUES (#{pr_id}, #{sellerId}, #{buyerId}, #{fileName}, #{createdDate}, #{sellerName}, #{buyerName}, #{pr_title}, 1, 1);
+    	CHATROOM(pr_id, sellerId, buyerId, createdDate, sellerName, buyerName, pr_title, chatReadBuy, chatReadSell)
+    	VALUES (#{pr_id}, #{sellerId}, #{buyerId}, #{createdDate}, #{sellerName}, #{buyerName}, #{pr_title}, 1, 1);
     </insert>
     
     <select id="findByEmail" resultType="com.example.salle.domain.ChatList">
