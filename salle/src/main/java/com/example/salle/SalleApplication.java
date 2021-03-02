@@ -14,6 +14,8 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.support.ResourceBundleMessageSource;
 
+import com.example.demo.DemoApplication;
+
 @SpringBootApplication
 public class SalleApplication extends SpringBootServletInitializer {
 
@@ -22,14 +24,14 @@ public class SalleApplication extends SpringBootServletInitializer {
 			+ "classpath:/application.properties";
 	
     public static void main(String[] args) {
-        new SpringApplicationBuilder(SalleApplication.class)
-        .properties(APPLICATION_LOCATIONS)
-        .run(args);
+    	SpringApplication.run(SalleApplication.class, args);
     }
 
     @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
-        return builder.sources(SalleApplication.class);
+        return builder
+        		.sources(SalleApplication.class)
+        		.properties(APPLICATION_LOCATIONS);
     }
     
 	@Bean
