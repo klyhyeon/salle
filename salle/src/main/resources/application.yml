@@ -3,8 +3,8 @@ file:
     path:
       txt: \home\ubuntu\salle\salle
 mybatis:
-  mapper-locations: com.example.salle.mapper.*.xml
-  type-aliases-package: com.example.salle.domain.
+  mapper-locations: com\example\salle\mapper\*.xml
+  type-aliases-package: com\example\salle\domain\
 server:
   port: 8080
 spring:

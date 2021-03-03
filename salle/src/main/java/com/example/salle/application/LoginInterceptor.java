@@ -9,10 +9,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
-@SuppressWarnings("deprecation")
+//210303clear
 public class LoginInterceptor implements HandlerInterceptor {
 	
-	private static final String login = "login";
 	//사용자 상호작용 logger에 LoginInterceptor 클래스를 저장
 	private static final Logger logger = LoggerFactory.getLogger(LoginInterceptor.class);
 	

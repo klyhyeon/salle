@@ -14,9 +14,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.support.ResourceBundleMessageSource;
 
-import com.amazonaws.auth.AWSCredentialsProvider;
 import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.AmazonS3Builder;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 
 @SpringBootApplication
@@ -37,15 +35,12 @@ public class SalleApplication extends SpringBootServletInitializer {
         		.properties(APPLICATION_LOCATIONS);
     }
     
-	@Bean
-	public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {
-		SqlSessionFactoryBean sessionFactoryBean = new SqlSessionFactoryBean();
-		sessionFactoryBean.setDataSource(dataSource);
-		//Member 클래스 경로
-		//sessionFactoryBean.setTypeAliasesPackage("com.example.salle.domain");
-		return sessionFactoryBean.getObject();
-	}
-
+//	@Bean
+//	public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {
+//		SqlSessionFactoryBean sessionFactoryBean = new SqlSessionFactoryBean();
+//		sessionFactoryBean.setDataSource(dataSource);
+//		return sessionFactoryBean.getObject();
+//	}
 	
 	@Bean
 	public MessageSource messageSource() {
@@ -63,7 +58,6 @@ public class SalleApplication extends SpringBootServletInitializer {
 		AmazonS3 s3Client = 
 				AmazonS3ClientBuilder.standard()
 				.withRegion("ap-northeast-2")
-				.withCredentials(null)
 				.build();	
 		return s3Client;
 	}
