@@ -20,22 +20,24 @@ import com.amazonaws.services.s3.AmazonS3Builder;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 
 @SpringBootApplication
-public class SalleApplication extends SpringBootServletInitializer {
+public class SalleApplication {
 
 	public static final String APPLICATION_LOCATIONS = "spring.config.location="
             + "classpath:/aws.properties,"
 			+ "classpath:/application.properties";
 	
     public static void main(String[] args) {
-    	SpringApplication.run(SalleApplication.class, args);
+    	SpringApplicationBuilder sb = new SpringApplicationBuilder();
+    	sb.sources(SalleApplication.class)
+    		.properties(APPLICATION_LOCATIONS);
     }
 
-    @Override
-    protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
-        return builder
-        		.sources(SalleApplication.class)
-        		.properties(APPLICATION_LOCATIONS);
-    }
+//    @Override
+//    protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
+//        return builder
+//        		.sources(SalleApplication.class)
+//        		.properties(APPLICATION_LOCATIONS);
+//    }
     
 	@Bean
 	public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {
