@@ -22,3 +22,5 @@ cloud:
   aws:
     s3:
       bucket: sallestorage
+
+debug: true

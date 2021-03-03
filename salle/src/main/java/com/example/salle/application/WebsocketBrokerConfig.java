@@ -17,22 +17,21 @@ public class WebsocketBrokerConfig implements WebSocketMessageBrokerConfigurer {
 
 	@Override
 	public void configureMessageBroker(MessageBrokerRegistry registry) {
-		ThreadPoolTaskScheduler thrpool = new ThreadPoolTaskScheduler();
-		thrpool.initialize();
+
 		//for subscribe prefix
-		registry.enableSimpleBroker("/user")
-				.setTaskScheduler(thrpool);
+		registry.enableSimpleBroker("/user");
 		//for publish prefix
 		registry.setApplicationDestinationPrefixes("/app");
 		//user destination provides ability to have unique user queue
 		//registry.setUserDestinationPrefix("/user");
 		
 	}
-
+	
 	@Override
 	public void registerStompEndpoints(StompEndpointRegistry registry) {
 		
 		registry.addEndpoint("/broadcast")
+			.setAllowedOrigins("http://ec2....amazonaws.com")	
 			.withSockJS()
 			.setHeartbeatTime(60_000);
 	}
