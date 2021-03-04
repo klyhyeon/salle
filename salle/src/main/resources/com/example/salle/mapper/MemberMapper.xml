@@ -11,13 +11,13 @@
     <insert id="insertMember" parameterType="com.example.salle.domain.Member"
             useGeneratedKeys="true" keyProperty="id">
         INSERT INTO
-        member(phoneNum, name, email, nickName, password)
+        MEMBER(phoneNum, name, email, nickName, password)
         VALUES(#{phoneNum}, #{name}, #{email}, #{nickName}, #{password})
     </insert>
 
     <select id="memberInfo" parameterType="String" resultType="com.example.salle.domain.Member">
         SELECT *
-        FROM member
+        FROM MEMBER
         WHERE email = #{email}
     </select>
 </mapper>

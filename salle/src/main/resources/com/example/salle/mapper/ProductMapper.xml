@@ -10,7 +10,7 @@
     <insert id="registerProduct" parameterType="com.example.salle.domain.Product"
      useGeneratedKeys="true" keyProperty="pr_id">
         INSERT INTO
-        product(pr_email, pr_reg_date, pr_img_1, pr_img_2, pr_img_3, pr_img_4, pr_img_5, pr_title, pr_category, pr_region, pr_price, pr_detail, pr_title_alias)
+        PRODUCT(pr_email, pr_reg_date, pr_img_1, pr_img_2, pr_img_3, pr_img_4, pr_img_5, pr_title, pr_category, pr_region, pr_price, pr_detail, pr_title_alias)
         VALUES(#{pr_email}, #{pr_reg_date}, #{pr_img_1}, #{pr_img_2}, #{pr_img_3}, #{pr_img_4}, #{pr_img_5}, #{pr_title}, #{pr_category}, #{pr_region}, #{pr_price}, #{pr_detail}, #{pr_title_alias});
     </insert>
     
@@ -45,8 +45,8 @@
     
     <select id="getMemberProductInfo" resultType="String">
     	SELECT m.nickname
-	    FROM member  AS m
-	    LEFT OUTER JOIN product AS p
+	    FROM MEMBER  AS m
+	    LEFT OUTER JOIN PRODUCT AS p
 	    ON p.pr_email = m.email
 	    WHERE m.email = #{pr_email}
 	    LIMIT 1;
