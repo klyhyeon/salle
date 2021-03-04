@@ -10,7 +10,7 @@
     <insert id="registerProduct" parameterType="com.example.salle.domain.Product"
      useGeneratedKeys="true" keyProperty="pr_id">
         INSERT INTO
-        PRODUCT(pr_email, pr_reg_date, pr_img_1, pr_img_2, pr_img_3, pr_img_4, pr_img_5, pr_title, pr_category, pr_region, pr_price, pr_detail, pr_title_alias)
+        product(pr_email, pr_reg_date, pr_img_1, pr_img_2, pr_img_3, pr_img_4, pr_img_5, pr_title, pr_category, pr_region, pr_price, pr_detail, pr_title_alias)
         VALUES(#{pr_email}, #{pr_reg_date}, #{pr_img_1}, #{pr_img_2}, #{pr_img_3}, #{pr_img_4}, #{pr_img_5}, #{pr_title}, #{pr_category}, #{pr_region}, #{pr_price}, #{pr_detail}, #{pr_title_alias});
     </insert>
     
@@ -28,25 +28,25 @@
     
     <select id="getProductInfo" resultType="com.example.salle.domain.Product">
     	SELECT *
-    	FROM PRODUCT
+    	FROM product
     	WHERE PR_ID = #{pr_id}  
     </select>
 
     <select id="getProductList" resultType="com.example.salle.domain.Product">
     	SELECT *
-    	FROM PRODUCT;
+    	FROM product;
     </select>
 
     <select id="getCategoryProductList" resultType="com.example.salle.domain.Product">
     	SELECT *
-    	FROM PRODUCT
+    	FROM product
     	WHERE PR_CATEGORY = #{pr_category};
     </select>
     
     <select id="getMemberProductInfo" resultType="String">
     	SELECT m.nickname
-	    FROM MEMBER  AS m
-	    LEFT OUTER JOIN PRODUCT AS p
+	    FROM member  AS m
+	    LEFT OUTER JOIN product AS p
 	    ON p.pr_email = m.email
 	    WHERE m.email = #{pr_email}
 	    LIMIT 1;
@@ -55,7 +55,7 @@
     	<bind name="searchWordConcate" value="'%'+searchWord+'%'"></bind>
     	<bind name="searchWordNoSpaceConcate" value="'%'+searchWordNoSpace+'%'"></bind>
     	SELECT *
-    	FROM PRODUCT
+    	FROM product
     	WHERE PR_TITLE LIKE #{searchWordConcate} OR PR_TITLE LIKE #{searchWordNoSpaceConcate}
     	OR
     	PR_TITLE_ALIAS LIKE #{searchWordConcate} OR PR_TITLE_ALIAS LIKE #{searchWordNoSpaceConcate};
@@ -65,14 +65,14 @@
     	<bind name="searchWordConcate" value="'%'+searchWord+'%'"></bind>
     	<bind name="searchWordNoSpaceConcate" value="'%'+searchWordNoSpace+'%'"></bind>
     	SELECT COUNT(*)
-    	FROM PRODUCT
+    	FROM product
     	WHERE PR_TITLE LIKE #{searchWordConcate} OR PR_TITLE LIKE #{searchWordNoSpaceConcate}
     	OR
     	PR_TITLE_ALIAS LIKE #{searchWordConcate} OR PR_TITLE_ALIAS LIKE #{searchWordNoSpaceConcate};
     </select>
     
     <update id="updateProduct">
-    	UPDATE PRODUCT
+    	UPDATE product
     	SET 
     	(pr_email, pr_img_1, pr_img_2, pr_img_3, pr_img_4, pr_img_5, pr_title, pr_category, pr_region, pr_price, pr_detail, pr_title_alias)
     	= (#{pr_email}, #{pr_img_1}, #{pr_img_2}, #{pr_img_3}, #{pr_img_4}, #{pr_img_5}, #{pr_title}, #{pr_category}, #{pr_region}, #{pr_price}, #{pr_detail}, #{pr_title_alias})
@@ -80,32 +80,32 @@
     </update>
     
     <delete id="deleteProduct">
-    	DELETE FROM PRODUCT
+    	DELETE FROM product
     	WHERE pr_id = #{pr_id};
     </delete>
     
     <update id="deleteImg1">
-    	UPDATE PRODUCT
+    	UPDATE product
     	SET PR_IMG_1 = null
     	WHERE PR_ID = #{pr_id};
     </update>
     <update id="deleteImg2">
-    	UPDATE PRODUCT
+    	UPDATE product
     	SET PR_IMG_2 = null
     	WHERE PR_ID = #{pr_id};
     </update>
     <update id="deleteImg3">
-    	UPDATE PRODUCT
+    	UPDATE product
     	SET PR_IMG_3 = null
     	WHERE PR_ID = #{pr_id};
     </update>
     <update id="deleteImg4">
-    	UPDATE PRODUCT
+    	UPDATE product
     	SET PR_IMG_4 = null
     	WHERE PR_ID = #{pr_id};
     </update>
     <update id="deleteImg5">
-    	UPDATE PRODUCT
+    	UPDATE product
     	SET PR_IMG_5 = null
     	WHERE PR_ID = #{pr_id};
     </update>
