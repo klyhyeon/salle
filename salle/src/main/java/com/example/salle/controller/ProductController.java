@@ -118,6 +118,8 @@ public class ProductController {
     	Iterator<String> iterator = multi.getFileNames(); 	
     	MultipartFile multipartFile = null;
     	System.out.println("fileUpload ajax get file");
+    	System.out.println("testing git pulled");
+    	
 
     	int reps = 0;
     	
