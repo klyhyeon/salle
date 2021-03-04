@@ -7,9 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import com.example.salle.application.ChatRoomService;
 import com.example.salle.application.ProductService;
-import com.example.salle.domain.Login;
 
 @Controller
 public class MainController {
@@ -17,8 +15,8 @@ public class MainController {
 	@Autowired
 	ProductService productService;
 	
-	@Autowired
-    ChatRoomService chatRoomService;
+//	@Autowired
+//    ChatRoomService chatRoomService;
 	
     @GetMapping("/")
     public String home(Model model, HttpSession httpSession) {
