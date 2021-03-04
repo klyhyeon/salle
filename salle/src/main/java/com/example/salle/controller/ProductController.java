@@ -124,13 +124,13 @@ public class ProductController {
     	while(iterator.hasNext()) {
     		
     		multipartFile = multi.getFile(iterator.next());
-    		multipartFile.transferTo(new File(""));
     		
     		String fileOriname = multipartFile.getOriginalFilename();
     		String uniName = uuidImgname.makeFilename(fileOriname);
     		String dirName = "/static/img";
     		String fileName = dirName + "/" + uniName;
     		
+    		System.out.println("uploadFileName" + fileName);
     		amazonS3.putObject(new PutObjectRequest(bucket, fileName, (File) multipartFile));
     		
 
