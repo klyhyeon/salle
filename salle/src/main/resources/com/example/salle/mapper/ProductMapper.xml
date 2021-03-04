@@ -14,18 +14,6 @@
         VALUES(#{pr_email}, #{pr_reg_date}, #{pr_img_1}, #{pr_img_2}, #{pr_img_3}, #{pr_img_4}, #{pr_img_5}, #{pr_title}, #{pr_category}, #{pr_region}, #{pr_price}, #{pr_detail}, #{pr_title_alias});
     </insert>
     
-    <!-- parsedatetime(#{pr_reg_date}, "yyyy/MM/DD hh:mm:ss") -->
-
-    <!-- <select iD="getCountProduct">
-        SELECT COUNT(*)
-        FROM product;
-    </select>
-
-    <delete id="deleteProduct">
-        DELETE
-        FROM product;
-    </delete>  -->
-    
     <select id="getProductInfo" resultType="com.example.salle.domain.Product">
     	SELECT *
     	FROM product
