@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.example.salle.application.ChatRoomService;
 import com.example.salle.application.MemberService;
 import com.example.salle.application.ProductService;
 import com.example.salle.domain.Login;
@@ -24,8 +25,8 @@ public class LoginController {
     @Autowired
     ProductService productService;
     
-//    @Autowired
-//    ChatRoomService chatRoomService;
+    @Autowired
+    ChatRoomService chatRoomService;
 
     //회원가입 페이지 노출
     @RequestMapping(value = "/login", method = RequestMethod.GET)
@@ -50,8 +51,8 @@ public class LoginController {
         }
         
     		String email = login.getEmail();
-//    		int messages = chatRoomService.getUnreadMessages(email);
-//    		model.addAttribute("messageAlert", messages);    		
+    		int messages = chatRoomService.getUnreadMessages(email);
+    		model.addAttribute("messageAlert", messages);    		
         
         model.addAttribute("productList", productService.getProductList());
         return "main";
