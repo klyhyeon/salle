@@ -1,5 +1,7 @@
 package com.example.salle.application;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -23,7 +25,7 @@ public class MainService {
 				.build();	
 		
 		String fileName = "/static/img/" + "searchicon.png";
-		String url = amazonS3.generatePresignedUrl(bucket, fileName, null).toString();
+		String url = amazonS3.generatePresignedUrl(bucket, fileName, new Date()).toString();
 		return url;
 	}
 
