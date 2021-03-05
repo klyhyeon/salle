@@ -67,7 +67,7 @@
 					maxlength="50" size="60">
 				<!-- <input id="searchButton" type="image" src="" style="width:25px; height:25px;" alt="Submit Form"/> -->
 				<button class="searchButton">
-					<img class="searchButtonImg" alt="Submit Form" src="/resources/img/210106_Salle_searchicon.png"/>
+					<img class="searchButtonImg" alt="Submit Form" src="${searchIcon}"/>
 				</button>
 				</form>
 			</div>
