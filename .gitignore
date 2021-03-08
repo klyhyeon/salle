@@ -1,4 +1,3 @@
-salle/src/main/resources/config/aws.properties
 salle/src/main/java/com/example/salle/application/ChatRoomService_backup.java
 salle/src/main/java/com/example/salle/controller/ChatApplicationController_backup.java
 salle/src/main/resources/aws.yml
