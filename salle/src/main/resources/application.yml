@@ -20,5 +20,8 @@ cloud:
   aws:
     s3:
       bucket: sallestorage
+    region:
+      static: ap-northeast-2
+      auto: false
 
 debug: true
