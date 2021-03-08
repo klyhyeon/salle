@@ -14,7 +14,7 @@ import org.springframework.context.support.ResourceBundleMessageSource;
 public class SalleApplication extends SpringBootServletInitializer {
 
 	public static final String APPLICATION_LOCATIONS = "spring.config.location="
-            + "classpath:/application-aws.yml,"
+            + "classpath:/aws.yml,"
 			+ "classpath:/application.yml";
 	
     public static void main(String[] args) {
