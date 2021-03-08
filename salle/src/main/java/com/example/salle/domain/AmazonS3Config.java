@@ -12,7 +12,6 @@ import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 
 
 @Configuration
-@PropertySource("classpath:/aws.yml")
 public class AmazonS3Config {
 	
 	@Value("${cloud.aws.region.static}")
