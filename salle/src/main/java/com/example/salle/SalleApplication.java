@@ -14,7 +14,6 @@ public class SalleApplication extends SpringBootServletInitializer {
 	
     public static void main(String[] args) {
     	new SpringApplicationBuilder(SalleApplication.class).
-		properties("spring.config.location= classpath:application.properties, classpath:aws.properties").
     	run(args);
     }
 
