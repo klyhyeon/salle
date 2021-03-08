@@ -13,9 +13,8 @@ import org.springframework.context.support.ResourceBundleMessageSource;
 @SpringBootApplication
 public class SalleApplication extends SpringBootServletInitializer {
 
-	public static final String APPLICATION_LOCATIONS = "spring.config.location="
-            + "classpath:/aws.yml,"
-			+ "classpath:/application.yml";
+	public static final String APPLICATION_LOCATIONS = "spring.config.additional-location="
+            + "classpath:/aws.yml";
 	
     public static void main(String[] args) {
     	SpringApplication.run(SalleApplication.class, args);
