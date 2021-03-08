@@ -52,14 +52,14 @@ public class SalleApplication extends SpringBootServletInitializer {
 		return messageSource;
 	}
 	
-	@Bean
-	public AmazonS3 amazonS3client() {
-		
-		AmazonS3 s3Client = 
-				AmazonS3ClientBuilder.standard()
-				.withRegion("ap-northeast-2")
-				.build();	
-		return s3Client;
-	}
+//	@Bean
+//	public AmazonS3 amazonS3client() {
+//		
+//		AmazonS3 s3Client = 
+//				AmazonS3ClientBuilder.standard()
+//				.withRegion("ap-northeast-2")
+//				.build();	
+//		return s3Client;
+//	}
 
 }
