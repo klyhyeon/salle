@@ -1,4 +1,0 @@
-spring:
-    region:
-      static: ap-northeast-2
-      auto: false
