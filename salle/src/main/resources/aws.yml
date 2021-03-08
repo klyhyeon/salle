@@ -1,9 +1,0 @@
-cloud:
-  aws:
-    credentials:
-      accessKey: AKIA5ZXZW6TZTIAPMH4X
-      secretKey: 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
-    region:
-      static: ap-northeast-2
-    
-
