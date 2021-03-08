@@ -4,7 +4,6 @@ import java.util.Locale;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
@@ -17,12 +16,12 @@ public class SalleApplication extends SpringBootServletInitializer {
     	SpringApplication.run(SalleApplication.class, args);
     }
 
-    @Override
-    protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
-        return builder
-        		.sources(SalleApplication.class);
-    }
-    
+//    @Override
+//    protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
+//        return builder
+//        		.sources(SalleApplication.class);
+//    }
+//    
 //	@Bean
 //	public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {
 //		SqlSessionFactoryBean sessionFactoryBean = new SqlSessionFactoryBean();
