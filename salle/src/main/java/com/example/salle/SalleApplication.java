@@ -2,10 +2,6 @@ package com.example.salle;
 
 import java.util.Locale;
 
-import javax.sql.DataSource;
-
-import org.apache.ibatis.session.SqlSessionFactory;
-import org.mybatis.spring.SqlSessionFactoryBean;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
@@ -14,16 +10,12 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.support.ResourceBundleMessageSource;
 
-import com.amazonaws.services.s3.AbstractAmazonS3;
-import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.AmazonS3ClientBuilder;
-
 @SpringBootApplication
 public class SalleApplication extends SpringBootServletInitializer {
 
 	public static final String APPLICATION_LOCATIONS = "spring.config.location="
-            + "classpath:/aws.properties,"
-			+ "classpath:/application.properties";
+            + "classpath:/application-aws.yml,"
+			+ "classpath:/application.yml";
 	
     public static void main(String[] args) {
     	SpringApplication.run(SalleApplication.class, args);
