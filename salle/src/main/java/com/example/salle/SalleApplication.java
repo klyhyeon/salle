@@ -14,14 +14,15 @@ public class SalleApplication extends SpringBootServletInitializer {
 	
     public static void main(String[] args) {
     	new SpringApplicationBuilder(SalleApplication.class).
-    	properties("spring.config.location= classpath:aws.yml, classpath:application.yml").
+		properties("spring.config.location= classpath:aws.properties, classpath:application.properties").
     	run(args);
     }
 
 //    @Override
 //    protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
 //        return builder
-//        		.sources(SalleApplication.class);
+//        		.sources(SalleApplication.class)
+//        		.properties("spring.config.location= classpath:aws.properties, classpath:application.properties");
 //    }
 //    
 //	@Bean
