@@ -11,7 +11,6 @@ import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 
 @Configuration
-@Component
 public class AmazonS3Config {
 	
 	@Value("${cloud.aws.credentials.accessKey}")
