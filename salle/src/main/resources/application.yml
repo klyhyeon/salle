@@ -1,7 +1,3 @@
-file:
-  upload:
-    path:
-      txt: \home\ubuntu\salle\salle
 mybatis:
   mapper-locations: com\example\salle\mapper\*.xml
   type-aliases-package: com\example\salle\domain\
