@@ -1,7 +1,5 @@
 package com.example.salle.controller;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,15 +14,9 @@ public class MainController {
 	
 	@Autowired
 	ProductService productService;
-	
-	@Autowired
-    ChatRoomService chatRoomService;
-	
-	@Autowired
-	MainService mainService;
-	
+
     @GetMapping("/")
-    public String home(Model model, HttpSession httpSession) {
+    public String home(Model model) {
 
 		model.addAttribute("productList", productService.getProductList());
 //		model.addAttribute("searchIcon", mainService.getPresignedUrl());
