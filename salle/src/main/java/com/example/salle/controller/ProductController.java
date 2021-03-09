@@ -132,9 +132,9 @@ public class ProductController {
     		String fileName = dirName + "/" + uniName;
     		
     		System.out.println("uploadFileName" + fileName);
-    		amazonS3.uploadImg(bucket, fileName, multipartFile);
 
     		System.out.println("fileUpload ajax pre switch");
+    		
     		switch(reps) {
     		case 0: 
     			product_file.setPr_img_1(fileName);
@@ -155,7 +155,7 @@ public class ProductController {
     			product_file.setPr_img_5(fileName);
     			break;
     		}
-    		
+    		amazonS3.uploadImg(bucket, fileName, multipartFile);
     		reps++;
     	}
     }

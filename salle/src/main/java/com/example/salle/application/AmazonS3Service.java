@@ -28,7 +28,7 @@ public class AmazonS3Service {
 	
 	public String getPresignedUrl() {
 		
-		String fileName = "static/img/2c0056d5-ae73-491c-ba88-e3eba6fce72a_달 너머로 달리는 말.jpg";
+		String fileName = "static/img/searchicon.png";
 		//String url = amazonS3.generatePresignedUrl(bucket, fileName, new Date()).toString();
 		return amazonS3.getUrl(bucket, fileName).toString();
 	}
