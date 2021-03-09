@@ -14,14 +14,12 @@ public class MainService {
 	
 	@Value("${cloud.aws.s3.bucket}")
 	private String bucket;
-
 	
-//	public String getPresignedUrl() {
-//		
-//		String fileName = "searchicon.png";
-//		amazonS3.getObject(bucket, fileName).getObjectContent();
-//		//String url = amazonS3.generatePresignedUrl(bucket, fileName, new Date()).toString();
-//		return url;
-//	}
+	public String getPresignedUrl() {
+		
+		String fileName = "searchicon.png";
+		//String url = amazonS3.generatePresignedUrl(bucket, fileName, new Date()).toString();
+		return amazonS3.getObject(bucket, fileName).getObjectContent().toString();
+	}
 
 }
