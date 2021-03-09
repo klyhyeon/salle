@@ -27,7 +27,7 @@ public class MainController {
     public String home(Model model, HttpSession httpSession) {
 
 		model.addAttribute("productList", productService.getProductList());
-		model.addAttribute("searchIcon", mainService.getPresignedUrl());
+//		model.addAttribute("searchIcon", mainService.getPresignedUrl());
 
         return "main";
     }
