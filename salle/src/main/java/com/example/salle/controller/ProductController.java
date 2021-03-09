@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.PutObjectRequest;
+import com.example.salle.application.MainService;
 import com.example.salle.application.ProductService;
 import com.example.salle.domain.ChatRoom;
 import com.example.salle.domain.Login;
@@ -38,7 +39,8 @@ public class ProductController {
 	@Autowired
 	UuidImgname uuidImgname;
 	
-	private final AmazonS3 amazonS3;
+	@Autowired
+	MainService mainService;
 	
 	@Value("${cloud.aws.s3.bucket}")
 	private String bucket;
@@ -133,8 +135,7 @@ public class ProductController {
     		String fileName = dirName + "/" + uniName;
     		
     		System.out.println("uploadFileName" + fileName);
-    		amazonS3.putObject(new PutObjectRequest(bucket, fileName, (File) multipartFile));
-    		
+    		mainService.uploadImg(bucket, fileName, (File) multipartFile);
 
     		System.out.println("fileUpload ajax pre switch");
     		switch(reps) {

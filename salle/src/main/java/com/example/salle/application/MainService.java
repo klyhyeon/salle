@@ -1,11 +1,13 @@
 package com.example.salle.application;
 
+import java.io.File;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.model.GetObjectRequest;
+import com.amazonaws.services.s3.model.PutObjectRequest;
 
 import lombok.RequiredArgsConstructor;
 
@@ -24,6 +26,11 @@ public class MainService {
 		String fileName = "static/img/searchicon.png";
 		//String url = amazonS3.generatePresignedUrl(bucket, fileName, new Date()).toString();
 		return amazonS3.getUrl(bucket, fileName).toString();
+	}
+	
+	public void uploadImg(String bucket, String fileName, File file) {
+		
+		amazonS3.putObject(new PutObjectRequest(bucket, fileName, file));
 	}
 
 }
