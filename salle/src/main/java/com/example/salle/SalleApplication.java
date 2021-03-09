@@ -23,7 +23,8 @@ public class SalleApplication extends SpringBootServletInitializer {
     @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
         return builder
-        		.sources(SalleApplication.class);
+        		.sources(SalleApplication.class)
+        		.properties("spring.config.location= classpath:application.properties");
     }
 //    
 //	@Bean

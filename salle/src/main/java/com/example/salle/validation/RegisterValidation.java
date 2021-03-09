@@ -20,8 +20,7 @@ public class RegisterValidation implements Validator {
 
 	
 	   private static final String EMAIL_REG_EXP =
-	            "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9]+)*@" +
-	                    "[A-Za-z0-9]+(\\.[_A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+	            "^[_A-Za-z0-9-\\\\+]+@[A-Za-z0-9\\\\+]+(.[A-Za-z0-9])*(.[A-za-z0-9]{2,})$";
 
 	    private Pattern pattern;
 

@@ -21,7 +21,6 @@ public class RegisterController {
 	  @Autowired
 	  MemberMapper memberService;
 	  
-	  
 	    //회원가입 페이지 노출
 	    @RequestMapping(value = "/register/main", method = RequestMethod.GET)
 	    public String registerAttempt(Model model) {
