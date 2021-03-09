@@ -37,10 +37,10 @@ public class SalleApplication extends SpringBootServletInitializer {
 		return messageSource;
 	}
 	
-	@Bean
-	public AmazonS3 amazonS3() {
-		return AmazonS3ClientBuilder.standard().build();
-	}
+//	@Bean
+//	public AmazonS3 amazonS3() {
+//		return AmazonS3ClientBuilder.standard().build();
+//	}
 
 	
 
