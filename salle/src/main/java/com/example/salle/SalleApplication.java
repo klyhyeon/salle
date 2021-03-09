@@ -42,6 +42,11 @@ public class SalleApplication extends SpringBootServletInitializer {
 		messageSource.setDefaultEncoding("UTF-8");
 		return messageSource;
 	}
+	
+	@Bean
+	public AmazonS3 amazonS3() {
+		return AmazonS3ClientBuilder.standard().build();
+	}
 
 	
 
