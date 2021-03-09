@@ -20,7 +20,7 @@
 		<%--<button id="imgButton" onclick="imgPopup()">버튼</button>  --%>
 			<c:forEach var="img" items="${productInfoImg}" varStatus="loop">
 					<div class='div_pr_img' id='pr_img_${loop.index}' style='background-image: url("https://sallestorage.s3.ap-northeast-2.amazonaws.com/${img}")'>
-						<input type="button" value="" id="img" class="button_img" name="${img }" onclick="imgPopup(this.name)"/>
+						<input type="button" value="" id="img" class="button_img" name="https://sallestorage.s3.ap-northeast-2.amazonaws.com${img}" onclick="imgPopup(this.name)"/>
 					</div>
 			</c:forEach>
 		<a class="next" onclick="button_click(1)">&#10095</a>
