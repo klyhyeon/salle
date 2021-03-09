@@ -26,7 +26,6 @@ public class WebsocketBrokerConfig implements WebSocketMessageBrokerConfigurer {
 	public void registerStompEndpoints(StompEndpointRegistry registry) {
 		
 		registry.addEndpoint("/broadcast")
-			.setAllowedOrigins("http://ec2-3-35-218-250.ap-northeast-2.compute.amazonaws.com")	
 			.withSockJS()
 			.setHeartbeatTime(60_000);
 	}

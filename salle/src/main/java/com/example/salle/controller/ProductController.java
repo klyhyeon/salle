@@ -1,6 +1,5 @@
 package com.example.salle.controller;
 
-import java.io.File;
 import java.util.Iterator;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,9 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.model.PutObjectRequest;
-import com.example.salle.application.MainService;
+import com.example.salle.application.AmazonS3Service;
 import com.example.salle.application.ProductService;
 import com.example.salle.domain.ChatRoom;
 import com.example.salle.domain.Login;
@@ -40,7 +37,7 @@ public class ProductController {
 	UuidImgname uuidImgname;
 	
 	@Autowired
-	MainService mainService;
+	AmazonS3Service amazonS3;
 	
 	@Value("${cloud.aws.s3.bucket}")
 	private String bucket;
@@ -131,11 +128,11 @@ public class ProductController {
     		
     		String fileOriname = multipartFile.getOriginalFilename();
     		String uniName = uuidImgname.makeFilename(fileOriname);
-    		String dirName = "/static/img";
+    		String dirName = "static/img";
     		String fileName = dirName + "/" + uniName;
     		
     		System.out.println("uploadFileName" + fileName);
-    		mainService.uploadImg(bucket, fileName, (File) multipartFile);
+    		amazonS3.uploadImg(bucket, fileName, multipartFile);
 
     		System.out.println("fileUpload ajax pre switch");
     		switch(reps) {
