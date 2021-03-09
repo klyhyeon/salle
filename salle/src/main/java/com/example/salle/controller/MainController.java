@@ -5,8 +5,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import com.example.salle.application.ChatRoomService;
-import com.example.salle.application.MainService;
 import com.example.salle.application.ProductService;
 
 @Controller
