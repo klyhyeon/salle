@@ -193,12 +193,12 @@
 		    <version>20180813</version>
 		</dependency>
 		
-		<!-- deploy to tomcat server
+		<!-- deploy to tomcat server-->
 		<dependency>
 		   <groupId>org.springframework.boot</groupId>
 		   <artifactId>spring-boot-starter-tomcat</artifactId>
 		   <scope>provided</scope>
-		</dependency>  -->
+		</dependency>  
 		
 		<!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api -->
 		<dependency>
