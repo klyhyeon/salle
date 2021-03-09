@@ -20,12 +20,6 @@ public class SalleApplication extends SpringBootServletInitializer {
     	SpringApplication.run(SalleApplication.class,args);
     }
 
-    @Override
-    protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
-        return builder
-        		.sources(SalleApplication.class)
-        		.properties("spring.config.location= classpath:application.properties");
-    }
 //    
 //	@Bean
 //	public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {
