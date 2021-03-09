@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 
 import lombok.RequiredArgsConstructor;
@@ -36,7 +37,7 @@ public class AmazonS3Service {
 		
 		File uploadFile = convert(file);
 		
-		amazonS3.putObject(new PutObjectRequest(bucket, fileName, uploadFile));
+		amazonS3.putObject(new PutObjectRequest(bucket, fileName, uploadFile).withCannedAcl(CannedAccessControlList.PublicRead));
 	}
 	
 	public File convert(MultipartFile file) throws IOException {
