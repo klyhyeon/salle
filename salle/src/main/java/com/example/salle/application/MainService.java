@@ -21,7 +21,7 @@ public class MainService {
 	
 	public String getPresignedUrl() {
 		
-		String fileName = "/static/img/searchicon.png";
+		String fileName = "static/img/searchicon.png";
 		//String url = amazonS3.generatePresignedUrl(bucket, fileName, new Date()).toString();
 		return amazonS3.getUrl(bucket, fileName).toString();
 	}
