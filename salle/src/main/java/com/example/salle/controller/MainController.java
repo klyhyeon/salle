@@ -21,7 +21,7 @@ public class MainController {
     public String home(Model model) {
 
 		model.addAttribute("productList", productService.getProductList());
-		model.addAttribute("searchIcon", amazonS3.getPresignedUrl());
+		model.addAttribute("searchIcon", amazonS3.searchIcon());
 
         return "main";
     }

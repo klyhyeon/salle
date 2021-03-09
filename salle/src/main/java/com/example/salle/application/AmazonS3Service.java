@@ -26,7 +26,7 @@ public class AmazonS3Service {
 	@Value("${cloud.aws.s3.bucket}")
 	private String bucket;
 	
-	public String getPresignedUrl() {
+	public String searchIcon() {
 		
 		String fileName = "static/img/searchicon.png";
 		//String url = amazonS3.generatePresignedUrl(bucket, fileName, new Date()).toString();
@@ -45,6 +45,7 @@ public class AmazonS3Service {
 		File uploadFile = new File(file.getOriginalFilename());
 		FileOutputStream fos = new FileOutputStream(uploadFile);
 		fos.write(file.getBytes());
+		fos.close();
 		return uploadFile;
 	}
 
