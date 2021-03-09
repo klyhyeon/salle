@@ -107,7 +107,7 @@
 	 	
 	 	//페이지가 로드되는 시점 한 번만 출력하면 되는 div, img를 출력하는 메서드
 	 	function addChatDivImg(idx, img) {
-	 			$(document.body).append('<div class= chatMessageInfo' + idx + '><div class="wrapPr_img"><img class="pr_img" src="' + img + '"></div><div class="wrapSellerTitle' +
+	 			$(document.body).append('<div class= chatMessageInfo' + idx + '><div class="wrapPr_img"><img class="pr_img" src="https://sallestorage.s3.ap-northeast-2.amazonaws.com/' + img + '"></div><div class="wrapSellerTitle' +
 	 					idx +
 	 					'"></div></div>');
 	 	}
