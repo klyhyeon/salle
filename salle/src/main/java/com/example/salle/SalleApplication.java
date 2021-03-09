@@ -10,6 +10,9 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.support.ResourceBundleMessageSource;
 
+import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.AmazonS3ClientBuilder;
+
 @SpringBootApplication
 public class SalleApplication extends SpringBootServletInitializer {
 	
@@ -38,6 +41,16 @@ public class SalleApplication extends SpringBootServletInitializer {
 		messageSource.setBasename("label/messages");
 		messageSource.setDefaultEncoding("UTF-8");
 		return messageSource;
+	}
+	
+	@Bean
+	public AmazonS3 amazonS3client() {
+		
+		AmazonS3 s3Client = 
+				AmazonS3ClientBuilder.standard()
+				.withRegion("ap-northeast-2")
+				.build();	
+		return s3Client;
 	}
 
 	
