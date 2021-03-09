@@ -2,10 +2,6 @@ package com.example.salle;
 
 import java.util.Locale;
 
-import javax.sql.DataSource;
-
-import org.apache.ibatis.session.SqlSessionFactory;
-import org.mybatis.spring.SqlSessionFactoryBean;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
@@ -19,22 +15,17 @@ import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 
 @SpringBootApplication
 public class SalleApplication extends SpringBootServletInitializer {
-
-	public static final String APPLICATION_LOCATIONS = "spring.config.location="
-            + "classpath:/aws.properties,"
-			+ "classpath:/application.properties";
 	
     public static void main(String[] args) {
-    	SpringApplication.run(SalleApplication.class, args);
+    	SpringApplication.run(SalleApplication.class,args);
     }
 
     @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
         return builder
-        		.sources(SalleApplication.class)
-        		.properties(APPLICATION_LOCATIONS);
+        		.sources(SalleApplication.class);
     }
-    
+//    
 //	@Bean
 //	public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {
 //		SqlSessionFactoryBean sessionFactoryBean = new SqlSessionFactoryBean();
@@ -51,15 +42,7 @@ public class SalleApplication extends SpringBootServletInitializer {
 		messageSource.setDefaultEncoding("UTF-8");
 		return messageSource;
 	}
+
 	
-	@Bean
-	public AmazonS3 amazonS3client() {
-		
-		AmazonS3 s3Client = 
-				AmazonS3ClientBuilder.standard()
-				.withRegion("ap-northeast-2")
-				.build();	
-		return s3Client;
-	}
 
 }
