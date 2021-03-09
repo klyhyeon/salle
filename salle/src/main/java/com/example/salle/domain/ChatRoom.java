@@ -11,7 +11,6 @@ public @Data class ChatRoom {
 	private int pr_id;
 	private String sellerId;
 	private String buyerId;
-	private String fileName;
 	private Timestamp createdDate;
 	private String sellerName;
 	private String buyerName;
@@ -24,14 +23,13 @@ public @Data class ChatRoom {
 	private String senderId;
 	private String pr_title;
 	
-	public ChatRoom(int id, int pr_id, String sellerId, String buyerId, String fileName,
+	public ChatRoom(int id, int pr_id, String sellerId, String buyerId,
 			Timestamp createdDate, String sellerName, String buyerName, int chatReadBuy, int chatReadSell) {
 		super();
 		this.id = id;
 		this.pr_id = pr_id;
 		this.sellerId = sellerId;
 		this.buyerId = buyerId;
-		this.fileName = fileName;
 		this.createdDate = createdDate;
 		this.sellerName = sellerName;
 		this.buyerName = buyerName;

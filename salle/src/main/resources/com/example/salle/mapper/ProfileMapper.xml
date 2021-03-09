@@ -5,15 +5,15 @@
 
 <mapper namespace="com.example.salle.mapper.ProfileMapper">
     
-    <select id="getSellerProductList" resultType="Product">
+    <select id="getSellerProductList" resultType="com.example.salle.domain.Product">
     	SELECT *
-    	FROM PRODUCT
+    	FROM product
     	WHERE PR_EMAIL = #{email};
     </select>
     
     <select id="getTotalProduct" resultType="int">
     	SELECT COUNT(*)
-    	FROM PRODUCT
+    	FROM product
     	WHERE PR_EMAIL = #{email};
     </select>
     

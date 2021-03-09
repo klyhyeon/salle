@@ -27,6 +27,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.amazonaws.services.s3.AmazonS3Client;
+import com.amazonaws.services.s3.model.DeleteObjectRequest;
+import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.example.salle.application.ProductService;
 import com.example.salle.domain.Login;
 import com.example.salle.domain.Member;
@@ -34,8 +37,13 @@ import com.example.salle.domain.Product;
 import com.example.salle.domain.UuidImgname;
 import com.example.salle.validation.SellProductValidation;
 
+import lombok.RequiredArgsConstructor;
+
 @Controller
+@RequiredArgsConstructor
 public class ProductEditController {
+	
+	private final AmazonS3Client amazonS3Client;
 	
 	@Autowired
     ProductService productService;
@@ -46,8 +54,8 @@ public class ProductEditController {
     //상품등록 이미지파일 업로드
     Product product_file = new Product();
     
-    @Value("${file.upload.path}")
-    String fileUploadPath; 
+    @Value("${cloud.aws.s3.bucket}")
+    String bucket; 
 
 	//profile에서 판매글 수정, 삭제하기
 	@RequestMapping(value= "/product/{pr_id}/edit", method = RequestMethod.GET)
@@ -96,47 +104,96 @@ public class ProductEditController {
 		return "product/productEdit"; 
 	}
 	
-	
-	@RequestMapping(value="/ajax/img/delete", method=RequestMethod.POST)
-	public void ajaxDeleteImg(@RequestBody String json) {
-    	System.out.println("imgDelete in process");
 
-		JSONObject jsn = new JSONObject(json);
-		String pr_img_tmp = (String) jsn.get("pr_img");
-		String index = pr_img_tmp.substring(7);
-		int indexInt = Integer.parseInt(index) + 1;
-		//String pr_img_delete = "pr_img_" + indexInt;
-		//System.out.println("json pr_img: " + pr_img_delete);
-		
-		String pr_id_str = (String) jsn.get("pr_id");
-		int pr_id = Integer.parseInt(pr_id_str);
-		System.out.println("json pr_id: " + pr_id);
-		
-    	productTemp = productService.getProductInfo(pr_id);
+    @RequestMapping(value= "/sell/ajax/edit", method= RequestMethod.POST)
+    public void ajaxEdit(@RequestBody String json) throws Exception {
     	
-   	 	switch (indexInt) {
-		
-		case 1:
-			productService.deleteImg1(pr_id);
-			break;
-		case 2:
-			productService.deleteImg2(pr_id);
-			break;
-		case 3:
-			productService.deleteImg3(pr_id);
-			break;
-		case 4:
-			productService.deleteImg4(pr_id);
-			break;
-		case 5:
-			productService.deleteImg5(pr_id);
-			break;
-
-		default:
-			break;
-		}
-		//productService.deleteImg(pr_id, pr_img_delete);
-	}
+    	JSONObject jsn = new JSONObject(json);
+    	
+    	String[] pr_ex_img_arr = (String[]) jsn.get("pr_ex_img_arr");
+    	int fileExlength = pr_ex_img_arr.length;
+    	String pr_id_str = (String) jsn.get("pr_id");
+    	int pr_id = Integer.parseInt(pr_id_str);
+    	productTemp = productService.getProductInfo(pr_id);
+    	String[] pr_img_arr = new String[5];
+    	if (fileExlength > 0) {
+    		pr_img_arr[0] = productTemp.getPr_img_1(); 
+    		pr_img_arr[1] = productTemp.getPr_img_2();
+    		pr_img_arr[2] = productTemp.getPr_img_3();
+    		pr_img_arr[3] = productTemp.getPr_img_4();
+    		pr_img_arr[4] = productTemp.getPr_img_5();
+    		productTemp.setPr_img_1(null);
+    		productTemp.setPr_img_2(null);
+    		productTemp.setPr_img_3(null);
+    		productTemp.setPr_img_4(null);
+    		productTemp.setPr_img_5(null);
+    		//delete할 파일만 배열에 남겨두기 
+    		for (String string : pr_ex_img_arr) {
+    			for (int j = 0; j < 5; j++) {
+    				if (string.equals(pr_img_arr[j])) {
+    					pr_img_arr[j] = null;
+    				}	    		
+    			}
+    		}
+    		//남아있는 파일 setter 할당하기
+    		if (fileExlength >= 1) {
+    			productTemp.setPr_img_1(pr_ex_img_arr[0]);	    		
+    		}
+    		if (fileExlength >= 2) {
+    			productTemp.setPr_img_2(pr_ex_img_arr[1]);	    			    		
+    		}
+    		if (fileExlength >= 3) {
+    			productTemp.setPr_img_3(pr_ex_img_arr[2]);	    			    		
+    		}
+    		if (fileExlength >= 4) {
+    			productTemp.setPr_img_4(pr_ex_img_arr[3]);	    			    		
+    		}
+    		if (fileExlength >= 5) {
+    			productTemp.setPr_img_5(pr_ex_img_arr[4]);	    			    		
+    		}	
+    	}	
+    	for (int i = 0; i < 5; i++) {
+    		if (pr_img_arr[i] == null || pr_img_arr[i] == "")
+    			continue;
+    		amazonS3Client.deleteObject(new DeleteObjectRequest(bucket, pr_img_arr[i]));
+    	} //delete 파일
+    	
+    	MultipartHttpServletRequest multi = (MultipartHttpServletRequest) jsn.get("formData");
+    	Iterator<String> iterator = multi.getFileNames();
+    	MultipartFile multipartFile = null;  
+    	int reps = fileExlength;
+    
+    	while(iterator.hasNext()) {
+    		multipartFile = multi.getFile(iterator.next());   		
+    		multipartFile = multi.getFile(iterator.next());
+    		multipartFile.transferTo(new File(""));
+    		String fileOriname = multipartFile.getOriginalFilename();
+    		String uniName = uuidImgname.makeFilename(fileOriname);
+    		String dirName = "/static/img";
+    		String fileName = dirName + "/" + uniName;
+    		
+    		amazonS3Client.putObject(new PutObjectRequest(bucket, fileName, (File) multipartFile));
+    		
+    		switch(reps) {
+    		case 0: 
+    			productTemp.setPr_img_1(fileName);
+    			break;
+    		case 1: 
+    			productTemp.setPr_img_2(fileName);
+    			break;
+    		case 2: 
+    			productTemp.setPr_img_3(fileName);
+    			break;
+    		case 3: 
+    			productTemp.setPr_img_4(fileName);
+    			break;
+    		case 4: 
+    			productTemp.setPr_img_5(fileName);
+    			break;
+    		}
+    		reps++;
+    	}//새로운 파일 setter 할당
+    }
 	
 	Product productTemp;
 	//edit save
@@ -150,80 +207,19 @@ public class ProductEditController {
     	product.setPr_email(login.getEmail());
     	product.setPr_title_alias(product.getPr_title().replaceAll("\\s", ""));
     	
-    	//DB pr_img_ 파일이 어디까지 차있는지 봐야함
+    	String[] imgArr = new String[5];
+    	imgArr[0] = productTemp.getPr_img_1();
+    	imgArr[1] = productTemp.getPr_img_2();
+    	imgArr[2] = productTemp.getPr_img_3();
+    	imgArr[3] = productTemp.getPr_img_4();
+    	imgArr[4] = productTemp.getPr_img_5();
     	
-    	productTemp = productService.getProductInfo(pr_id);
-
-    	int idxEmpty = 0;
-    	
-    	String img1 = productTemp.getPr_img_1();
-    	String img2 = productTemp.getPr_img_2();
-    	String img3 = productTemp.getPr_img_3();
-    	String img4 = productTemp.getPr_img_4();
-    	String img5 = productTemp.getPr_img_5();
-    	
-    	if (img1 == null) {
-    		idxEmpty = 1;
-    	} else if (img2 == null) {
-    		idxEmpty = 2;
-    	} else if (img3 == null) {
-    		idxEmpty = 3;
-    	} else if (img4 == null) {
-    		idxEmpty = 4;
-    	} else if (img5 == null) {
-    		idxEmpty = 5;
-    	}
-    	
-    	System.out.println("idxEmpty: " + idxEmpty);
-    	
-    	switch (idxEmpty) {
-    	case 0:
-    		product.setPr_img_1(img1);
-    		product.setPr_img_2(img2);
-    		product.setPr_img_3(img3);
-    		product.setPr_img_4(img4);
-    		product.setPr_img_5(img5);			
-    		break;
-		case 1:
-			product.setPr_img_1(product_file_edit.getPr_img_1());
-			product.setPr_img_2(product_file_edit.getPr_img_2());
-			product.setPr_img_3(product_file_edit.getPr_img_3());
-			product.setPr_img_4(product_file_edit.getPr_img_4());
-			product.setPr_img_5(product_file_edit.getPr_img_5());			
-			break;
-		case 2:
-			product.setPr_img_1(img1);
-			product.setPr_img_2(product_file_edit.getPr_img_1());
-			product.setPr_img_3(product_file_edit.getPr_img_2());
-			product.setPr_img_4(product_file_edit.getPr_img_3());
-			product.setPr_img_5(product_file_edit.getPr_img_4());			
-			break;
-		case 3:
-			product.setPr_img_1(img1);
-			product.setPr_img_2(img2);
-			product.setPr_img_3(product_file_edit.getPr_img_1());
-			product.setPr_img_4(product_file_edit.getPr_img_2());
-			product.setPr_img_5(product_file_edit.getPr_img_3());			
-			break;
-		case 4:
-			product.setPr_img_1(img1);
-			product.setPr_img_2(img2);
-			product.setPr_img_3(img3);
-			product.setPr_img_4(product_file_edit.getPr_img_1());
-			product.setPr_img_5(product_file_edit.getPr_img_2());			
-			break;
-		case 5:
-			product.setPr_img_1(img1);
-			product.setPr_img_2(img2);
-			product.setPr_img_3(img3);
-			product.setPr_img_3(img4);
-			product.setPr_img_5(product_file_edit.getPr_img_1());			
-			break;
-
-		default:
-			break;
-		}
-    	
+    	product.setPr_img_1(imgArr[0]);
+    	product.setPr_img_2(imgArr[1]);
+    	product.setPr_img_3(imgArr[2]);
+    	product.setPr_img_4(imgArr[3]);
+    	product.setPr_img_5(imgArr[4]);
+   
 		//ajax로 받은 img_file 정보를 넘겨줌 
     	
 		new SellProductValidation().validate(product, errors);
@@ -235,61 +231,9 @@ public class ProductEditController {
 		productService.updateProduct(product);
 		
 		return "product/productInfo";
-	}
-	
-	   //상품수정 이미지파일 업로드 
-    Product product_file_edit = new Product(); 
-    
-    @RequestMapping(value= "/sell/ajax/edit", method= RequestMethod.POST)
-    public void ajaxEdit(HttpServletRequest req) throws Exception {
+	} 
     	
-    	System.out.println("imgAdd in process");
-    	
-    	//formdata를 받은 req를 multipartfile로 타입 변환해줌
-    	MultipartHttpServletRequest multi = (MultipartHttpServletRequest) req;
-    	Iterator<String> iterator = multi.getFileNames(); 	
-    	MultipartFile multipartFile = null;
-    	
-    	int reps = 0;
-    	
-    	while(iterator.hasNext()) {
-    		
-    		multipartFile = multi.getFile(iterator.next());
-    		
-    		
-    		String fileOriname = multipartFile.getOriginalFilename();
-    		String filename = uuidImgname.makeFilename(fileOriname);
-    		String filepathSave = fileUploadPath + File.separator + filename;
-    		String filepath = "/resources/img/imgUpload/" + filename;
-    		
-    		multipartFile.transferTo(new File(filepathSave));
-    		
-    		switch(reps) {
-    		case 0: 
-    			product_file_edit.setPr_img_1(filepath);
-    			break;
-    		case 1: 
-    			product_file_edit.setPr_img_2(filepath);
-    			break;
-    		case 2: 
-    			product_file_edit.setPr_img_3(filepath);
-    			break;
-    		case 3: 
-    			product_file_edit.setPr_img_4(filepath);
-    			break;
-    		case 4: 
-    			product_file_edit.setPr_img_5(filepath);
-    			break;
-    		}
-    		
-    		
-    		reps++;
-    	}
-    	System.out.println("imgAdd: " + product_file_edit.getPr_img_1());
-    }
-	
-	String flag;
-	
+	String flag;	
 	@RequestMapping(value= "/product/{pr_id}/delete", method= RequestMethod.GET)
 	public String profileDelete(Model model, @PathVariable int pr_id) throws UnsupportedEncodingException {
 		

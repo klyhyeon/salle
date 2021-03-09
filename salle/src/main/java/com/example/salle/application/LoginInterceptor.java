@@ -6,16 +6,12 @@ import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.ui.ModelMap;
-import org.springframework.web.context.request.SessionScope;
+import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-import com.example.salle.domain.Login;
-
-public class LoginInterceptor extends HandlerInterceptorAdapter {
+//210303clear
+public class LoginInterceptor implements HandlerInterceptor {
 	
-	private static final String login = "login";
 	//사용자 상호작용 logger에 LoginInterceptor 클래스를 저장
 	private static final Logger logger = LoggerFactory.getLogger(LoginInterceptor.class);
 	

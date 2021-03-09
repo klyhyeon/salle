@@ -131,8 +131,7 @@
 			}
 		}
 */
-		
-		
+
 		
 		function sendBroadcast(json) {
 			

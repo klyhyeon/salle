@@ -32,7 +32,7 @@
 	    	<input type="file" id="img" name="pr_img_files"/>	    	
 	        	<div class="wrap_pr_img">
 		    	<c:forEach var="img" items="${imgList}" varStatus="loop">			
-			    	<div class="pr_img_${loop.index}">
+			    	<div class="pr_img_${loop.index}" id="imgEx">
 			    		<img id="pr_img" src="${img}" width="150px" height="150px"/>
 			    		<button type="button" class="button_img" value="pr_img_${loop.index}" onclick="deleteImgEx(this.value)"></button>
 			    	</div>
@@ -153,23 +153,41 @@
 			
     });
     
-    //업로드 버튼 클릭
-    //var xmlReq = new XMLHttpRequest();
 	function fileUpload() {
-		
+		var imgExArr = Array.from(document.querySelectorAll('#pr_img'));
 		$.ajax({
     		url:"/sell/ajax/edit",
    			type: 'POST',
-    		data: formData,
+    		data: {
+    			formData: formData,
+				pr_ex_img_arr: imgExArr
+    		},
     			processData: false,
     			contentType: false,
     			success: function(data) {
     				console.log('jQuery ajax form submit success');
     				}
-    		}); //end ajax
-    		
+    		}); //end ajax		
     	formData.delete;
 	}
+	
+	//delete img existing file
+	function deleteImgEx(val) {
+			//formData.delete(val);
+			console.log('deleteImgEx(): ' + val);
+			$('.' + val).remove();	
+		}
+	
+	//delete img new file
+	function deleteImgNew(val) {
+		console.log("ajaxDelete running");
+		
+			formData.delete(val);
+
+			console.log('deleteImgNew(): ' + val);
+			$('.' + val).remove();	
+		
+		}
 
 	//pr_price
 	function priceCommas(x) {
@@ -202,42 +220,6 @@
   		}).open();
   	}
 	
-	//delete img existing file
-	function deleteImgEx(val) {
-		var pr_id = document.getElementById('pr_id').value;
-		console.log("ajaxDelete running: " + pr_id);
-		
-		$.ajax({
-			url:'/ajax/img/delete',
-			type: 'POST',
-			data: JSON.stringify({
-				pr_img: val,
-				pr_id: pr_id
-			}),
-			dataType: 'json',
-			contentType: 'application/json',
-			success: function(data) {
-				console.log('ajax img delete success')
-				}
-			});
-		
-			//formData.delete(val);
-
-			console.log('deleteImgEx(): ' + val);
-			$('.' + val).remove();	
-		
-		}
-
-	//delete img new file
-	function deleteImgNew(val) {
-		console.log("ajaxDelete running");
-		
-			formData.delete(val);
-
-			console.log('deleteImgNew(): ' + val);
-			$('.' + val).remove();	
-		
-		}
     </script>
    
 
