@@ -53,7 +53,7 @@ public class ProductController {
 
 		ChatRoom chatRoom = new ChatRoom();
 		model.addAttribute("chatRoom", chatRoom);
-		String url = "redirect:/product/"+product.getPr_id();
+		String url = "redirect:/productInfo/"+product.getPr_id();
     	return url;
     }
     
