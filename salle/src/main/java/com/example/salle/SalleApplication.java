@@ -16,16 +16,15 @@ public class SalleApplication extends SpringBootServletInitializer {
 	public static void main(String[] args) {
 		SpringApplication.run(SalleApplication.class, args);
 	}
-
-	
-	@Override
-	protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
-		builder.sources(SpringApplication.class)
-				.properties("spring.config.location= classpath:application.properties, classpath:db.properties");
-				return builder;
-	}
-
-
+//
+//	
+//	@Override
+//	protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
+//		builder.sources(SpringApplication.class)
+//				.properties("spring.config.location= classpath:application.properties, classpath:db.properties");
+//				return builder;
+//	}
+//	
 
 	@Bean
 	public MessageSource messageSource() {
