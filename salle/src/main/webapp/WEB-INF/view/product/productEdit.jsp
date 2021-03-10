@@ -164,6 +164,7 @@
     		data: {
 				exImgArr: imgExArr
     		},
+    		dataType: json,
     			processData: false,
     			contentType: false,
     			success: function(data) {
