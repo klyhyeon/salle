@@ -86,23 +86,18 @@ public class ProductService implements ProductMapper {
     		String dirName = "static/img";
     		String fileName = dirName + "/" + ranCode;
     		
-    		switch(reps) {
-    		case 0: 
-    			product_file.setPr_img_1(fileName);
-    			break;
-    		case 1: 
-    			product_file.setPr_img_2(fileName);
-    			break;
-    		case 2: 
-    			product_file.setPr_img_3(fileName);
-    			break;
-    		case 3: 
-    			product_file.setPr_img_4(fileName);
-    			break;
-    		case 4: 
-    			product_file.setPr_img_5(fileName);
-    			break;
+    		if (reps == 0) {
+    			product_file.setPr_img_1(fileName);    			
+    		} else if (reps == 1) {
+    			product_file.setPr_img_2(fileName);    			
+    		} else if (reps == 2) {
+    			product_file.setPr_img_3(fileName);    			
+    		} else if (reps == 3) {
+    			product_file.setPr_img_4(fileName);    			
+    		} else if (reps == 4) {
+    			product_file.setPr_img_5(fileName);    			
     		}
+
     		reps++;
     		amazonS3.uploadImg(bucket, fileName, multipartFile);
     	}
