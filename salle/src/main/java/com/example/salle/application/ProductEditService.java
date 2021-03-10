@@ -10,6 +10,8 @@ import javax.servlet.http.HttpSession;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.Errors;
@@ -20,6 +22,8 @@ import com.example.salle.validation.SellProductValidation;
 
 @Service
 public class ProductEditService {
+	
+	private final Logger log = LoggerFactory.getLogger(ProductEditService.class);
 	
 	@Autowired
 	ProductService productService;
@@ -69,6 +73,8 @@ public class ProductEditService {
     	JSONObject jsn = new JSONObject(json);
     	String[] exImgArr = (String[]) jsn.get("exImgArr");
     	int exImgArrlength = exImgArr.length;
+    	log.info("exImgArr" + exImgArrlength);
+    	
     	String pr_id_str = (String) jsn.get("pr_id");
     	int pr_id = Integer.parseInt(pr_id_str);
     	productTemp = productService.getProductInfo(pr_id);
