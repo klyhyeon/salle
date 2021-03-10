@@ -43,7 +43,7 @@ public class ProductController {
 	}
     
 	//상품등록완료 페이지
-    @RequestMapping(value = "/sell/done", method = RequestMethod.POST)
+    @RequestMapping(value = "/product/done", method = RequestMethod.POST)
     public String sellHandle(@ModelAttribute("product") Product product, Errors errors,
     	HttpSession httpSession, Model model) throws Exception {
 		productService.registerProduct(httpSession, product, product_file, errors);
