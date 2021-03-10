@@ -34,7 +34,7 @@ public class ProductController {
 
 	
 	@RequestMapping(value = "/product/register", method = RequestMethod.GET)
-	public String sellAttemptPost(Model model) {
+	public String productRegister(Model model) {
 		
 		Product product = new Product();
 		
@@ -44,7 +44,7 @@ public class ProductController {
     
 	//상품등록완료 페이지
     @RequestMapping(value = "/product/done", method = RequestMethod.POST)
-    public String sellHandle(@ModelAttribute("product") Product product, Errors errors,
+    public String productRegisterDone(@ModelAttribute("product") Product product, Errors errors,
     	HttpSession httpSession, Model model) throws Exception {
 		productService.registerProduct(httpSession, product, product_file, errors);
 		
@@ -53,7 +53,8 @@ public class ProductController {
 
 		ChatRoom chatRoom = new ChatRoom();
 		model.addAttribute("chatRoom", chatRoom);
-    	return "product/productInfo";
+		String url = "redirect:/product/"+product.getPr_id();
+    	return url;
     }
     
     //상품등록 이미지파일 업로드
