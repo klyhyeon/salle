@@ -10,14 +10,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 
-import org.json.JSONObject;
+import org.hibernate.annotations.common.util.impl.LoggerFactory;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.Errors;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.amazonaws.services.s3.model.DeleteObjectRequest;
 import com.example.salle.domain.Login;
 import com.example.salle.domain.Product;
 import com.example.salle.domain.UuidImgname;
@@ -27,6 +27,8 @@ import com.example.salle.validation.SellProductValidation;
 @Transactional
 @Service
 public class ProductService implements ProductMapper {
+	
+	Logger log = (Logger) new LoggerFactory();
 	
     @Autowired
     ProductMapper productMapper;
@@ -41,6 +43,7 @@ public class ProductService implements ProductMapper {
     
 	@Override
 	public void registerProduct(HttpSession httpSession, Product product, Product product_file, Errors errors) {	
+		log.info("pr_img_1" + product_file.getPr_img_1());
     	Login loginInfo = (Login) httpSession.getAttribute("login");
     	product.setPr_email(loginInfo.getEmail());    	
 		product.setPr_img_1(product_file.getPr_img_1());
@@ -63,6 +66,45 @@ public class ProductService implements ProductMapper {
 		product_file.setPr_img_3(null);
 		product_file.setPr_img_4(null);
 		product_file.setPr_img_5(null);
+	}
+	
+	
+	@Override
+	public void insertImg(HttpServletRequest req, Product product_file, String bucket) throws IOException {
+		log.info("insertImg in processing");
+    	MultipartHttpServletRequest multiReq = (MultipartHttpServletRequest) req;
+    	Iterator<String> iterator = multiReq.getFileNames(); 	
+    	MultipartFile multipartFile = null;
+    	
+    	int reps = 0;
+    	while(iterator.hasNext()) {
+    		
+    		multipartFile = multiReq.getFile(iterator.next());
+    		String fileOriname = multipartFile.getOriginalFilename();
+    		String ranCode = uuidImg.makeFilename(fileOriname);
+    		String dirName = "static/img";
+    		String fileName = dirName + "/" + ranCode;
+    		
+    		switch(reps) {
+    		case 0: 
+    			product_file.setPr_img_1(fileName);
+    			break;
+    		case 1: 
+    			product_file.setPr_img_2(fileName);
+    			break;
+    		case 2: 
+    			product_file.setPr_img_3(fileName);
+    			break;
+    		case 3: 
+    			product_file.setPr_img_4(fileName);
+    			break;
+    		case 4: 
+    			product_file.setPr_img_5(fileName);
+    			break;
+    		}
+    		reps++;
+    		amazonS3.uploadImg(bucket, fileName, multipartFile);
+    	}
 	}
 
 	@Override
@@ -139,48 +181,5 @@ public class ProductService implements ProductMapper {
 	public void insertProduct(Product product) {	
 		productMapper.insertProduct(product);
 	}
-	
-	@Override
-	public void insertImg(HttpServletRequest req, Product product_file, String bucket) throws IOException {
-    	MultipartHttpServletRequest multiReq = (MultipartHttpServletRequest) req;
-    	Iterator<String> iterator = multiReq.getFileNames(); 	
-    	MultipartFile multipartFile = null;
-    	
-    	int reps = 0;
-    	while(iterator.hasNext()) {
-    		
-    		multipartFile = multiReq.getFile(iterator.next());
-    		String fileOriname = multipartFile.getOriginalFilename();
-    		String ranCode = uuidImg.makeFilename(fileOriname);
-    		String dirName = "static/img";
-    		String fileName = dirName + "/" + ranCode;
-    		
-    		switch(reps) {
-    		case 0: 
-    			product_file.setPr_img_1(fileName);
-    			break;
-    		case 1: 
-    			product_file.setPr_img_2(fileName);
-    			break;
-    		case 2: 
-    			product_file.setPr_img_3(fileName);
-    			break;
-    		case 3: 
-    			product_file.setPr_img_4(fileName);
-    			break;
-    		case 4: 
-    			product_file.setPr_img_5(fileName);
-    			break;
-    		}
-    		reps++;
-    		
-    		amazonS3.uploadImg(bucket, fileName, multipartFile);
-    	}
-	}
-
-
-
-
-
 
 }
