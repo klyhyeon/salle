@@ -93,7 +93,7 @@
 		</label>
 	    </p>
     </section>       	
-    	<input type="button" id="button" value="이미지 확정" onclick="fileUpload()"/>
+    	<input type="button" id="button" value="이미지 업로드" onclick="fileUpload()"/>
     	<input type="button" id="button" value="등록하기" onclick="submit()"/>
     </form:form>
     
