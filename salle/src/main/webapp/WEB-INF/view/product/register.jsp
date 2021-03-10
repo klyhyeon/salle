@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>UTF-8">
--->
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -9,7 +8,8 @@
 <html>
 <head>
 <!-- .jsp <head> 통일시켜주기 위해서 주석처리(12/29)
-<meta http-equiv="Content-Type" content="text/html; charset=
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+-->
     <title>판매하기</title>
 	<!-- CSS -->
 	<link rel="stylesheet" href="/resources/css/sell.css">
@@ -34,6 +34,8 @@
 	    
     		</div>
 	    <form:errors id="errors" path="pr_img_1"/>
+	    <p></p>
+	    <p></p>
     	<input type="button" id="button" value="이미지 확정하기" onclick="fileUpload()"/>
     </section>
     
