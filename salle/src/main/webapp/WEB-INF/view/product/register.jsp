@@ -156,8 +156,11 @@
     		}); //end ajax
     		
     	formData.delete;
-    		
-    		$('#form').submit();
+    		submit();
+	}
+	
+	function submit() {
+    		$('#form').submit();		
 	}
 
 	//pr_price
