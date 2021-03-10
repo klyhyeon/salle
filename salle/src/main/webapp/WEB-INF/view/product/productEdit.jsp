@@ -39,6 +39,9 @@
 		    	</c:forEach>
     	</div>
 	    <form:errors id="errors" path="pr_img_1"/>
+	    <p></p>
+	    <p></p>
+    	<input type="button" id="button" value="이미지 확정하기" onclick="fileUpload()"/>
     </section>
     
     <section class="pr_title">

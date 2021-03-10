@@ -72,7 +72,7 @@ public class ProductEditController {
 			return "product/productEdit";
 		
 		productService.updateProduct(product);
-		return "product/productInfo";
+		return "redirect:/productInfo/" + product.getPr_id();
 	} 
     	
 	
