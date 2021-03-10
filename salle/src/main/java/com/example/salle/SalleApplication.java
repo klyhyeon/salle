@@ -2,7 +2,6 @@ package com.example.salle;
 
 import java.util.Locale;
 
-import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
@@ -13,8 +12,14 @@ import org.springframework.context.support.ResourceBundleMessageSource;
 @SpringBootApplication
 public class SalleApplication extends SpringBootServletInitializer {
 
+	public static final String APPLICATION_LOCATION = "spring.config.location="
+			+ "classpath:application.properties"
+			+ "classpath:db.properties";
+	
 	public static void main(String[] args) {
-		SpringApplication.run(SalleApplication.class, args);
+		new SpringApplicationBuilder(SalleApplication.class)
+			.properties(APPLICATION_LOCATION)
+			.run(args);
 	}
 //
 //	
