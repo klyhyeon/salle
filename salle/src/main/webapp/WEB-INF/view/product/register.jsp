@@ -92,8 +92,9 @@
 		    <form:errors id="errors" path="pr_detail"/>
 		</label>
 	    </p>
-    </section>   
-    	<input type="button" id="button" value="등록하기" onclick="fileUpload()"/>
+    </section>       	
+    	<input type="button" id="button" value="이미지 확정" onclick="fileUpload()"/>
+    	<input type="button" id="button" value="등록하기" onclick="submit()"/>
     </form:form>
     
     <!-- Javascript -->
