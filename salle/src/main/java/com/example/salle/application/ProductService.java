@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 
-import org.hibernate.annotations.common.util.impl.LoggerFactory;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.Errors;
@@ -28,7 +28,8 @@ import com.example.salle.validation.SellProductValidation;
 @Service
 public class ProductService implements ProductMapper {
 	
-	Logger log = (Logger) new LoggerFactory();
+    private static final Logger log = LoggerFactory.getLogger(ProductService.class);
+
 	
     @Autowired
     ProductMapper productMapper;
