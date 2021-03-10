@@ -34,6 +34,7 @@
 	    
     		</div>
 	    <form:errors id="errors" path="pr_img_1"/>
+    	<input type="button" id="button" value="이미지 업로드" onclick="fileUpload()"/>
     </section>
     
     <section class="pr_title">
@@ -93,7 +94,6 @@
 		</label>
 	    </p>
     </section>       	
-    	<input type="button" id="button" value="이미지 업로드" onclick="fileUpload()"/>
     	<input type="button" id="button" value="등록하기" onclick="submit()"/>
     </form:form>
     
