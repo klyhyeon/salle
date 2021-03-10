@@ -79,10 +79,11 @@ public class ProductEditController {
 	String flag;	
 	@RequestMapping(value= "/product/{pr_id}/delete", method= RequestMethod.GET)
 	public String profileDelete(Model model, @PathVariable int pr_id) throws UnsupportedEncodingException {	
+		String nickName = productEditService.productDelete(pr_id);
+
 		if (flag.equals("true"))
 			productService.deleteProduct(pr_id);
 		
-		String nickName = productEditService.productDelete(pr_id);
 		return "redirect:/profile/" + nickName;
 	}
 	

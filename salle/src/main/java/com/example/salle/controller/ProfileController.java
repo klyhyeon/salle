@@ -59,32 +59,6 @@ public class ProfileController {
 		
 		return "profile";
 	}
-
-//	@RequestMapping(value = "/profile/{nickName}", method = RequestMethod.POST)
-//	public String profileReadPost(HttpSession session, @PathVariable String nickName, @RequestParam(value="pr_email") String pr_email,
-//			Model model) {
-//		
-//			model.addAttribute("nickName", nickName);
-//
-//			List<Product> sellerProductList = profileService.getSellerProductList(pr_email);
-//			//hoursfromupload
-//	        Timestamp tsClient = Timestamp.valueOf(LocalDateTime.now());
-//			for (Product product : sellerProductList) {
-//				long diffTime = tsClient.getTime() - product.getPr_reg_date().getTime();
-//				int hours = (int) (diffTime / (1000 * 3600));
-//				if (hours < 1) {
-//					hours = 0;
-//				}
-//				product.setHoursFromUpload(hours);
-//			}
-//			
-//			model.addAttribute("sellerProductList", sellerProductList);
-//			
-//			model.addAttribute("totalProduct", profileService.getTotalProduct(pr_email));
-//	
-//		return "profile";
-//	}
-	
 		
 
 }
