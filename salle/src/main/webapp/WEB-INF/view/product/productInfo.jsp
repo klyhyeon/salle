@@ -43,7 +43,7 @@
 		</div>
 		
 		<div class="buy_chat">
-		<form:form id="chatSubmit_form" action="/chatMessage" method="GET" modelAttribute="chatRoom">
+		<form:form id="chatSubmit_form" action="/product/chat" method="GET" modelAttribute="chatRoom">
 			<a href="javascript:{}" onclick="chatSubmit()">
 				<form:input type="hidden" path="sellerName" value="${nickName}"/>
 				<form:input type="hidden" path="pr_id" value="${product.pr_id}"/>

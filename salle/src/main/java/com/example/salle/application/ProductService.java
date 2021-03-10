@@ -3,6 +3,7 @@ package com.example.salle.application;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -176,6 +177,35 @@ public class ProductService implements ProductMapper {
 	@Override
 	public void insertProduct(Product product) {	
 		productMapper.insertProduct(product);
+	}
+
+
+	public List<String> getImgList(Product productInfo) {
+		List<String> productImgList = new ArrayList<String>();
+		String[] imgArr = new String[5];
+		imgArr[0] = productInfo.getPr_img_1();
+		imgArr[1] = productInfo.getPr_img_2();
+		imgArr[2] = productInfo.getPr_img_3();
+		imgArr[3] = productInfo.getPr_img_4();
+		imgArr[4] = productInfo.getPr_img_5();
+		
+		for (int i = 0; i < 5; i++) {
+			if (imgArr[i] != null)
+				productImgList.add(imgArr[i]);
+		}
+		
+		return productImgList;
+	}
+
+
+	public int getHoursFromUpload(Product productInfo) {
+		Timestamp now = Timestamp.valueOf(LocalDateTime.now());
+        long diffTime = now.getTime() - productInfo.getPr_reg_date().getTime();
+        int hours = (int) (diffTime / (1000 * 3600));
+        if (hours < 1) {
+        	hours = 0;
+        }
+		return hours;
 	}
 
 }

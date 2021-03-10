@@ -37,8 +37,8 @@ public class ChatApplicationController {
 	private ChatRoomService chatRoomService;
 
 	//채팅으로 거래하기(productInfo 화면)
-	@RequestMapping(value="/chatMessage", method=RequestMethod.GET)
-	public String getWebSocketWithSockJs(Model model, HttpSession session, 
+	@RequestMapping(value="/product/chat", method=RequestMethod.GET)
+	public String productChatMessage(Model model, HttpSession session, 
 			@ModelAttribute("chatRoom") ChatRoom chatRoom) throws IOException {
 		
 		//productInfo화면에서 Chat화면에 전달해줄 parameter
@@ -69,7 +69,7 @@ public class ChatApplicationController {
 			//chatRoom 객체 Model에 저장해 view로 전달
 			model.addAttribute("chatRoomInfo", chatRoom);
 		
-		return "chatBroadcastProduct";
+		return "chat/chatBroadcastProduct";
 	}
 	
 	@MessageMapping("/broadcast")
@@ -115,7 +115,7 @@ public class ChatApplicationController {
 	@RequestMapping(value="/chatList", method=RequestMethod.GET)
 	public String getChatList(Model model, HttpSession session) {
 
-		 return "chatList";
+		 return "chat/chatList";
 	}
 	
 	@RequestMapping(value="/chatRoom/{pr_id}/{buyerId}", method=RequestMethod.GET)
@@ -140,7 +140,7 @@ public class ChatApplicationController {
 		model.addAttribute("sellerId", sellerId);
 		model.addAttribute("pr_title", pr_title);
 		
-		return "chatBroadcastChatRoom";
+		return "chat/chatBroadcastChatRoom";
 	}
 	
 	
