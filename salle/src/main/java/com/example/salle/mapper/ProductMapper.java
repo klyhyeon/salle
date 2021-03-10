@@ -1,15 +1,20 @@
 package com.example.salle.mapper;
 
+import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.validation.Errors;
 
 import com.example.salle.domain.Product;
 
 @Mapper
 public interface ProductMapper {
 	
-	void registerProduct(Product product);
+	void insertProduct(Product product);
 	
 	int getCountProduct();
 
@@ -43,6 +48,11 @@ public interface ProductMapper {
 	
 	//검색어 결과 유무
 	int searchCount(String searchWord, String searchWordNoSpace);
+
+	void registerProduct(HttpSession httpsession, Product product, Product product_file, Errors errors);
+
+	void insertImg(HttpServletRequest req, Product product_file, String bucket) throws IOException;
+	
 
 	
 }

@@ -77,7 +77,7 @@
 				console.log('flag: ' + flag); 
 				
 				$.ajax({
-					url:'/ajax/delete',
+					url:'/productDelete/ajax',
 					type: 'POST',
 					data: JSON.stringify({
 						flag: flag

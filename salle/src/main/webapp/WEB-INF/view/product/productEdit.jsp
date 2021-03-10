@@ -156,11 +156,11 @@
 	function fileUpload() {
 		var imgExArr = Array.from(document.querySelectorAll('#pr_img'));
 		$.ajax({
-    		url:"/sell/ajax/edit",
+    		url:"/productEditImg/ajax",
    			type: 'POST',
     		data: {
     			formData: formData,
-				pr_ex_img_arr: imgExArr
+				exImgArr: imgExArr
     		},
     			processData: false,
     			contentType: false,

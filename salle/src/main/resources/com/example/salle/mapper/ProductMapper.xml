@@ -7,7 +7,7 @@
 
     <!-- Product SQL-->
     <!-- parameterType: 구문에 전달될 파라미터의 패키지 경로를 포함한 전체 클래스명이나 별칭-->
-    <insert id="registerProduct" parameterType="com.example.salle.domain.Product"
+    <insert id="insertProduct" parameterType="com.example.salle.domain.Product"
      useGeneratedKeys="true" keyProperty="pr_id">
         INSERT INTO
         product(pr_email, pr_reg_date, pr_img_1, pr_img_2, pr_img_3, pr_img_4, pr_img_5, pr_title, pr_category, pr_region, pr_price, pr_detail, pr_title_alias)

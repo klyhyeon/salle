@@ -29,10 +29,10 @@
   		<p>	
     		<label for="img"><h2>상품 이미지</h2></label>
     	</p>
-    	<div id="pr_img">
 	    	<input type="file" id="img" name="pr_img_files"/>	    	
+    		<div class="wrap_pr_img">
 	    
-    	</div>
+    		</div>
 	    <%=request.getRealPath("/") %>
 	    <input id="upload" type="button" value="업로드" onclick="fileUpload()"/>
 	    <form:errors id="errors" path="pr_img_1"/>
@@ -73,38 +73,9 @@
 	    	<h2>거래지역</h2>
 	    </p>
 	    <p>
-	    	<p>
-	    		<!-- <form id="form" name="form" method="post"> -->
-		    		<input type="button" onclick="goPopup()" value="주소검색">
-		    </p>
-					우편번호<input type="text" id="zipNo" name="zipNo" /><br>
-				    전체주소 <input type="text" id="roadFullAddr" name="roadFullAddr" /><br>
-				    도로명주소 <form:input type="text" id="roadAddrPart1" name="pr_region" path="pr_region"/>
-				    <form:errors id="errors" path="pr_region"/>
-				    <br>
-					상세주소<input type="text" id="addrDetail" name="addrDetail" /><br> 
-					참고주소<input type="text" id="roadAddrPart2" name="roadAddrPart2" /><br>
-				<!--</form> -->
+		<input type="button" id="button" onclick="daumPostcode()" value="주소검색"><br>
+		<form:input type="text" id="addr" placeholder="주소" width="200" path="pr_region"/>
 	    </p>
-    </section>
-    
-    <section class="pr_quality">
-    	<p>
-	    	<p>
-		    	<h2>상품 상태</h2>
-		    </p>	    	
-	    		<input type="radio" id="pr_quality" name="pr_quality" value="상" />
-	    		<label for="pr_quality">상</label>
-	    	
-	    
-	    		<input type="radio" id="pr_quality" name="pr_quality" value="중" />
-	    		<label for="pr_quality">중</label>
-	    	
-	    	
-	    		<input type="radio" id="pr_quality" name="pr_quality" value="하" />
-	    		<label for="pr_quality">하</label>
-			    <form:errors id="errors" path="pr_quality"/>
-    	</p>
     </section>
     
     <section class="pr_price">
@@ -119,33 +90,39 @@
 	    <p>
 	    <label>
 	    	<h2>상품 설명</h2>
-	   		<textarea id="pr_detail" placeholder="상품 설명을 입력하세요. 최대 500자" maxlength="1000" rows="10" cols="80" name="pr_detail"></textarea>
+	   		<textarea id="pr_detail" placeholder="상품 설명을 입력하세요. 최대 500자" maxlength="1000" rows="10" cols="80" name="pr_detail" ></textarea>
 		    <form:errors id="errors" path="pr_detail"/>
 		</label>
 	    </p>
     </section>
     
-	<input type="submit" value="등록하기" /> 
+    <a href="javascript:void(0);" onclick="fileUpload()">
+		<input type="submit" value="등록하기" />
+	</a>
     </form:form>
     
     <!-- Javascript -->
     <!-- <script type="text/javascript" scr="/resources/static/js/sell.js"></script> -->
-    <script>
+    <!-- Daum 주소 api -->
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js">
+    </script>
+    <script type="text/javascript">
     
     var img_count = 1;
     var formData = new FormData();
 	    
+    
     //pr_img
 	//input 파일첨부 버튼 클릭하면 실행되는 change 메서드
 	$("#img").change(function fileadd() {
 		var reader = new FileReader;
 	//이미지 파일 정보와 화면출력을 위해 <img> 태그를 변수로 만듦
-		var str = "<img id='img_"+(img_count)+"' src=''/>";
+		var str = "<div class='pr_img_"+ (img_count)+"'><img id='img_"+(img_count)+"' src=''/><button type='button' class='button_img' value='pr_img_"+(img_count)+"' onclick='deleteImg(this.value)'></button></div>";
 	//파일 경로에 넣기 위해 String으로 변환시켜줌
 		var img_count_string = img_count.toString();
 		
 	//jQuery append 메서드를 사용해 <div id="pr_img"> 안에 <img> 태그 변수를 추가해줌
-		$("#pr_img").append(str);
+		$(".wrap_pr_img").append(str);
 	
 	//formdata에 append
 	
@@ -199,21 +176,33 @@
 	    	
 	    	$('#pr_price').val(commaX);
 	    }
-
-	//pr_region
-	function goPopup() {
+		
+	//daum 주소 api
+   	function daumPostcode() {
+   		
+   		new daum.Postcode({
 			
-			var pop = window.open("/sell/region","pop","width=570, height=420, scrollbars=yes, resizable=yes");
-		} 	
-		//주소입력창
-		function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2, zipNo){ 
-			// 2017년 2월 제공항목이 추가되었습니다. 원하시는 항목을 추가하여 사용하시면 됩니다. 
-			document.form.roadFullAddr.value = roadFullAddr; 
-			document.form.roadAddrPart1.value = roadAddrPart1; 
-			document.form.roadAddrPart2.value = roadAddrPart2; 
-			documentform.addrDetail.value = addrDetail; 
-			document.form.zipNo.value = zipNo; 
-		};
+   			oncomplete: function(data) {
+    		var addr = '';
+   				
+   			if (data.userSelectedType === 'R') {
+   				addr = data.roadAddress;
+   			} else {
+   				addr = data.jibunAddress; 
+  				}
+    		document.getElementById('addr').value = addr;
+  			}
+   		
+  		}).open();
+  	}
+	
+	//delete img
+	function deleteImg(val) {
+		
+			console.log('deleteImg(): ' + val);
+			$('.' + val).remove();	
+		
+		}
     </script>
    
 

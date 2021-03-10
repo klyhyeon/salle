@@ -1,24 +1,28 @@
 package com.example.salle.application;
 
+import java.io.IOException;
 import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
-import java.time.Duration;
 import java.time.LocalDateTime;
-import java.time.Period;
-import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 
-import org.apache.ibatis.session.SqlSession;
-import org.mybatis.spring.SqlSessionTemplate;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.Errors;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.example.salle.domain.Member;
+import com.amazonaws.services.s3.model.DeleteObjectRequest;
+import com.example.salle.domain.Login;
 import com.example.salle.domain.Product;
+import com.example.salle.domain.UuidImgname;
 import com.example.salle.mapper.ProductMapper;
+import com.example.salle.validation.SellProductValidation;
 
 @Transactional
 @Service
@@ -26,39 +30,43 @@ public class ProductService implements ProductMapper {
 	
     @Autowired
     ProductMapper productMapper;
-        
-    private String namespace = "com.example.salle.mapper.ProductMapper";
-
-    Timestamp tsSeller;
-    Timestamp tsClient;
+    
+	@Autowired
+	UuidImgname uuidImg;
+	
+	@Autowired
+	AmazonS3Service amazonS3;
+      
+    Timestamp productRegTime;
     
 	@Override
-	public void registerProduct(Product product) {
-		
-	   // Product product = new Product();
-		
-		//A date-time without a time-zone in the ISO-8601 calendar system,such as 2007-12-03T10:15:30.
-		//2020-12-21 13:10:52.467 요런 형식임
-        tsSeller = Timestamp.valueOf(LocalDateTime.now());
-        
-        product.setPr_reg_date(tsSeller);
+	public void registerProduct(HttpSession httpSession, Product product, Product product_file, Errors errors) {	
+    	Login loginInfo = (Login) httpSession.getAttribute("login");
+    	product.setPr_email(loginInfo.getEmail());    	
+		product.setPr_img_1(product_file.getPr_img_1());
+		product.setPr_img_2(product_file.getPr_img_2());
+		product.setPr_img_3(product_file.getPr_img_3());
+		product.setPr_img_4(product_file.getPr_img_4());
+		product.setPr_img_5(product_file.getPr_img_5());
+		product.setPr_title_alias(product.getPr_title().replaceAll("\\s", ""));
+    	
+		new SellProductValidation().validate(product, errors);
 
-        //Format을 내가 원하는대로 맞춰주기 위해 SimpleDateFormat을 활용해야하고 그래서 Date 객체를 써야함.
-        //h2-consle의 parsedatetime을 쓸거기 때문에 아래 parsing은 생략해도 됨
-//        Date date = new Date(ts.getTime());
-//
-//        System.out.println(new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(date));
-		
-		//final TimestampWithTimeZone ts = new TimestampWithTimeZone(new Date().getTime(), 0, (short) 8);
-		//https://www.codota.com/code/java/classes/org.h2.api.TimestampWithTimeZone
-		
-		productMapper.registerProduct(product);
-
+		if (!errors.hasErrors()) {	
+			productRegTime = Timestamp.valueOf(LocalDateTime.now());        
+			product.setPr_reg_date(productRegTime);
+			insertProduct(product);
+		}
+	
+		product_file.setPr_img_1(null);
+		product_file.setPr_img_2(null);
+		product_file.setPr_img_3(null);
+		product_file.setPr_img_4(null);
+		product_file.setPr_img_5(null);
 	}
 
 	@Override
 	public int getCountProduct() {
-		
 		return productMapper.getCountProduct();
 	}
 
@@ -69,87 +77,108 @@ public class ProductService implements ProductMapper {
 
 	@Override
 	public List<Product> getProductList() {
-		
 		return productMapper.getProductList();
 	}
 
 	@Override
 	public List<Product> getCategoryProductList(String pr_category) {
-
 		return productMapper.getCategoryProductList(pr_category);
 	}
 
 	@Override
 	public Product getProductInfo(int pr_id) {
-		
 		return productMapper.getProductInfo(pr_id);
 	}
 
 	@Override
 	public String getMemberProductInfo(String email) {
-		
 		return productMapper.getMemberProductInfo(email);
 	}
 
 	@Override
-	public List<Product> search(String searchWord, String searchWordNoSpace) {
-
-		//String[] searchWordList = searchWord.split(" "); 
+	public List<Product> search(String searchWord, String searchWordNoSpace) { 
 		return productMapper.search(searchWord, searchWordNoSpace);
 	}
 
 	@Override
 	public int searchCount(String searchWord, String searchWordNoSpace) {
-
 		return productMapper.searchCount(searchWord, searchWordNoSpace);
 	}
 
 	@Override
 	public void updateProduct(Product product) {
-
 		productMapper.updateProduct(product);
 	}
 
-//	@Override
-//	public void deleteImg(int pr_id, String pr_img) {
-//		
-//		productMapper.deleteImg(pr_id, pr_img);
-//	}
-
 	@Override
 	public void deleteImg1(int pr_id) {
-		// TODO Auto-generated method stub
 		productMapper.deleteImg1(pr_id);
-		
 	}
 
 	@Override
 	public void deleteImg2(int pr_id) {
-		// TODO Auto-generated method stub
 		productMapper.deleteImg2(pr_id);
-		
 	}
 
 	@Override
 	public void deleteImg3(int pr_id) {
-		// TODO Auto-generated method stub
 		productMapper.deleteImg3(pr_id);
-		
 	}
 
 	@Override
 	public void deleteImg4(int pr_id) {
-		// TODO Auto-generated method stub
-		
 		productMapper.deleteImg4(pr_id);
 	}
 
 	@Override
 	public void deleteImg5(int pr_id) {
-		// TODO Auto-generated method stub
-		
 		productMapper.deleteImg5(pr_id);
 	}
+
+	@Override
+	public void insertProduct(Product product) {	
+		productMapper.insertProduct(product);
+	}
+	
+	@Override
+	public void insertImg(HttpServletRequest req, Product product_file, String bucket) throws IOException {
+    	MultipartHttpServletRequest multiReq = (MultipartHttpServletRequest) req;
+    	Iterator<String> iterator = multiReq.getFileNames(); 	
+    	MultipartFile multipartFile = null;
+    	
+    	int reps = 0;
+    	while(iterator.hasNext()) {
+    		
+    		multipartFile = multiReq.getFile(iterator.next());
+    		String fileOriname = multipartFile.getOriginalFilename();
+    		String ranCode = uuidImg.makeFilename(fileOriname);
+    		String dirName = "static/img";
+    		String fileName = dirName + "/" + ranCode;
+    		
+    		switch(reps) {
+    		case 0: 
+    			product_file.setPr_img_1(fileName);
+    			break;
+    		case 1: 
+    			product_file.setPr_img_2(fileName);
+    			break;
+    		case 2: 
+    			product_file.setPr_img_3(fileName);
+    			break;
+    		case 3: 
+    			product_file.setPr_img_4(fileName);
+    			break;
+    		case 4: 
+    			product_file.setPr_img_5(fileName);
+    			break;
+    		}
+    		reps++;
+    		
+    		amazonS3.uploadImg(bucket, fileName, multipartFile);
+    	}
+	}
+
+
 
 
 

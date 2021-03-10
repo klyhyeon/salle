@@ -23,7 +23,7 @@
 	<%@include file="../home.jsp" %>
 
 
-    <form:form action="done" method="post" enctype="multipart/form-data" modelAttribute="product">
+    <form:form action="done" method="post" enctype="multipart/form-data" id="form" modelAttribute="product">
     
     <section class="pr_img">
   		<p>	
@@ -33,8 +33,6 @@
     		<div class="wrap_pr_img">
 	    
     		</div>
-	    <%=request.getRealPath("/") %>
-	    <input id="upload" type="button" value="업로드" onclick="fileUpload()"/>
 	    <form:errors id="errors" path="pr_img_1"/>
     </section>
     
@@ -94,11 +92,8 @@
 		    <form:errors id="errors" path="pr_detail"/>
 		</label>
 	    </p>
-    </section>
-    
-    <a href="javascript:void(0);" onclick="fileUpload()">
-		<input type="submit" value="등록하기" />
-	</a>
+    </section>   
+    	<input type="button" id="button" value="등록하기" onclick="fileUpload()"/>
     </form:form>
     
     <!-- Javascript -->
@@ -130,7 +125,7 @@
 	//<img src=""> 사용자가 업로드한 이미지 파일 경로를 src로 저장해줌(data.target.result) 
 		reader.onload = function(data) {
 	//태그 안의 속성을 입력할 수 있는 jQuery attr 메서드를 사용 
-			$('#img_' + img_count_string).attr('src', data.target.result).width(150);
+			$('#img_' + img_count_string).attr('src', data.target.result).width(150).height(150);
 		};
 		
 	//화면에 이미지를 출력해주는 FileReader 객체 인스턴스 reader.readAsDataURL();
@@ -147,12 +142,10 @@
 			
     });
     
-    //업로드 버튼 클릭
-    //var xmlReq = new XMLHttpRequest();
 	function fileUpload() {
-		
+
 		$.ajax({
-    		url:"/sell/ajax",
+    		url:"/productReg/ajax",
    			type: 'POST',
     		data: formData,
     			processData: false,
@@ -163,6 +156,8 @@
     		}); //end ajax
     		
     	formData.delete;
+    		
+    		$('#form').submit();
 	}
 
 	//pr_price
@@ -199,9 +194,12 @@
 	//delete img
 	function deleteImg(val) {
 		
+			//formData remove
+		
+			formData.delete(val);
 			console.log('deleteImg(): ' + val);
 			$('.' + val).remove();	
-		
+			
 		}
     </script>
    
