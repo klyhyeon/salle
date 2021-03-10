@@ -11,14 +11,9 @@ import org.springframework.context.support.ResourceBundleMessageSource;
 
 @SpringBootApplication
 public class SalleApplication extends SpringBootServletInitializer {
-
-	public static final String APPLICATION_LOCATION = "spring.config.location="
-			+ "classpath:application.properties,"
-			+ "classpath:db.properties";
 	
 	public static void main(String[] args) {
 		new SpringApplicationBuilder(SalleApplication.class)
-			.properties(APPLICATION_LOCATION)
 			.run(args);
 	}
 //
