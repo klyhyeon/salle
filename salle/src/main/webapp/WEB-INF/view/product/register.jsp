@@ -157,7 +157,6 @@
     		}); //end ajax
     		
     	formData.delete;
-    		submit();
 	}
 	
 	function submit() {
