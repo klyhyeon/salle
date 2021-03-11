@@ -76,7 +76,7 @@ public class ProductEditService {
 		return product;
 	}
 
-	public void imgEdit(String json, Product productTemp, String bucket) throws JSONException, IOException {
+	public void imgEdit(String json, Product productUpdate, String bucket) throws JSONException, IOException {
     	JSONObject jsn = new JSONObject(json);
     	JSONArray jsnArr = (JSONArray) jsn.get("exImgArr");
     	int length = jsnArr.length();
@@ -91,20 +91,20 @@ public class ProductEditService {
     	
     	String pr_id_str = (String) jsn.get("pr_id");
     	int pr_id = Integer.parseInt(pr_id_str);
-    	productTemp = productService.getProductInfo(pr_id);
+    	productUpdate = productService.getProductInfo(pr_id);
     	String[] prImgArr = new String[5];
     	
     	if (exImgArrLength > 0) {
-    		prImgArr[0] = productTemp.getPr_img_1(); 
-    		prImgArr[1] = productTemp.getPr_img_2();
-    		prImgArr[2] = productTemp.getPr_img_3();
-    		prImgArr[3] = productTemp.getPr_img_4();
-    		prImgArr[4] = productTemp.getPr_img_5();
-    		productTemp.setPr_img_1(null);
-    		productTemp.setPr_img_2(null);
-    		productTemp.setPr_img_3(null);
-    		productTemp.setPr_img_4(null);
-    		productTemp.setPr_img_5(null);
+    		prImgArr[0] = productUpdate.getPr_img_1(); 
+    		prImgArr[1] = productUpdate.getPr_img_2();
+    		prImgArr[2] = productUpdate.getPr_img_3();
+    		prImgArr[3] = productUpdate.getPr_img_4();
+    		prImgArr[4] = productUpdate.getPr_img_5();
+    		productUpdate.setPr_img_1(null);
+    		productUpdate.setPr_img_2(null);
+    		productUpdate.setPr_img_3(null);
+    		productUpdate.setPr_img_4(null);
+    		productUpdate.setPr_img_5(null);
     		//delete할 파일만 배열에 남겨두기 
     		for (String exImg : exImgArr) {
     			for (int j = 0; j < 5; j++) {
@@ -114,28 +114,50 @@ public class ProductEditService {
     		}
     		//남아있는 파일 setter 할당하기
     		if (exImgArrLength >= 1) 
-    			productTemp.setPr_img_1(exImgArr[0]);	    		
+    			productUpdate.setPr_img_1(exImgArr[0]);	    		
     		if (exImgArrLength >= 2) 
-    			productTemp.setPr_img_2(exImgArr[1]);	    			    		
+    			productUpdate.setPr_img_2(exImgArr[1]);	    			    		
     		if (exImgArrLength >= 3)
-    			productTemp.setPr_img_3(exImgArr[2]);	    			    		
+    			productUpdate.setPr_img_3(exImgArr[2]);	    			    		
     		if (exImgArrLength >= 4)
-    			productTemp.setPr_img_4(exImgArr[3]);	    			    		
+    			productUpdate.setPr_img_4(exImgArr[3]);	    			    		
     		if (exImgArrLength >= 5)
-    			productTemp.setPr_img_5(exImgArr[4]);
+    			productUpdate.setPr_img_5(exImgArr[4]);
     	}
     	
     	for (int i = 0; i < 5; i++) {
     		//TODO: for문 안에서 return과 continue 차이 
     		if (prImgArr[i] == null || prImgArr[i] == "")
     			continue;
+    		switch (i) {
+			case 0:
+				productService.deleteImg1(pr_id);
+				break;
+			case 1:
+				productService.deleteImg2(pr_id);
+				break;
+			case 2:
+				productService.deleteImg3(pr_id);
+				break;
+			case 3:
+				productService.deleteImg4(pr_id);
+				break;
+			case 4:
+				productService.deleteImg5(pr_id);
+				break;
+
+			default:
+				break;
+			}
     		amazonS3.deleteFile(bucket, prImgArr[i]);
     	} //delete 파일
 		
-    	insertImgEdit((HttpServletRequest)jsn.get("formData"), productTemp, bucket, exImgArrLength);
+    	log.info("Prepassing insertImgEdit");
+    	insertImgEdit((HttpServletRequest)jsn.get("formData"), productUpdate, bucket, exImgArrLength);
+    	log.info("Passing insertImgEdit");
 	}
 
-	private void insertImgEdit(HttpServletRequest httpServletRequest, Product productTemp, String bucket,
+	private void insertImgEdit(HttpServletRequest httpServletRequest, Product productUpdate, String bucket,
 			int exImgArrLength) throws IOException {
 		
 		log.info("insertImg in processing");
@@ -153,15 +175,15 @@ public class ProductEditService {
     		String fileName = dirName + "/" + ranCode;
     		
     		if (reps == 0) {
-    			productTemp.setPr_img_1(fileName);    			
+    			productUpdate.setPr_img_1(fileName);    			
     		} else if (reps == 1) {
-    			productTemp.setPr_img_2(fileName);    			
+    			productUpdate.setPr_img_2(fileName);    			
     		} else if (reps == 2) {
-    			productTemp.setPr_img_3(fileName);    			
+    			productUpdate.setPr_img_3(fileName);    			
     		} else if (reps == 3) {
-    			productTemp.setPr_img_4(fileName);    			
+    			productUpdate.setPr_img_4(fileName);    			
     		} else if (reps == 4) {
-    			productTemp.setPr_img_5(fileName);    			
+    			productUpdate.setPr_img_5(fileName);    			
     		}
 
     		reps++;
