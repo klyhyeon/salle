@@ -162,6 +162,7 @@
     		url:"/productEditImg/ajax",
    			type: 'POST',
     		data: {
+    			formData: formData,
 				exImgArr: imgExArr
     		},
     		dataType: json,

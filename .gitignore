@@ -4,3 +4,4 @@ salle/src/main/java/com/example/salle/controller/ChatApplicationController_backu
 salle/src/main/resources/aws.yml
 salle/src/main/resources/aws.properties
 salle/src/main/resources/db.properties
+salle/src/test/java/salle/ProductEditControllerTest.java
