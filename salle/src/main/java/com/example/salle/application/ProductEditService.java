@@ -8,6 +8,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.slf4j.Logger;
@@ -69,9 +70,15 @@ public class ProductEditService {
 	}
 
 	public String imgEdit(String json, Product productTemp, String bucket) throws JSONException, IOException {
-	   	log.info("json: " + json);
     	JSONObject jsn = new JSONObject(json);
-    	String[] exImgArr = (String[]) jsn.get("exImgArr");
+    	JSONArray jsnArr = (JSONArray) jsn.get("exImgArr");
+    	int length = jsnArr.length();
+    	String[] exImgArr = new String[length];
+    	
+    	for (int i = 0; i < length; i++) {
+    		exImgArr[i] = jsnArr.getString(i);
+    	}
+    	
     	int exImgArrlength = exImgArr.length;
     	log.info("exImgArr" + exImgArrlength);
     	

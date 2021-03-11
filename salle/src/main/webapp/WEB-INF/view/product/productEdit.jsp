@@ -159,6 +159,7 @@
 	function fileUpload() {
 		var imgExArr = Array.from(document.querySelectorAll('div > img'));
 		console.log("imgExArr Length: " + imgExArr.length);
+		console.log("imgExArr[0]: " + imgExArr[0]);
 		$.ajax({
     		url:"/productEditImg/ajax",
    			type: 'POST',
