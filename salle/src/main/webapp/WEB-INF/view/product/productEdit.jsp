@@ -113,7 +113,7 @@
     
     var img_count = 10;
     var formData = new FormData();
-    var pr_id = document.getElementById('pr_id');
+    var pr_id = document.getElementById('pr_id').value;
 	    
     //pr_img
 	//input 파일첨부 버튼 클릭하면 실행되는 change 메서드
