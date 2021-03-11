@@ -80,7 +80,7 @@ public class ProductEditService {
     	}
     	
     	int exImgArrlength = exImgArr.length;
-    	log.info("exImgArr" + exImgArrlength);
+    	log.info("exImgArr[0]" + exImgArr[0]);
     	
     	String pr_id_str = (String) jsn.get("pr_id");
     	int pr_id = Integer.parseInt(pr_id_str);
