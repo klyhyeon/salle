@@ -69,7 +69,7 @@ public class ProductEditService {
 	}
 
 	public String imgEdit(String json, Product productTemp, String bucket) throws JSONException, IOException {
-	   	
+	   	log.info("json: " + json);
     	JSONObject jsn = new JSONObject(json);
     	String[] exImgArr = (String[]) jsn.get("exImgArr");
     	int exImgArrlength = exImgArr.length;
