@@ -161,12 +161,17 @@
 		var imgExArr = Array.from(document.querySelectorAll('div > img'));
 		console.log("imgExArr Length: " + imgExArr.length);
 		console.log("imgExArr[0]: " + imgExArr[0]);
+		var formDataArr = {};
+		formData.foreach(function(value, key) {
+			formDataArr[key] = value;
+		})
 		$.ajax({
     		url:"/productEditImg/ajax",
    			type: 'POST',
     		data: JSON.stringify({
 				exImgArr: imgExArr,
-				pr_id: pr_id
+				pr_id: pr_id,
+				formData: formDataArr
     		}),
     			dataType: 'json',
     			contentType: 'application/json',
