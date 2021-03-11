@@ -56,7 +56,7 @@ public class ProductEditController {
 	}
 	
 
-	Product productUpdate;
+	Product productUpdate = new Product();
     @RequestMapping(value= "/productEditImg/ajax", method= RequestMethod.POST)
     public void productEditImg(@RequestBody String json) throws Exception {
     	productEditService.imgEdit(json, productUpdate, bucket);

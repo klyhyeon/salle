@@ -191,7 +191,7 @@ public class ProductEditService {
 	}
 }
 
-	public void productSave(Product product, Product productTemp,
+	public void productSave(Product product, Product productUpdate,
 			HttpSession httpSession, Errors errors) {
 		
 	   	Login loginInfo = (Login) httpSession.getAttribute("login");
@@ -199,11 +199,11 @@ public class ProductEditService {
     	product.setPr_title_alias(product.getPr_title().replaceAll("\\s", ""));
     	
     	String[] imgArr = new String[5];
-    	imgArr[0] = productTemp.getPr_img_1();
-    	imgArr[1] = productTemp.getPr_img_2();
-    	imgArr[2] = productTemp.getPr_img_3();
-    	imgArr[3] = productTemp.getPr_img_4();
-    	imgArr[4] = productTemp.getPr_img_5();
+    	imgArr[0] = productUpdate.getPr_img_1();
+    	imgArr[1] = productUpdate.getPr_img_2();
+    	imgArr[2] = productUpdate.getPr_img_3();
+    	imgArr[3] = productUpdate.getPr_img_4();
+    	imgArr[4] = productUpdate.getPr_img_5();
     	
     	product.setPr_img_1(imgArr[0]);
     	product.setPr_img_2(imgArr[1]);
