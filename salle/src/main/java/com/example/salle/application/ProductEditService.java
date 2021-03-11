@@ -76,7 +76,7 @@ public class ProductEditService {
     	String[] exImgArr = new String[length];
     	
     	for (int i = 0; i < length; i++) {
-    		exImgArr[i] = jsnArr.getString(i);
+    		exImgArr[i] = jsnArr.getJSONObject(i).toString();
     	}
     	
     	int exImgArrlength = exImgArr.length;
