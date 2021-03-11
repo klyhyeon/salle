@@ -71,7 +71,6 @@ public class ProductService implements ProductMapper {
 	}
 	
 	
-	@Override
 	public void insertImg(HttpServletRequest req, Product product_file, String bucket) throws IOException {
 		log.info("insertImg in processing");
     	MultipartHttpServletRequest multiReq = (MultipartHttpServletRequest) req;

@@ -56,13 +56,13 @@ public class ProductEditController {
 	}
 	
 
+	Product productTemp;
     @RequestMapping(value= "/productEditImg/ajax", method= RequestMethod.POST)
     public void productEditImg(@RequestBody String json) throws Exception {
     	productEditService.imgEdit(json, productTemp, bucket);
     }
 	
     
-	Product productTemp;
 	@RequestMapping(value= "/product/{pr_id}/save", method= RequestMethod.POST)
 	public String profileEditDone(@ModelAttribute("product") Product product, Errors errors,
 			HttpSession httpSession, @PathVariable("pr_id") int pr_id) {

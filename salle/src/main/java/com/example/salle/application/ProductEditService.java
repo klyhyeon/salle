@@ -3,6 +3,7 @@ package com.example.salle.application;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,9 +17,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.Errors;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.example.salle.domain.Login;
 import com.example.salle.domain.Product;
+import com.example.salle.domain.UuidImgname;
 import com.example.salle.validation.SellProductValidation;
 
 @Service
@@ -31,6 +35,9 @@ public class ProductEditService {
 	
 	@Autowired
 	AmazonS3Service amazonS3;
+	
+	@Autowired
+	UuidImgname uuidImg;
 	
 	public Product productEdit(int pr_id, List<String> imgList) {
 		
@@ -69,7 +76,7 @@ public class ProductEditService {
 		return product;
 	}
 
-	public String imgEdit(String json, Product productTemp, String bucket) throws JSONException, IOException {
+	public void imgEdit(String json, Product productTemp, String bucket) throws JSONException, IOException {
     	JSONObject jsn = new JSONObject(json);
     	JSONArray jsnArr = (JSONArray) jsn.get("exImgArr");
     	int length = jsnArr.length();
@@ -79,7 +86,7 @@ public class ProductEditService {
     		exImgArr[i] = jsnArr.getJSONObject(i).toString();
     	}
     	
-    	int exImgArrlength = exImgArr.length;
+    	int exImgArrLength = exImgArr.length;
     	log.info("exImgArr[0]" + exImgArr[0]);
     	
     	String pr_id_str = (String) jsn.get("pr_id");
@@ -87,7 +94,7 @@ public class ProductEditService {
     	productTemp = productService.getProductInfo(pr_id);
     	String[] prImgArr = new String[5];
     	
-    	if (exImgArrlength > 0) {
+    	if (exImgArrLength > 0) {
     		prImgArr[0] = productTemp.getPr_img_1(); 
     		prImgArr[1] = productTemp.getPr_img_2();
     		prImgArr[2] = productTemp.getPr_img_3();
@@ -106,15 +113,15 @@ public class ProductEditService {
     			}
     		}
     		//남아있는 파일 setter 할당하기
-    		if (exImgArrlength >= 1) 
+    		if (exImgArrLength >= 1) 
     			productTemp.setPr_img_1(exImgArr[0]);	    		
-    		if (exImgArrlength >= 2) 
+    		if (exImgArrLength >= 2) 
     			productTemp.setPr_img_2(exImgArr[1]);	    			    		
-    		if (exImgArrlength >= 3)
+    		if (exImgArrLength >= 3)
     			productTemp.setPr_img_3(exImgArr[2]);	    			    		
-    		if (exImgArrlength >= 4)
+    		if (exImgArrLength >= 4)
     			productTemp.setPr_img_4(exImgArr[3]);	    			    		
-    		if (exImgArrlength >= 5)
+    		if (exImgArrLength >= 5)
     			productTemp.setPr_img_5(exImgArr[4]);
     	}
     	
@@ -125,9 +132,42 @@ public class ProductEditService {
     		amazonS3.deleteFile(bucket, prImgArr[i]);
     	} //delete 파일
 		
-    	productService.insertImg((HttpServletRequest)jsn.get("formData"), productTemp, bucket);
-    	return prImgArr[0];
+    	insertImgEdit((HttpServletRequest)jsn.get("formData"), productTemp, bucket, exImgArrLength);
 	}
+
+	private void insertImgEdit(HttpServletRequest httpServletRequest, Product productTemp, String bucket,
+			int exImgArrLength) throws IOException {
+		
+		log.info("insertImg in processing");
+    	MultipartHttpServletRequest multiReq = (MultipartHttpServletRequest) httpServletRequest;
+    	Iterator<String> iterator = multiReq.getFileNames(); 	
+    	MultipartFile multipartFile = null;
+    	
+    	int reps = exImgArrLength;
+    	while(iterator.hasNext()) {
+    		
+    		multipartFile = multiReq.getFile(iterator.next());
+    		String fileOriname = multipartFile.getOriginalFilename();
+    		String ranCode = uuidImg.makeFilename(fileOriname);
+    		String dirName = "static/img";
+    		String fileName = dirName + "/" + ranCode;
+    		
+    		if (reps == 0) {
+    			productTemp.setPr_img_1(fileName);    			
+    		} else if (reps == 1) {
+    			productTemp.setPr_img_2(fileName);    			
+    		} else if (reps == 2) {
+    			productTemp.setPr_img_3(fileName);    			
+    		} else if (reps == 3) {
+    			productTemp.setPr_img_4(fileName);    			
+    		} else if (reps == 4) {
+    			productTemp.setPr_img_5(fileName);    			
+    		}
+
+    		reps++;
+    		amazonS3.uploadImg(bucket, fileName, multipartFile);
+	}
+}
 
 	public void productSave(Product product, Product productTemp,
 			HttpSession httpSession, Errors errors) {
@@ -160,5 +200,7 @@ public class ProductEditService {
 		String nickNameEncode = URLEncoder.encode(nickName, "UTF-8");
 		return nickNameEncode;
 	}
+	
+	
 
 }
