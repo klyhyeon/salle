@@ -157,11 +157,8 @@
     });
     
 	function fileUpload() {
-		var imgExArr = document.querySelectorAll('#pr_img');
+		var imgExArr = document.querySelectorAll('div > img');
 		console.log("imgExArr Length: " + imgExArr.length);
-		for (String ele: imgExArr) {
-			console.log("imgExArr: " + ele);
-		}
 		$.ajax({
     		url:"/productEditImg/ajax",
    			type: 'POST',
