@@ -169,8 +169,7 @@
 				pr_id: pr_id
     		}),
     			dataType: 'json',
-    			processData: false,
-    			contentType: false,
+    			contentType: 'application/json',
     			success: function(data) {
     				console.log('jQuery ajax form submit success');
     				}
