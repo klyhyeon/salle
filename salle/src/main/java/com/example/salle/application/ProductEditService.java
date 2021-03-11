@@ -68,7 +68,7 @@ public class ProductEditService {
 		return product;
 	}
 
-	public void imgEdit(String json, Product productTemp, String bucket) throws JSONException, IOException {
+	public String imgEdit(String json, Product productTemp, String bucket) throws JSONException, IOException {
 	   	
     	JSONObject jsn = new JSONObject(json);
     	String[] exImgArr = (String[]) jsn.get("exImgArr");
@@ -119,6 +119,7 @@ public class ProductEditService {
     	} //delete 파일
 		
     	productService.insertImg((HttpServletRequest)jsn.get("formData"), productTemp, bucket);
+    	return prImgArr[0];
 	}
 
 	public void productSave(Product product, Product productTemp,
