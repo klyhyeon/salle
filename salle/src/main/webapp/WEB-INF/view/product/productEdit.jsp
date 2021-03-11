@@ -162,9 +162,10 @@
 		$.ajax({
     		url:"/productEditImg/ajax",
    			type: 'POST',
-    		data: {
+    		data: JSON.stringify({
 				exImgArr: imgExArr
-    		},
+    		}),
+    			dataType: 'json',
     			processData: false,
     			contentType: false,
     			success: function(data) {
