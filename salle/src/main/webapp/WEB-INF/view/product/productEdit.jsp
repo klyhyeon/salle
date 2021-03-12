@@ -162,9 +162,9 @@
 		console.log("imgExArr Length: " + imgExArr.length);
 		console.log("imgExArr[0]: " + imgExArr[0]);
 		var formDataArr = {};
-		formData.foreach(function(value, key) {
-			formDataArr[key] = value;
-		})
+		var idx = 0;
+		formData.foreach((value, key) => formDataArr[0] = value); 
+
 		$.ajax({
     		url:"/productEditImg/ajax",
    			type: 'POST',

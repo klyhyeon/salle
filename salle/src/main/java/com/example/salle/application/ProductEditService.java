@@ -153,15 +153,14 @@ public class ProductEditService {
     	} //delete 파일
 		
     	log.info("Prepassing insertImgEdit");
-    	insertImgEdit((HttpServletRequest)jsn.get("formData"), productUpdate, bucket, exImgArrLength);
+    	insertImgEdit((MultipartHttpServletRequest)jsn.get("formData"), productUpdate, bucket, exImgArrLength);
     	log.info("Passing insertImgEdit");
 	}
 
-	private void insertImgEdit(HttpServletRequest httpServletRequest, Product productUpdate, String bucket,
+	private void insertImgEdit(MultipartHttpServletRequest multiReq, Product productUpdate, String bucket,
 			int exImgArrLength) throws IOException {
 		
-		log.info("insertImg in processing");
-    	MultipartHttpServletRequest multiReq = (MultipartHttpServletRequest) httpServletRequest;
+		log.info("insertImgEdit in processing");
     	Iterator<String> iterator = multiReq.getFileNames(); 	
     	MultipartFile multipartFile = null;
     	
