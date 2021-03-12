@@ -161,19 +161,20 @@
    				exImgArr: imgExArr,
    				pr_id: pr_id
    			}),
-    		dataType: 'json',
-    			contentType: 'application/json',
-    			success: function(data) {
+    		dataType: "json",
+    		contentType: "application/json",
+    		processData: false,
+    			success: function() {
     				console.log('jQuery ajax form submit success');
     				$.ajax({
     					url:"/productEditImg/ajax",
     					type:"POST",
     					data: formData,
-    					contentType: false,
+    					processData: false,
     					success: function() {
     						console.log("formData ajax submit success");
     					}
-    				})
+    				});
     			}
     		}); //end ajax		
     	formData.delete;
