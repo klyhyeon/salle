@@ -1,22 +1,22 @@
 package com.example.salle.application;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.Errors;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.example.salle.domain.Login;
 import com.example.salle.domain.Product;
@@ -74,20 +74,13 @@ public class ProductEditService {
 		return product;
 	}
 
-	public void imgEdit(String json, Product productUpdate, String bucket) throws JSONException, IOException {
-    	JSONObject jsn = new JSONObject(json);
-    	JSONArray jsnArr = (JSONArray) jsn.get("exImgArr");
-    	int length = jsnArr.length();
-    	String[] exImgArr = new String[length];
-    	
-    	for (int i = 0; i < length; i++) {
-    		exImgArr[i] = jsnArr.getJSONObject(i).toString();
-    	}
-    	
+	
+	public void imgEdit(HttpServletRequest http, Product productUpdate, String bucket) throws JSONException, IOException {
+		String[] exImgArr = (String[]) http.getAttribute("exImgArr");
+    	int length = exImgArr.length;
     	int exImgArrLength = exImgArr.length;
     	log.info("exImgArr[0]" + exImgArr[0]);
-    	
-    	String pr_id_str = (String) jsn.get("pr_id");
+    	String pr_id_str = (String) http.getAttribute("pr_id");
     	int pr_id = Integer.parseInt(pr_id_str);
     	productUpdate = productService.getProductInfo(pr_id);
     	String[] prImgArr = new String[5];
@@ -143,28 +136,28 @@ public class ProductEditService {
 			case 4:
 				productService.deleteImg5(pr_id);
 				break;
-
 			default:
 				break;
 			}
     		amazonS3.deleteFile(bucket, prImgArr[i]);
     	} //delete 파일
-		
     	log.info("Prepassing insertImgEdit");
-    	insertImgEdit((ArrayList<File>)jsn.get("formData"), productUpdate, bucket, exImgArrLength);
+    	insertImgEdit(http, productUpdate, bucket, exImgArrLength);
     	log.info("Passing insertImgEdit");
 	}
+	
 
-	private void insertImgEdit(ArrayList<File> fileList, Product productUpdate, String bucket,
+	private void insertImgEdit(HttpServletRequest http, Product productUpdate, String bucket,
 			int exImgArrLength) throws IOException {
-		
 		log.info("insertImgEdit in processing");
-    	
+    	MultipartHttpServletRequest multiReq = (MultipartHttpServletRequest) http;
+    	Iterator<String> iterator = multiReq.getFileNames(); 	
+    	MultipartFile multipartFile = null;
     	int reps = exImgArrLength;
     	int idx = 0;
-    	for (File file : fileList) {
-    		
-    		String fileOriname = file.getName();
+    	while (iterator.hasNext()) {
+    		multipartFile = multiReq.getFile(iterator.next());
+    		String fileOriname = multipartFile.getOriginalFilename();
     		String ranCode = uuidImg.makeFilename(fileOriname);
     		String dirName = "static/img";
     		String fileName = dirName + "/" + ranCode;
@@ -180,9 +173,8 @@ public class ProductEditService {
     		} else if (reps == 4) {
     			productUpdate.setPr_img_5(fileName);    			
     		}
-
     		reps++;
-    		amazonS3.uploadImgDirect(bucket, fileName, file);
+    		amazonS3.uploadImg(bucket, fileName, multipartFile);
 	}
 }
 

@@ -4,6 +4,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.json.JSONObject;
@@ -58,8 +59,8 @@ public class ProductEditController {
 
 	Product productUpdate = new Product();
     @RequestMapping(value= "/productEditImg/ajax", method= RequestMethod.POST)
-    public void productEditImg(@RequestBody String json) throws Exception {
-    	productEditService.imgEdit(json, productUpdate, bucket);
+    public void productEditImg(HttpServletRequest http) throws Exception {
+    	productEditService.imgEdit(http, productUpdate, bucket);
     }
 	
     
