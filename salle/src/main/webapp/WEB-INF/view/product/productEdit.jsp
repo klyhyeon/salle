@@ -163,7 +163,9 @@
 		console.log("imgExArr[0]: " + imgExArr[0]);
 		var formDataArr = {};
 		var idx = 0;
-		formData.foreach((value, key) => formDataArr[0] = value); 
+		for (var value of formData.values()) {
+			formDataArr[idx] = value;			
+		}
 
 		$.ajax({
     		url:"/productEditImg/ajax",
