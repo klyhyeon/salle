@@ -181,10 +181,7 @@
     	var xhttp = new XMLHttpRequest();
     	xhttp.open("POST", "/productEdit/ajax", true);
     	xhttp.setRequestHeader("Content-Type", "application/json");
-    	xhttp.send(JSON.stringify({
-    		exImgArr: imgExArr,
-    		pr_id: pr_id
-    	}));
+    	xhttp.send("testing");
     	
     	formData.delete;
 	}
