@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.example.salle.application.ProductEditService;
 import com.example.salle.application.ProductService;
@@ -60,8 +61,9 @@ public class ProductEditController {
 	Product productUpdate = new Product();
 	int exImgCnt = 0;
     @RequestMapping(value= "/productEdit/ajax", method= RequestMethod.POST)
-    public void productEdit(@RequestBody String json) throws Exception {
-    	exImgCnt = productEditService.imgEdit(json, productUpdate, bucket);
+    public void productEdit(@RequestBody String test) throws Exception {
+    	//exImgCnt = productEditService.imgEdit(json, productUpdate, bucket);
+    	System.out.println("test");
     }
 
     @RequestMapping(value= "/productEditImg/ajax", method= RequestMethod.POST)
