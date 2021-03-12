@@ -166,6 +166,7 @@
 		for (var value of formData.values()) {
 			formDataArr[idx] = value;			
 		}
+		console.log("formData: " + formDataArr[0]);
 
 		$.ajax({
     		url:"/productEditImg/ajax",
