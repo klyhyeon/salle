@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.example.salle.application.ProductEditService;
@@ -66,7 +67,12 @@ public class ProductEditController {
     	//exImgCnt = productEditService.imgEdit(json, productUpdate, bucket);
     	MultipartHttpServletRequest multiReq = (MultipartHttpServletRequest) req;
     	Iterator<String> itr = multiReq.getFileNames();
-    	System.out.println(itr.next());
+    	MultipartFile multiFile = null;
+    	while(itr.hasNext()) {
+    		multiFile = multiReq.getFile(itr.next());
+    		String tmpName = multiFile.getOriginalFilename();
+    		System.out.println(tmpName);
+    	}
     }
 
     @RequestMapping(value= "/productEditImg/ajax", method= RequestMethod.POST)
