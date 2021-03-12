@@ -2,6 +2,7 @@ package com.example.salle.controller;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -61,9 +62,11 @@ public class ProductEditController {
 	Product productUpdate = new Product();
 	int exImgCnt = 0;
     @RequestMapping(value= "/productEdit/ajax", method= RequestMethod.POST)
-    public void productEdit(@RequestBody String[] imgExArr) throws Exception {
+    public void productEdit(HttpServletRequest req) throws Exception {
     	//exImgCnt = productEditService.imgEdit(json, productUpdate, bucket);
-    	System.out.println("imgExArr"  + imgExArr[0]);
+    	MultipartHttpServletRequest multiReq = (MultipartHttpServletRequest) req;
+    	Iterator<String> itr = multiReq.getFileNames();
+    	System.out.println(itr.next());
     }
 
     @RequestMapping(value= "/productEditImg/ajax", method= RequestMethod.POST)

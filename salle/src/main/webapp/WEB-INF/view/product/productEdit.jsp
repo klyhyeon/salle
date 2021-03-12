@@ -180,11 +180,11 @@
     		}); //end ajax --%>
     	var xhttp = new XMLHttpRequest();
     	xhttp.open("POST", "/productEdit/ajax", true);
-    	xhttp.setRequestHeader("Content-Type", "application/json");
+    	//xhttp.setRequestHeader("Content-Type", "application/json");
     	xhttp.onload = function() {
     		console.log("status" + xhttp.status);
     	}
-    	xhttp.send(imgExArr);
+    	xhttp.send(formData);
     	
     	formData.delete;
 	}
