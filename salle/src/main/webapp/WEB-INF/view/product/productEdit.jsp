@@ -159,8 +159,8 @@
     
 	function fileUpload() {
 		var imgExArr = Array.from(document.querySelectorAll('div > img'));
-		formData.append("imgExArr", imgExArr);
-		formData.append("pr_id", pr_id);
+		formData.append("imgExArr", JSON.stringify({imgExArr: imgExArr});
+		formData.append("pr_id", JSON.stringify({pr_id: pr_id});
 		
 		$.ajax({
     		url:"/productEditImg/ajax",
