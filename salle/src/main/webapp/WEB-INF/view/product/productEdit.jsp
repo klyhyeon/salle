@@ -178,6 +178,8 @@
     				});
     			}
     		}); //end ajax --%>
+    		formData.append("imgExArr", imgExArr);
+    		formData.append("pr_id", pr_id);
     	var xhttp = new XMLHttpRequest();
     	xhttp.open("POST", "/productEdit/ajax", true);
     	//xhttp.setRequestHeader("Content-Type", "application/json");
