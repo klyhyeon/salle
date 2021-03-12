@@ -3,13 +3,16 @@ package com.example.salle.application;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,17 +78,23 @@ public class ProductEditService {
 	}
 
 	
-	public void imgEdit(HttpServletRequest http, Product productUpdate, String bucket) throws JSONException, IOException {
-		String[] exImgArr = (String[]) http.getAttribute("exImgArr");
-    	int length = exImgArr.length;
-    	int exImgArrLength = exImgArr.length;
-    	log.info("exImgArr[0]" + exImgArr[0]);
-    	String pr_id_str = (String) http.getAttribute("pr_id");
+	public int imgEdit(String json, Product productUpdate, String bucket) throws JSONException, IOException {
+		JSONObject jsn = new JSONObject(json);
+		JSONArray jsonArr = (JSONArray) jsn.get("exImgArr");
+		int length = jsonArr.length();
+		ArrayList<String> exImgArr = new ArrayList<>();
+		if (length != 0) { 
+	    	for (int i = 0; i < length; i++) {
+	    		exImgArr.add(jsonArr.getJSONObject(i).toString());
+	    	}
+		}
+
+    	String pr_id_str = (String) jsn.get("pr_id");
     	int pr_id = Integer.parseInt(pr_id_str);
     	productUpdate = productService.getProductInfo(pr_id);
     	String[] prImgArr = new String[5];
     	
-    	if (exImgArrLength > 0) {
+    	if (length > 0) {
     		prImgArr[0] = productUpdate.getPr_img_1(); 
     		prImgArr[1] = productUpdate.getPr_img_2();
     		prImgArr[2] = productUpdate.getPr_img_3();
@@ -104,20 +113,19 @@ public class ProductEditService {
     			}
     		}
     		//남아있는 파일 setter 할당하기
-    		if (exImgArrLength >= 1) 
-    			productUpdate.setPr_img_1(exImgArr[0]);	    		
-    		if (exImgArrLength >= 2) 
-    			productUpdate.setPr_img_2(exImgArr[1]);	    			    		
-    		if (exImgArrLength >= 3)
-    			productUpdate.setPr_img_3(exImgArr[2]);	    			    		
-    		if (exImgArrLength >= 4)
-    			productUpdate.setPr_img_4(exImgArr[3]);	    			    		
-    		if (exImgArrLength >= 5)
-    			productUpdate.setPr_img_5(exImgArr[4]);
+    		if (length >= 1) 
+    			productUpdate.setPr_img_1(exImgArr.get(0));	    		
+    		if (length >= 2) 
+    			productUpdate.setPr_img_2(exImgArr.get(1));	    			    		
+    		if (length >= 3)
+    			productUpdate.setPr_img_3(exImgArr.get(2));	    			    		
+    		if (length >= 4)
+    			productUpdate.setPr_img_4(exImgArr.get(3));	    			    		
+    		if (length >= 5)
+    			productUpdate.setPr_img_5(exImgArr.get(4));
     	}
     	
-    	for (int i = 0; i < 5; i++) {
-    		//TODO: for문 안에서 return과 continue 차이 
+    	for (int i = 0; i < 5; i++) { 
     		if (prImgArr[i] == null || prImgArr[i] == "")
     			continue;
     		switch (i) {
@@ -141,20 +149,18 @@ public class ProductEditService {
 			}
     		amazonS3.deleteFile(bucket, prImgArr[i]);
     	} //delete 파일
-    	log.info("Prepassing insertImgEdit");
-    	insertImgEdit(http, productUpdate, bucket, exImgArrLength);
-    	log.info("Passing insertImgEdit");
+
+    	return length;
 	}
 	
 
-	private void insertImgEdit(HttpServletRequest http, Product productUpdate, String bucket,
-			int exImgArrLength) throws IOException {
+	public void imgEditUpload(HttpServletRequest req, Product productUpdate, String bucket,
+			int exImgCnt) throws IOException {
 		log.info("insertImgEdit in processing");
-    	MultipartHttpServletRequest multiReq = (MultipartHttpServletRequest) http;
+    	MultipartHttpServletRequest multiReq = (MultipartHttpServletRequest) req;
     	Iterator<String> iterator = multiReq.getFileNames(); 	
     	MultipartFile multipartFile = null;
-    	int reps = exImgArrLength;
-    	int idx = 0;
+    	int reps = exImgCnt;
     	while (iterator.hasNext()) {
     		multipartFile = multiReq.getFile(iterator.next());
     		String fileOriname = multipartFile.getOriginalFilename();

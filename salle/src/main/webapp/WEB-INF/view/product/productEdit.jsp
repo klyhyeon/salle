@@ -136,12 +136,6 @@
 			$('#img_' + img_count_string).attr('src', data.target.result).width(150).height(150);
 		};
 		
-	/*
-    	<div class="pr_img_${loop.index}" id="${img}">
-   		<button type="button" class="button_img" value="pr_img_${loop.index}" onclick="deleteImg(this.value)"></button>
-   		</a>
-   		</div>
-	*/
 		
 	//화면에 이미지를 출력해주는 FileReader 객체 인스턴스 reader.readAsDataURL();
 	//this.files는 <input type="file">을 통해 업로드한 파일의 정보를 저장하고 있는 배열이다.
@@ -159,17 +153,28 @@
     
 	function fileUpload() {
 		var imgExArr = Array.from(document.querySelectorAll('div > img'));
-		formData.append("imgExArr", JSON.stringify({imgExArr: imgExArr});
-		formData.append("pr_id", JSON.stringify({pr_id: pr_id});
 		
 		$.ajax({
-    		url:"/productEditImg/ajax",
+    		url:"/productEdit/ajax",
    			type: 'POST',
-    		data: formData,
-    			contentType: false,
+   			data: JSON.stringify({
+   				exImgArr: imgExArr,
+   				pr_id: pr_id
+   			}),
+    		dataType: 'json',
+    			contentType: 'application/json',
     			success: function(data) {
     				console.log('jQuery ajax form submit success');
-    				}
+    				$.ajax({
+    					url:"/productEditImg/ajax",
+    					type:"POST",
+    					data: formData,
+    					contentType: false,
+    					success: function() {
+    						console.log("formData ajax submit success");
+    					}
+    				})
+    			}
     		}); //end ajax		
     	formData.delete;
 	}
