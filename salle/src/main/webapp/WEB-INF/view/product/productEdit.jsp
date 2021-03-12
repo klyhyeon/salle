@@ -14,8 +14,7 @@
 	<!-- CSS -->
 	<link rel="stylesheet" href="/resources/css/productEdit.css">
 	<!-- jQuery -->
-	<script src="https://code.jquery.com/jquery-3.5.1.js">
-	</script>
+
 
 </head>
 <body>
@@ -109,6 +108,8 @@
     <!-- Daum 주소 api -->
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js">
     </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.js">
+	</script>
     <script type="text/javascript">
     
     var img_count = 10;
@@ -153,7 +154,7 @@
     
 	function fileUpload() {
 		var imgExArr = Array.from(document.querySelectorAll('div > img'));
-		
+		<%--
 		$.ajax({
     		url:"/productEdit/ajax",
    			type: 'POST',
@@ -176,7 +177,15 @@
     					}
     				});
     			}
-    		}); //end ajax		
+    		}); //end ajax --%>
+    	var xhttp = new XMLHttpRequest();
+    	xhttp.open("POST", "/productEdit/ajax", true);
+    	xhttp.setRequestHeader("Content-Type", "application/json");
+    	xhttp.send(JSON.stringify({
+    		exImgArr: imgExArr,
+    		pr_id: pr_id
+    	}));
+    	
     	formData.delete;
 	}
 	
