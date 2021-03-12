@@ -1,12 +1,12 @@
 package com.example.salle.application;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.util.Iterator;
+import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.json.JSONArray;
@@ -17,8 +17,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.Errors;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.example.salle.domain.Login;
 import com.example.salle.domain.Product;
@@ -153,22 +151,20 @@ public class ProductEditService {
     	} //delete 파일
 		
     	log.info("Prepassing insertImgEdit");
-    	insertImgEdit((MultipartHttpServletRequest)jsn.get("formData"), productUpdate, bucket, exImgArrLength);
+    	insertImgEdit((ArrayList<File>)jsn.get("formData"), productUpdate, bucket, exImgArrLength);
     	log.info("Passing insertImgEdit");
 	}
 
-	private void insertImgEdit(MultipartHttpServletRequest multiReq, Product productUpdate, String bucket,
+	private void insertImgEdit(ArrayList<File> fileList, Product productUpdate, String bucket,
 			int exImgArrLength) throws IOException {
 		
 		log.info("insertImgEdit in processing");
-    	Iterator<String> iterator = multiReq.getFileNames(); 	
-    	MultipartFile multipartFile = null;
     	
     	int reps = exImgArrLength;
-    	while(iterator.hasNext()) {
+    	int idx = 0;
+    	for (File file : fileList) {
     		
-    		multipartFile = multiReq.getFile(iterator.next());
-    		String fileOriname = multipartFile.getOriginalFilename();
+    		String fileOriname = file.getName();
     		String ranCode = uuidImg.makeFilename(fileOriname);
     		String dirName = "static/img";
     		String fileName = dirName + "/" + ranCode;
@@ -186,7 +182,7 @@ public class ProductEditService {
     		}
 
     		reps++;
-    		amazonS3.uploadImg(bucket, fileName, multipartFile);
+    		amazonS3.uploadImgDirect(bucket, fileName, file);
 	}
 }
 

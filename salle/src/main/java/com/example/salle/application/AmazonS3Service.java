@@ -38,6 +38,11 @@ public class AmazonS3Service {
 		amazonS3.putObject(new PutObjectRequest(bucket, fileName, uploadFile).withCannedAcl(CannedAccessControlList.PublicRead));
 		return "uploadS3 success";
 	}
+
+	public String uploadImgDirect(String bucket, String fileName, File file) throws IOException {
+		amazonS3.putObject(new PutObjectRequest(bucket, fileName, file).withCannedAcl(CannedAccessControlList.PublicRead));
+		return "uploadS3 success";
+	}
 	
 	
 	public File convert(MultipartFile multiFile) throws IOException {
