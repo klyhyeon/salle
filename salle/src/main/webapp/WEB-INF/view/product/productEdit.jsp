@@ -159,6 +159,7 @@
 		var imgExSrcArr = new Array(); 
 		for (var i = 0; i < imgExArr.length; i++) {
 			imgExSrcArr.push(imgExArr[i].src);
+			console.log("imgEx: " + imgExArr[i].src);
 		}
     		formData.append("imgExArr", imgExSrcArr);
     		formData.append("pr_id", pr_id);
