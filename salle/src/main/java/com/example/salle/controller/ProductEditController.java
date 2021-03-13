@@ -65,28 +65,7 @@ public class ProductEditController {
     @RequestMapping(value= "/productEdit/ajax", method= RequestMethod.POST)
     public void productEdit(HttpServletRequest req) throws Exception {
     	//exImgCnt = productEditService.imgEdit(json, productUpdate, bucket);
-    	String pr_id = req.getParameter("pr_id");
-    	String[] exImgArr = req.getParameterValues("imgExArr");
-    	byte[] bytes;
-    	for (int i = 0; i < exImgArr.length; i++) {
-    		bytes = exImgArr[i].getBytes();
-    		exImgArr[i] = new String(bytes, "UTF-8");
-    	}
-    	System.out.println(exImgArr[0]);
-    	
-    	MultipartHttpServletRequest multiReq = (MultipartHttpServletRequest) req;
-    	Iterator<String> itr = multiReq.getFileNames();
-    	MultipartFile multiFile = null;
-    	while(itr.hasNext()) {
-    		multiFile = multiReq.getFile(itr.next());
-    		String tmpName = multiFile.getOriginalFilename();
-    		//System.out.println(tmpName);
-    	}
-    }
-
-    @RequestMapping(value= "/productEditImg/ajax", method= RequestMethod.POST)
-    public void productEditImg(HttpServletRequest req) throws Exception {
-    	productEditService.imgEditUpload(req, productUpdate, bucket, exImgCnt);
+    	productEditService.imgEdit(req, productUpdate, bucket);
     }
 	
     

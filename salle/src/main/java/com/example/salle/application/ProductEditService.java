@@ -78,18 +78,27 @@ public class ProductEditService {
 	}
 
 	
-	public int imgEdit(String json, Product productUpdate, String bucket) throws JSONException, IOException {
-		JSONObject jsn = new JSONObject(json);
-		JSONArray jsonArr = (JSONArray) jsn.get("exImgArr");
-		int length = jsonArr.length();
-		ArrayList<String> exImgArr = new ArrayList<>();
-		if (length != 0) { 
-	    	for (int i = 0; i < length; i++) {
-	    		exImgArr.add(jsonArr.getJSONObject(i).toString());
-	    	}
-		}
-
-    	String pr_id_str = (String) jsn.get("pr_id");
+	public int imgEdit(HttpServletRequest req, Product productUpdate, String bucket) throws JSONException, IOException {
+		log.info("insertImgEdit in processing");
+		String pr_id_str = req.getParameter("pr_id");
+    	String[] exImgArr = req.getParameterValues("imgExArr");
+    	int length = exImgArr.length;
+    	byte[] bytes;
+    	for (int i = 0; i < exImgArr.length; i++) {
+    		bytes = exImgArr[i].getBytes();
+    		exImgArr[i] = new String(bytes, "UTF-8");
+    	}
+    	System.out.println(exImgArr[0]);
+    	
+    	MultipartHttpServletRequest multiReq = (MultipartHttpServletRequest) req;
+    	Iterator<String> itr = multiReq.getFileNames();
+    	MultipartFile multiFile = null;
+    	while(itr.hasNext()) {
+    		multiFile = multiReq.getFile(itr.next());
+    		String tmpName = multiFile.getOriginalFilename();
+    		//System.out.println(tmpName);
+    	}
+		
     	int pr_id = Integer.parseInt(pr_id_str);
     	productUpdate = productService.getProductInfo(pr_id);
     	String[] prImgArr = new String[5];
@@ -114,15 +123,15 @@ public class ProductEditService {
     		}
     		//남아있는 파일 setter 할당하기
     		if (length >= 1) 
-    			productUpdate.setPr_img_1(exImgArr.get(0));	    		
+    			productUpdate.setPr_img_1(exImgArr[0]);	    		
     		if (length >= 2) 
-    			productUpdate.setPr_img_2(exImgArr.get(1));	    			    		
+    			productUpdate.setPr_img_2(exImgArr[1]);	    			    		
     		if (length >= 3)
-    			productUpdate.setPr_img_3(exImgArr.get(2));	    			    		
+    			productUpdate.setPr_img_3(exImgArr[2]);	    			    		
     		if (length >= 4)
-    			productUpdate.setPr_img_4(exImgArr.get(3));	    			    		
+    			productUpdate.setPr_img_4(exImgArr[3]);	    			    		
     		if (length >= 5)
-    			productUpdate.setPr_img_5(exImgArr.get(4));
+    			productUpdate.setPr_img_5(exImgArr[4]);
     	}
     	
     	for (int i = 0; i < 5; i++) { 
