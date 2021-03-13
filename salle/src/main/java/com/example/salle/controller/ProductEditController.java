@@ -74,7 +74,7 @@ public class ProductEditController {
     	while(itr.hasNext()) {
     		multiFile = multiReq.getFile(itr.next());
     		String tmpName = multiFile.getOriginalFilename();
-    		System.out.println(tmpName);
+    		//System.out.println(tmpName);
     	}
     }
 
