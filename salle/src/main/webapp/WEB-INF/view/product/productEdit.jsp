@@ -154,30 +154,7 @@
     
 	function fileUpload() {
 		var imgExArr = Array.from(document.querySelectorAll('div > img'));
-		<%--
-		$.ajax({
-    		url:"/productEdit/ajax",
-   			type: 'POST',
-   			data: JSON.stringify({
-   				exImgArr: imgExArr,
-   				pr_id: pr_id
-   			}),
-    		dataType: "json",
-    		contentType: "application/json",
-    		processData: false,
-    			success: function() {
-    				console.log('jQuery ajax form submit success');
-    				$.ajax({
-    					url:"/productEditImg/ajax",
-    					type:"POST",
-    					data: formData,
-    					processData: false,
-    					success: function() {
-    						console.log("formData ajax submit success");
-    					}
-    				});
-    			}
-    		}); //end ajax --%>
+
     		formData.append("imgExArr", imgExArr);
     		formData.append("pr_id", pr_id);
     	var xhttp = new XMLHttpRequest();
