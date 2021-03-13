@@ -156,7 +156,7 @@
 		var imgExArr = Array.from(document.querySelectorAll('div > img'));
 		if (imgExArr.length == 0)
 			return;
-		var imgExSrcArr = {}; 
+		var imgExSrcArr = new Array(); 
 		for (var i = 0; i < imgExArr.length; i++) {
 			imgExSrcArr.push(imgExArr[i].src);
 		}
