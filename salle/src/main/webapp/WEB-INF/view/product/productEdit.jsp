@@ -29,14 +29,14 @@
     		<label for="img"><h2>상품 이미지</h2></label>
     	</p>
 	    	<input type="file" id="img" name="pr_img_files"/>	    	
-	        	<div class="wrap_pr_img">
-		    	<c:forEach var="img" items="${imgList}" varStatus="loop">			
-			    	<div class="pr_img_${loop.index}" id="imgEx">
-			    		<img id="pr_img" src="https://sallestorage.s3.ap-northeast-2.amazonaws.com/${img}" width="150px" height="150px"/>
-			    		<button type="button" class="button_img" value="pr_img_${loop.index}" onclick="deleteImgEx(this.value)"></button>
-			    	</div>
-		    	</c:forEach>
-    	</div>
+		        <div class="wrap_pr_img">
+			    	<c:forEach var="img" items="${imgList}" varStatus="loop">			
+				    	<div class="pr_img_${loop.index}" id="imgEx">
+				    		<img id="pr_img_ex" src="https://sallestorage.s3.ap-northeast-2.amazonaws.com/${img}" width="150px" height="150px"/>
+				    		<button type="button" class="button_img" value="pr_img_${loop.index}" onclick="deleteImgEx(this.value)"></button>
+				    	</div>
+			    	</c:forEach>
+	    		</div>
 	    <form:errors id="errors" path="pr_img_1"/>
 	    <p></p>
 	    <p></p>
@@ -153,7 +153,7 @@
     });
     
 	function fileUpload() {
-		var imgExArr = Array.from(document.querySelectorAll('div > img'));
+		var imgExArr = Array.from(document.querySelectorAll("#pr_img_ex"));
 		if (imgExArr.length == 0)
 			return;
 		var imgExSrcArr = new Array(); 
