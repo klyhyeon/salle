@@ -154,8 +154,13 @@
     
 	function fileUpload() {
 		var imgExArr = Array.from(document.querySelectorAll('div > img'));
-
-    		formData.append("imgExArr", imgExArr);
+		if (imgExArr.length == 0)
+			return;
+		var imgExSrcArr = {}; 
+		for (var i = 0; i < imgExArr.length; i++) {
+			imgExSrcArr.push(imgExArr[i].src);
+		}
+    		formData.append("imgExArr", imgExSrcArr);
     		formData.append("pr_id", pr_id);
     	var xhttp = new XMLHttpRequest();
     	xhttp.open("POST", "/productEdit/ajax", true);
