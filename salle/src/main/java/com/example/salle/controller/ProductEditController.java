@@ -66,7 +66,8 @@ public class ProductEditController {
     public void productEdit(HttpServletRequest req) throws Exception {
     	//exImgCnt = productEditService.imgEdit(json, productUpdate, bucket);
     	String pr_id = req.getParameter("pr_id");
-    	System.out.println(pr_id);
+    	String[] exImgArr = req.getParameterValues("exImgArr");
+    	System.out.println(exImgArr);
     	MultipartHttpServletRequest multiReq = (MultipartHttpServletRequest) req;
     	Iterator<String> itr = multiReq.getFileNames();
     	MultipartFile multiFile = null;
