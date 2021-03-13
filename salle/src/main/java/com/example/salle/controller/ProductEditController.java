@@ -67,7 +67,13 @@ public class ProductEditController {
     	//exImgCnt = productEditService.imgEdit(json, productUpdate, bucket);
     	String pr_id = req.getParameter("pr_id");
     	String[] exImgArr = req.getParameterValues("imgExArr");
+    	byte[] bytes;
+    	for (int i = 0; i < exImgArr.length; i++) {
+    		bytes = exImgArr[i].getBytes();
+    		exImgArr[i] = new String(bytes, "UTF-8");
+    	}
     	System.out.println(exImgArr[0]);
+    	
     	MultipartHttpServletRequest multiReq = (MultipartHttpServletRequest) req;
     	Iterator<String> itr = multiReq.getFileNames();
     	MultipartFile multiFile = null;
