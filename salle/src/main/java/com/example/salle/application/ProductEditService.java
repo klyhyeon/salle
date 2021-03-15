@@ -6,6 +6,7 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -80,37 +81,42 @@ public class ProductEditService {
 	
 	public void imgEdit(HttpServletRequest req, Product productUpdate, String bucket) throws JSONException, IOException {
 		log.info("insertEdit in processing");
+		Optional<String[]> exImgArrOpt = Optional.ofNullable(req.getParameterValues("imgExArr")); 
+		String[] exImgArr = exImgArrOpt.orElse(null);
+		int length = 0;
+		if (exImgArr != null) {
+	    	length = exImgArr.length;
+	    	byte[] bytes;
+	    	for (int i = 0; i < exImgArr.length; i++) {
+	    		bytes = exImgArr[i].getBytes();
+	    		exImgArr[i] = new String(bytes, "UTF-8");
+	    	}
+	    	System.out.println(exImgArr[0]);
+		}
 		String pr_id_str = req.getParameter("pr_id");
-    	String[] exImgArr = req.getParameterValues("imgExArr");
-    	int length = exImgArr.length;
-    	byte[] bytes;
-    	for (int i = 0; i < exImgArr.length; i++) {
-    		bytes = exImgArr[i].getBytes();
-    		exImgArr[i] = new String(bytes, "UTF-8");
-    	}
-    	System.out.println(exImgArr[0]);
     	int pr_id = Integer.parseInt(pr_id_str);
     	productUpdate = productService.getProductInfo(pr_id);
     	String[] prImgArr = new String[5];
-    	
-    	if (length > 0) {
-    		prImgArr[0] = productUpdate.getPr_img_1(); 
-    		prImgArr[1] = productUpdate.getPr_img_2();
-    		prImgArr[2] = productUpdate.getPr_img_3();
-    		prImgArr[3] = productUpdate.getPr_img_4();
-    		prImgArr[4] = productUpdate.getPr_img_5();
-    		productUpdate.setPr_img_1(null);
-    		productUpdate.setPr_img_2(null);
-    		productUpdate.setPr_img_3(null);
-    		productUpdate.setPr_img_4(null);
-    		productUpdate.setPr_img_5(null);
-    		//delete할 파일만 배열에 남겨두기 
-    		for (String exImg : exImgArr) {
-    			for (int j = 0; j < 5; j++) {
-    				if (exImg.equals(prImgArr[j]))
-    					prImgArr[j] = null;
-    			}
-    		}
+		prImgArr[0] = productUpdate.getPr_img_1(); 
+		prImgArr[1] = productUpdate.getPr_img_2();
+		prImgArr[2] = productUpdate.getPr_img_3();
+		prImgArr[3] = productUpdate.getPr_img_4();
+		prImgArr[4] = productUpdate.getPr_img_5();
+		productUpdate.setPr_img_1(null);
+		productUpdate.setPr_img_2(null);
+		productUpdate.setPr_img_3(null);
+		productUpdate.setPr_img_4(null);
+		productUpdate.setPr_img_5(null);
+		//delete할 파일만 배열에 남겨두기
+		
+		if (exImgArr != null) {
+			length = exImgArr.length; 
+			for (String exImg : exImgArr) {
+				for (int j = 0; j < 5; j++) {
+					if (exImg.equals(prImgArr[j]))
+						prImgArr[j] = null;
+				}
+			}
     		//남아있는 파일 setter 할당하기
     		if (length >= 1) 
     			productUpdate.setPr_img_1(exImgArr[0]);	    		
@@ -122,7 +128,13 @@ public class ProductEditService {
     			productUpdate.setPr_img_4(exImgArr[3]);	    			    		
     		if (length >= 5)
     			productUpdate.setPr_img_5(exImgArr[4]);
-    	}
+		} else {
+			productService.deleteImg1(pr_id);
+			productService.deleteImg2(pr_id);
+			productService.deleteImg3(pr_id);
+			productService.deleteImg4(pr_id);
+			productService.deleteImg5(pr_id);
+		}
     	
     	for (int i = 0; i < 5; i++) { 
     		if (prImgArr[i] == null || prImgArr[i] == "")

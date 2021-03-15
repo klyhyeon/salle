@@ -154,24 +154,23 @@
     
 	function fileUpload() {
 		var imgExArr = Array.from(document.querySelectorAll("#pr_img_ex"));
-		if (imgExArr.length == 0)
-			return;
-		var imgExSrcArr = new Array(); 
-		for (var i = 0; i < imgExArr.length; i++) {
-			imgExSrcArr.push(imgExArr[i].src);
-			console.log("imgEx: " + imgExArr[i].src);
+		if (imgExArr.length != 0) {
+			var imgExSrcArr = new Array(); 
+			for (var i = 0; i < imgExArr.length; i++) {
+				imgExSrcArr.push(imgExArr[i].src);
+				console.log("imgEx: " + imgExArr[i].src);
+			}
+	    		formData.append("imgExArr", imgExSrcArr);
 		}
-    		formData.append("imgExArr", imgExSrcArr);
-    		formData.append("pr_id", pr_id);
-    	var xhttp = new XMLHttpRequest();
-    	xhttp.open("POST", "/productEdit/ajax", true);
-    	//xhttp.setRequestHeader("Content-Type", "application/json");
-    	xhttp.onload = function() {
-    		console.log("status" + xhttp.status);
-    	}
-    	xhttp.send(formData);
-    	
-    	formData.delete;
+	    		formData.append("pr_id", pr_id);
+	    	var xhttp = new XMLHttpRequest();
+	    	xhttp.open("POST", "/productEdit/ajax", true);
+	    	xhttp.onload = function() {
+	    		console.log("status" + xhttp.status);
+	    	}
+	    	xhttp.send(formData);
+	    	
+	    	formData.delete;
 	}
 	
 	function submit() {
