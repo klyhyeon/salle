@@ -84,17 +84,7 @@ public class ProductEditService {
 		Optional<String[]> exImgArrOpt = Optional.ofNullable(req.getParameterValues("imgExArr")); 
 		String[] exImgArr = exImgArrOpt.orElse(null);
 		int length = 0;
-		if (exImgArr != null) {
-	    	length = exImgArr.length;
-	    	byte[] bytes;
-	    	for (int i = 0; i < exImgArr.length; i++) {
-	    		bytes = exImgArr[i].getBytes();
-	    		exImgArr[i] = new String(bytes, "UTF-8");
-	    	}
-	    	System.out.println(exImgArr[0]);
-		}
-		String pr_id_str = req.getParameter("pr_id");
-    	int pr_id = Integer.parseInt(pr_id_str);
+		int pr_id = Integer.parseInt(req.getParameter("pr_id"));
     	productUpdate = productService.getProductInfo(pr_id);
     	String[] prImgArr = new String[5];
 		prImgArr[0] = productUpdate.getPr_img_1(); 
@@ -108,9 +98,9 @@ public class ProductEditService {
 		productUpdate.setPr_img_4(null);
 		productUpdate.setPr_img_5(null);
 		//delete할 파일만 배열에 남겨두기
-		
 		if (exImgArr != null) {
 			length = exImgArr.length; 
+			log.info("exImgArr length: " + length);
 			for (String exImg : exImgArr) {
 				for (int j = 0; j < 5; j++) {
 					if (exImg.equals(prImgArr[j]))
@@ -128,16 +118,10 @@ public class ProductEditService {
     			productUpdate.setPr_img_4(exImgArr[3]);	    			    		
     		if (length >= 5)
     			productUpdate.setPr_img_5(exImgArr[4]);
-		} else {
-			productService.deleteImg1(pr_id);
-			productService.deleteImg2(pr_id);
-			productService.deleteImg3(pr_id);
-			productService.deleteImg4(pr_id);
-			productService.deleteImg5(pr_id);
 		}
     	
     	for (int i = 0; i < 5; i++) { 
-    		if (prImgArr[i] == null || prImgArr[i] == "")
+    		if (prImgArr[i] == null)
     			continue;
     		switch (i) {
 			case 0:
@@ -167,6 +151,7 @@ public class ProductEditService {
     	while(itr.hasNext()) {
     		multiFile = multiReq.getFile(itr.next());
     		String fileOriname = multiFile.getOriginalFilename();
+    		log.info("newFile " + fileOriname);
     		String ranCode = uuidImg.makeFilename(fileOriname);
     		String dirName = "static/img";
     		String fileName = dirName + "/" + ranCode;
@@ -184,37 +169,6 @@ public class ProductEditService {
     		}
     		length++;
     		amazonS3.uploadImg(bucket, fileName, multiFile);
-	}
-}
-	
-
-	public void imgEditUpload(HttpServletRequest req, Product productUpdate, String bucket,
-			int exImgCnt) throws IOException {
-		log.info("insertImgEdit in processing");
-    	MultipartHttpServletRequest multiReq = (MultipartHttpServletRequest) req;
-    	Iterator<String> iterator = multiReq.getFileNames(); 	
-    	MultipartFile multipartFile = null;
-    	int reps = exImgCnt;
-    	while (iterator.hasNext()) {
-    		multipartFile = multiReq.getFile(iterator.next());
-    		String fileOriname = multipartFile.getOriginalFilename();
-    		String ranCode = uuidImg.makeFilename(fileOriname);
-    		String dirName = "static/img";
-    		String fileName = dirName + "/" + ranCode;
-    		
-    		if (reps == 0) {
-    			productUpdate.setPr_img_1(fileName);    			
-    		} else if (reps == 1) {
-    			productUpdate.setPr_img_2(fileName);    			
-    		} else if (reps == 2) {
-    			productUpdate.setPr_img_3(fileName);    			
-    		} else if (reps == 3) {
-    			productUpdate.setPr_img_4(fileName);    			
-    		} else if (reps == 4) {
-    			productUpdate.setPr_img_5(fileName);    			
-    		}
-    		reps++;
-    		amazonS3.uploadImg(bucket, fileName, multipartFile);
 	}
 }
 
