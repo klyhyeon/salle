@@ -61,10 +61,11 @@
     
     <update id="updateProduct">
     	UPDATE product
-    	SET 
-    	(pr_email, pr_img_1, pr_img_2, pr_img_3, pr_img_4, pr_img_5, pr_title, pr_category, pr_region, pr_price, pr_detail, pr_title_alias)
-    	= (#{pr_email}, #{pr_img_1}, #{pr_img_2}, #{pr_img_3}, #{pr_img_4}, #{pr_img_5}, #{pr_title}, #{pr_category}, #{pr_region}, #{pr_price}, #{pr_detail}, #{pr_title_alias})
-    	WHERE PR_ID = #{pr_id}; 
+    	SET
+    	pr_email=#{pr_email}, pr_img_1=#{pr_img_1}, pr_img_2=#{pr_img_2}, 
+    	pr_img_3=#{pr_img_3}, pr_img_4=#{pr_img_4}, pr_img_5=#{pr_img_5}, pr_title=#{pr_title}, pr_category=#{pr_category}, pr_region=#{pr_region}, 
+    	pr_price=#{pr_price}, pr_detail=#{pr_detail}, pr_title_alias=#{pr_title_alias}
+    	WHERE PR_ID = #{pr_id};
     </update>
     
     <delete id="deleteProduct">
