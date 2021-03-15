@@ -58,8 +58,8 @@ public class ProductEditController {
 		imgList = null;
 		return "product/productEdit"; 
 	}
-	
 
+	
 	Product productUpdate = new Product();
 	int exImgCnt = 0;
     @RequestMapping(value= "/productEdit/ajax", method= RequestMethod.POST)
@@ -72,7 +72,7 @@ public class ProductEditController {
 	@RequestMapping(value= "/product/{pr_id}/save", method= RequestMethod.POST)
 	public String profileEditDone(@ModelAttribute("product") Product product, Errors errors,
 			HttpSession httpSession, @PathVariable("pr_id") int pr_id) {
-		productEditService.productSave(product, productUpdate, httpSession, errors);
+		product = productEditService.productSave(product, productUpdate, httpSession, errors);
 		
 		if (errors.hasErrors())
 			return "product/productEdit";

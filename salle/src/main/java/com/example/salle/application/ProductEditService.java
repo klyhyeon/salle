@@ -174,7 +174,7 @@ public class ProductEditService {
 //		}
 	}
 
-	public void productSave(Product product, Product productUpdate,
+	public Product productSave(Product product, Product productUpdate,
 			HttpSession httpSession, Errors errors) {
 		
 	   	Login loginInfo = (Login) httpSession.getAttribute("login");
@@ -197,6 +197,7 @@ public class ProductEditService {
 		//ajax로 받은 img_file 정보를 넘겨줌 
     	
 		new SellProductValidation().validate(product, errors);
+		return product;
 	}
 
 	public String productDelete(int pr_id) throws UnsupportedEncodingException {
