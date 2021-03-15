@@ -103,19 +103,20 @@ public class ProductEditService {
 			}
     		//남아있는 파일 setter 할당하기
     		if (length >= 1) 
-    			productUpdate.setPr_img_1(exImgArr[0]);	    		
+    			productUpdate.setPr_img_1(exImgArr[0].substring(53));	    		
     		if (length >= 2) 
-    			productUpdate.setPr_img_2(exImgArr[1]);	    			    		
+    			productUpdate.setPr_img_2(exImgArr[1].substring(53));	    			    		
     		if (length >= 3)
-    			productUpdate.setPr_img_3(exImgArr[2]);	    			    		
+    			productUpdate.setPr_img_3(exImgArr[2].substring(53));	    			    		
     		if (length >= 4)
-    			productUpdate.setPr_img_4(exImgArr[3]);	    			    		
+    			productUpdate.setPr_img_4(exImgArr[3].substring(53));	    			    		
     		if (length >= 5)
-    			productUpdate.setPr_img_5(exImgArr[4]);
+    			productUpdate.setPr_img_5(exImgArr[4].substring(53));
 		}
     	
-    	for (int i = 0; i < 5; i++) {
-    		if (prImgArr[i] != null) {
+		for (int i = 0; i < 5; i++) {
+    		if (prImgArr[i] != null || prImgArr[i] != "") {
+    			log.info("deleteImg: " + prImgArr[i]);
 	    		switch (i) {
 				case 0:
 					productService.deleteImg1(pr_id);
@@ -131,8 +132,6 @@ public class ProductEditService {
 					break;
 				case 4:
 					productService.deleteImg5(pr_id);
-					break;
-				default:
 					break;
 				}
 	    		amazonS3.deleteFile(bucket, prImgArr[i]);
