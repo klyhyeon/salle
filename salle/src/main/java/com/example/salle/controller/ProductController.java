@@ -61,7 +61,7 @@ public class ProductController {
     Product product_file = new Product();
     @RequestMapping(value= "/productReg/ajax", method= RequestMethod.POST)
     public void productRegAjax(HttpServletRequest req) throws Exception {
-    	productService.insertImg(req, product_file, bucket);
+    	productService.insertImg(req, product_file, bucket, 0);
     }
 
 	

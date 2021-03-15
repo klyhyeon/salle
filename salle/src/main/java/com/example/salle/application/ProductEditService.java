@@ -120,7 +120,7 @@ public class ProductEditService {
     			productUpdate.setPr_img_5(exImgArr[4]);
 		}
     	
-    	for (int i = 0; i < 5; i++) { 
+    	for (int i = 0; i < 5; i++) {
     		if (prImgArr[i] == null)
     			continue;
     		switch (i) {
@@ -145,33 +145,8 @@ public class ProductEditService {
     		amazonS3.deleteFile(bucket, prImgArr[i]);
     	} //delete 파일
 
-    	productService.insertImg(req, productUpdate, bucket);
+    	productService.insertImg(req, productUpdate, bucket, length);
     	return productUpdate;
-//    	MultipartHttpServletRequest multiReq = (MultipartHttpServletRequest) req;
-//    	Iterator<String> itr = multiReq.getFileNames();
-//    	MultipartFile multiFile = null;
-//    	while(itr.hasNext()) {
-//    		multiFile = multiReq.getFile(itr.next());
-//    		String fileOriname = multiFile.getOriginalFilename();
-//    		log.info("newFile " + fileOriname);
-//    		String ranCode = uuidImg.makeFilename(fileOriname);
-//    		String dirName = "static/img";
-//    		String fileName = dirName + "/" + ranCode;
-//    		
-//    		if (length == 0) {
-//    			productUpdate.setPr_img_1(fileName);    			
-//    		} else if (length == 1) {
-//    			productUpdate.setPr_img_2(fileName);    			
-//    		} else if (length == 2) {
-//    			productUpdate.setPr_img_3(fileName);    			
-//    		} else if (length == 3) {
-//    			productUpdate.setPr_img_4(fileName);    			
-//    		} else if (length == 4) {
-//    			productUpdate.setPr_img_5(fileName);    			
-//    		}
-//    		length++;
-//    		amazonS3.uploadImg(bucket, fileName, multiFile);
-//		}
 	}
 
 	public Product productSave(Product product, Product productUpdate,
