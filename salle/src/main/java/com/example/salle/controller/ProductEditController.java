@@ -63,9 +63,9 @@ public class ProductEditController {
 	Product productUpdate = new Product();
 	int exImgCnt = 0;
     @RequestMapping(value= "/productEdit/ajax", method= RequestMethod.POST)
-    public void productEdit(HttpServletRequest req) throws Exception {
-    	productEditService.imgEdit(req, productUpdate, bucket);
-    	System.out.println(productUpdate.getPr_img_1());
+    public Product productEdit(HttpServletRequest req) throws Exception {
+    	productUpdate = productEditService.imgEdit(req, productUpdate, bucket);
+    	return productUpdate;
     }
 	
     
