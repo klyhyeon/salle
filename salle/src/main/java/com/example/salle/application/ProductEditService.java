@@ -3,24 +3,18 @@ package com.example.salle.application;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.Errors;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.example.salle.domain.Login;
 import com.example.salle.domain.Product;
@@ -121,28 +115,28 @@ public class ProductEditService {
 		}
     	
     	for (int i = 0; i < 5; i++) {
-    		if (prImgArr[i] == null)
-    			continue;
-    		switch (i) {
-			case 0:
-				productService.deleteImg1(pr_id);
-				break;
-			case 1:
-				productService.deleteImg2(pr_id);
-				break;
-			case 2:
-				productService.deleteImg3(pr_id);
-				break;
-			case 3:
-				productService.deleteImg4(pr_id);
-				break;
-			case 4:
-				productService.deleteImg5(pr_id);
-				break;
-			default:
-				break;
-			}
-    		amazonS3.deleteFile(bucket, prImgArr[i]);
+    		if (prImgArr[i] != null) {
+	    		switch (i) {
+				case 0:
+					productService.deleteImg1(pr_id);
+					break;
+				case 1:
+					productService.deleteImg2(pr_id);
+					break;
+				case 2:
+					productService.deleteImg3(pr_id);
+					break;
+				case 3:
+					productService.deleteImg4(pr_id);
+					break;
+				case 4:
+					productService.deleteImg5(pr_id);
+					break;
+				default:
+					break;
+				}
+	    		amazonS3.deleteFile(bucket, prImgArr[i]);
+    		}
     	} //delete 파일
 
     	productService.insertImg(req, productUpdate, bucket, length);

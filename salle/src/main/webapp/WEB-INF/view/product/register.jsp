@@ -12,7 +12,7 @@
 -->
     <title>판매하기</title>
 	<!-- CSS -->
-	<link rel="stylesheet" href="/resources/css/sell.css">
+	<link rel="stylesheet" href="/resources/css/productRegister.css">
 	<!-- jQuery -->
 	<script src="https://code.jquery.com/jquery-3.5.1.js">
 	</script>
@@ -36,7 +36,7 @@
 	    <form:errors id="errors" path="pr_img_1"/>
 	    <p></p>
 	    <p></p>
-    	<input type="button" id="button" value="이미지 확정하기" onclick="fileUpload()"/>
+    	<input type="button" id="btn_img" value="이미지 확정하기" onclick="fileUpload()"/>
     </section>
     
     <section class="pr_title">
