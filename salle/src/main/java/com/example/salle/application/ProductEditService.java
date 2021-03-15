@@ -115,7 +115,7 @@ public class ProductEditService {
 		}
     	
 		for (int i = 0; i < 5; i++) {
-    		if (prImgArr[i] != null || prImgArr[i] != "") {
+    		if (prImgArr[i] != null) {
     			log.info("deleteImg: " + prImgArr[i]);
 	    		switch (i) {
 				case 0:
