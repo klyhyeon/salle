@@ -95,7 +95,7 @@
 	    <p>
 	    <label>
 	    	<h2>상품 설명</h2>
-	   		<textarea id="pr_detail" placeholder="상품 설명을 입력하세요. 최대 500자" maxlength="1000" rows="10" cols="80" name="pr_detail" ></textarea>
+	   		<form:textarea id="pr_detail" placeholder="상품 설명을 입력하세요. 최대 500자" maxlength="1000" rows="10" cols="80" name="pr_detail" ></form:textarea>
 		    <form:errors id="errors" path="pr_detail"/>
 		</label>
 	    </p>
