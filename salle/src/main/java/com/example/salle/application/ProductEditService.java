@@ -78,8 +78,8 @@ public class ProductEditService {
 	}
 
 	
-	public int imgEdit(HttpServletRequest req, Product productUpdate, String bucket) throws JSONException, IOException {
-		log.info("insertImgEdit in processing");
+	public void imgEdit(HttpServletRequest req, Product productUpdate, String bucket) throws JSONException, IOException {
+		log.info("insertEdit in processing");
 		String pr_id_str = req.getParameter("pr_id");
     	String[] exImgArr = req.getParameterValues("imgExArr");
     	int length = exImgArr.length;
@@ -89,16 +89,6 @@ public class ProductEditService {
     		exImgArr[i] = new String(bytes, "UTF-8");
     	}
     	System.out.println(exImgArr[0]);
-    	
-    	MultipartHttpServletRequest multiReq = (MultipartHttpServletRequest) req;
-    	Iterator<String> itr = multiReq.getFileNames();
-    	MultipartFile multiFile = null;
-    	while(itr.hasNext()) {
-    		multiFile = multiReq.getFile(itr.next());
-    		String tmpName = multiFile.getOriginalFilename();
-    		//System.out.println(tmpName);
-    	}
-		
     	int pr_id = Integer.parseInt(pr_id_str);
     	productUpdate = productService.getProductInfo(pr_id);
     	String[] prImgArr = new String[5];
@@ -159,8 +149,31 @@ public class ProductEditService {
     		amazonS3.deleteFile(bucket, prImgArr[i]);
     	} //delete 파일
 
-    	return length;
+    	MultipartHttpServletRequest multiReq = (MultipartHttpServletRequest) req;
+    	Iterator<String> itr = multiReq.getFileNames();
+    	MultipartFile multiFile = null;
+    	while(itr.hasNext()) {
+    		multiFile = multiReq.getFile(itr.next());
+    		String fileOriname = multiFile.getOriginalFilename();
+    		String ranCode = uuidImg.makeFilename(fileOriname);
+    		String dirName = "static/img";
+    		String fileName = dirName + "/" + ranCode;
+    		
+    		if (length == 0) {
+    			productUpdate.setPr_img_1(fileName);    			
+    		} else if (length == 1) {
+    			productUpdate.setPr_img_2(fileName);    			
+    		} else if (length == 2) {
+    			productUpdate.setPr_img_3(fileName);    			
+    		} else if (length == 3) {
+    			productUpdate.setPr_img_4(fileName);    			
+    		} else if (length == 4) {
+    			productUpdate.setPr_img_5(fileName);    			
+    		}
+    		length++;
+    		amazonS3.uploadImg(bucket, fileName, multiFile);
 	}
+}
 	
 
 	public void imgEditUpload(HttpServletRequest req, Product productUpdate, String bucket,

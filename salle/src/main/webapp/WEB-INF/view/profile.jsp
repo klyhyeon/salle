@@ -83,7 +83,6 @@
 						flag: flag
 					}),
 					dataType: 'json',
-					//magic setting resolved an error
 					contentType: 'application/json',
 					success: function(data) {
 						console.log('jQuery ajax delete success');
