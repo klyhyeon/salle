@@ -18,56 +18,33 @@ import org.springframework.validation.Errors;
 
 import com.example.salle.domain.Login;
 import com.example.salle.domain.Product;
-import com.example.salle.domain.UuidImgname;
 import com.example.salle.validation.SellProductValidation;
 
 @Service
 public class ProductEditService {
 	
 	private final Logger log = LoggerFactory.getLogger(ProductEditService.class);
-	
+	private ProductService productService;
+	private AmazonS3Service amazonS3;
+
 	@Autowired
-	ProductService productService;
-	
-	@Autowired
-	AmazonS3Service amazonS3;
-	
-	@Autowired
-	UuidImgname uuidImg;
+	public ProductEditService(ProductService productService, AmazonS3Service amazonS3) {
+		this.productService = productService;
+		this.amazonS3 = amazonS3;
+	}
 	
 	public Product productEdit(int pr_id, List<String> imgList) {
-		
 		Product product = productService.getProductInfo(pr_id);
 		//get ProductInfo and get img list
-		String img1 = product.getPr_img_1();				
-		String img2 = product.getPr_img_2();				
-		String img3 = product.getPr_img_3();				
-		String img4 = product.getPr_img_4();				
-		String img5 = product.getPr_img_5();				
-
+		String[] imgs = new String[5];				
+		imgs[1] = product.getPr_img_1();				
+		imgs[2] = product.getPr_img_2();				
+		imgs[3] = product.getPr_img_3();				
+		imgs[4] = product.getPr_img_4();				
+		imgs[5] = product.getPr_img_5();				
 		for (int i = 1; i < 6; i++) {
-			switch (i) {
-			case 1:
-				if(img1 != null)
-					imgList.add(img1);
-				break;
-			case 2:
-				if(img2 != null)
-					imgList.add(img2);
-				break;
-			case 3:
-				if(img3 != null)
-					imgList.add(img3);
-				break;
-			case 4:
-				if(img4 != null)
-					imgList.add(img4);
-				break;
-			case 5:
-				if(img5 != null)
-					imgList.add(img5);
-				break;
-			}
+			if (imgs[i] != null)
+				imgList.add(imgs[i]);
 		}
 		return product;
 	}
@@ -92,12 +69,13 @@ public class ProductEditService {
 		productUpdate.setPr_img_4(null);
 		productUpdate.setPr_img_5(null);
 		//delete할 파일만 배열에 남겨두기
+		//TODO: 오류 수정하기, 남아있는 파일이 null로 안바뀜
 		if (exImgArr != null) {
 			length = exImgArr.length; 
 			log.info("exImgArr length: " + length);
 			for (String exImg : exImgArr) {
 				for (int j = 0; j < 5; j++) {
-					if (exImg.equals(prImgArr[j]))
+					if (exImg.substring(53).equals(prImgArr[j]))
 						prImgArr[j] = null;
 				}
 			}
@@ -175,6 +153,7 @@ public class ProductEditService {
 		return nickNameEncode;
 	}
 	
+
 	
 
 }

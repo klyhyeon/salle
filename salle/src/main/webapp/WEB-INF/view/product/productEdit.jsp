@@ -40,7 +40,7 @@
 	    <form:errors id="errors" path="pr_img_1"/>
 	    <p></p>
 	    <p></p>
-    	<input type="button" id="pr_id" value="이미지 확정하기" onclick="fileUpload()"/>
+    	<input type="button" id="btn_img" value="이미지 확정하기" onclick="fileUpload()"/>
     </section>
     
     <section class="pr_title">

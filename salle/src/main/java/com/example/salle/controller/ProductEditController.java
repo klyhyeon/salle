@@ -52,7 +52,7 @@ public class ProductEditController {
 		Product product = productEditService.productEdit(pr_id, imgList);
 		model.addAttribute("product", product);
 		model.addAttribute("imgList", imgList);
-		imgList = null;
+//		imgList = null;
 		return "product/productEdit"; 
 	}
 
