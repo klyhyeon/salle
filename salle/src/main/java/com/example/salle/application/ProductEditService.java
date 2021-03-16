@@ -37,11 +37,11 @@ public class ProductEditService {
 		Product product = productService.getProductInfo(pr_id);
 		//get ProductInfo and get img list
 		String[] imgs = new String[5];				
-		imgs[1] = product.getPr_img_1();				
-		imgs[2] = product.getPr_img_2();				
-		imgs[3] = product.getPr_img_3();				
-		imgs[4] = product.getPr_img_4();				
-		imgs[5] = product.getPr_img_5();				
+		imgs[0] = product.getPr_img_1();				
+		imgs[1] = product.getPr_img_2();				
+		imgs[2] = product.getPr_img_3();				
+		imgs[3] = product.getPr_img_4();				
+		imgs[4] = product.getPr_img_5();				
 		for (int i = 1; i < 6; i++) {
 			if (imgs[i] != null)
 				imgList.add(imgs[i]);
