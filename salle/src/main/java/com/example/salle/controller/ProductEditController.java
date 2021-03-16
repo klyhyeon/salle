@@ -2,7 +2,6 @@ package com.example.salle.controller;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,8 +18,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.example.salle.application.ProductEditService;
 import com.example.salle.application.ProductService;
@@ -33,13 +30,10 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ProductEditController {
 	
-	@Autowired
     ProductService productService;
 	
-	@Autowired
 	ProductEditService productEditService;
 	
-	@Autowired
 	UuidImgname uuidImgname;
     
     //상품등록 이미지파일 업로드
