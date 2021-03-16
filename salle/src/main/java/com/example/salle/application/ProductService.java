@@ -30,7 +30,6 @@ import com.example.salle.validation.SellProductValidation;
 public class ProductService implements ProductMapper {
 	
     private static final Logger log = LoggerFactory.getLogger(ProductService.class);
-
 	
     @Autowired
     ProductMapper productMapper;

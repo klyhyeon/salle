@@ -30,11 +30,14 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ProductEditController {
 	
-    ProductService productService;
-	
-	ProductEditService productEditService;
-	
-	UuidImgname uuidImgname;
+    private ProductService productService;	
+    private ProductEditService productEditService;
+
+	@Autowired
+	public ProductEditController(ProductService productService, ProductEditService productEditService) {
+		this.productService = productService;
+		this.productEditService = productEditService;
+	}
     
     //상품등록 이미지파일 업로드
     Product product_file = new Product();
