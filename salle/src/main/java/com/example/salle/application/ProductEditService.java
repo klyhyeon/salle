@@ -42,7 +42,7 @@ public class ProductEditService {
 		imgs[2] = product.getPr_img_3();				
 		imgs[3] = product.getPr_img_4();				
 		imgs[4] = product.getPr_img_5();				
-		for (int i = 1; i < 6; i++) {
+		for (int i = 0; i < 5; i++) {
 			if (imgs[i] != null)
 				imgList.add(imgs[i]);
 		}
