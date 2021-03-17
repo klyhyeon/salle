@@ -12,13 +12,7 @@ import com.example.salle.domain.ChatRoom;
 @Mapper
 public interface ChatRoomMapper {
 		
-	public void addChatRoom (ChatRoom chatRoom) throws IOException;
-	
-	//String chatId, String pr_id, String senderId, String recipientId
-	
 	public List<ChatList> findByEmail(String email);
-	
-	public int countByChatId(int pr_id, String buyerId);
 	
 	public ChatRoom findByChatId(int pr_id, String buyerId);
 
@@ -28,15 +22,13 @@ public interface ChatRoomMapper {
 
 	public void updateFileName(int id, String fileName);
 	
-	public void updateChatReadBuy(int id, int chatReadBuy);
-	
-	public void updateChatReadSell(int id, int chatReadSell);
+	public void updateChatReadQuery(int pr_id, String fromid, String toid);
 
 	public int getUnreadMessages(String email);
 	
 	public List<Integer> getUnreadChatRoom(String email);
 
-	public void insertChatMessage(String chatMessage, int id);
+	public void insertChatMessage(String chatMessage, String fromid, String toid);
 
-	public List<String> getAllChatMessages(int id);
+	public List<ChatRoom> getAllChatMessages(int pr_id, String fromid);
 }

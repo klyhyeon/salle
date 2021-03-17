@@ -17,31 +17,34 @@ import com.example.salle.domain.Product;
 @Controller
 public class ProductInfoController {
 	
-	@Autowired
-	ProductService productService;
+	private ProductService productService;
+	private Product product;
+	private ChatRoom chatRoom;
 	
 	@Autowired
-	Product product;
-	
-	ChatRoom chatRoom;
+	public ProductInfoController(ProductService productService, Product product,
+			ChatRoom chatRoom) {
+		this.productService = productService;
+		this.product = product;
+		this.chatRoom = chatRoom;
+	}
 	
 	//TODO: productInfo 뒤 seq 지정해야한다.
 	@RequestMapping(value = "/productInfo/{pr_id}", method = RequestMethod.GET)
 	public String productInfoGet(Model model, @PathVariable int pr_id) {		
 		//chatRoom ModelAttribute
-		ChatRoom chatRoom = new ChatRoom();
 		model.addAttribute("chatRoom", chatRoom);
 		
 		//.jsp에서 ${product.pr_title}
-		Product productInfo = productService.getProductInfo(pr_id);
-		model.addAttribute("product", productInfo);
+		product = productService.getProductInfo(pr_id);
+		model.addAttribute("product", product);
 		
-		List<String> productImgList = productService.getImgList(productInfo);
+		List<String> productImgList = productService.getImgList(product);
 		model.addAttribute("productInfoImg", productImgList);
 		//member nickname
-		model.addAttribute("nickName",productService.getMemberProductInfo(productInfo.getPr_email()));		
+		model.addAttribute("nickName",productService.getMemberProductInfo(product.getPr_email()));		
 		//hoursfromupload
-		int hours = productService.getHoursFromUpload(productInfo);
+		int hours = productService.getHoursFromUpload(product);
 		model.addAttribute("hoursFromUpload", hours);
 		return "product/productInfo";
 	}

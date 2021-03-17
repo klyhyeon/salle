@@ -21,18 +21,11 @@
    		OR c.buyerid = #{email};
     </select>
    
-    <select id="countByChatId" resultType="int">
-    	SELECT COUNT(*)
-    	FROM chatroom
-    	WHERE PR_ID = #{pr_id} AND
-    	BUYERID = #{buyerId};
-    </select>
-
     <select id="findByChatId" resultType="com.example.salle.domain.ChatRoom">
     	SELECT *
     	FROM chatroom
     	WHERE PR_ID = #{pr_id} AND
-    	BUYERID = #{buyerId};
+    	(fromid = #{fromid} OR toid = #{fromid});
     </select>
 
     <select id="getId" resultType="int">
@@ -48,16 +41,11 @@
     	WHERE ID = #{id};
     </update>
    
-    <update id="updateChatReadBuy">
+    <update id="updateChatReadQuery">
     	UPDATE chatroom
-    	SET CHATREADBUY = #{chatReadBuy}
-    	WHERE ID = #{id};
-    </update>
-
-    <update id="updateChatReadSell">
-    	UPDATE chatroom
-    	SET CHATREADSELL = #{chatReadSell}
-    	WHERE ID = #{id};
+    	SET chatread = 1
+    	WHERE pr_id = #{pr_id} AND fromid = #{fromid}
+    			AND toid=#{toid};
     </update>
    
    <select id="getUnreadMessages" resultType="int">
@@ -76,14 +64,16 @@
    
    <update id="insertChatMessage">
    		UPDATE chatroom
-   		SET CHATMESSAGE = #{chatMessage}
-   		WHERE ID =#{id};
+   		SET CHATMESSAGE = #{content}, chatread = 0
+   		WHERE fromid = #{fromid} AND toid = #{toid};
    </update>
    
-   <select id="getAllChatMessages" resultType="String">
-   		SELECT chatMessage
+   <select id="getAllChatMessages" resultType="com.example.salle.domain.ChatRoom">
+   		SELECT fromname, chatMessage, sendtime
    		FROM chatroom
-   		WHERE ID = #{id};
+    	WHERE PR_ID = #{pr_id} AND
+    	(fromid = #{fromid} OR toid = #{fromid})
+    	ORDER BY id ASC;
    </select>
     
     

@@ -24,8 +24,8 @@
 				<div id="content">
 					<c:forEach var="chatRoom" items="${chatHistory}">
 						<p>
-							<span id="chatRoomSenderName">${chatRoom.senderName}</span><br>
-							<span id="chatRoomContent">${chatRoom.content}</span><br>
+							<span id="chatRoomSenderName">${chatRoom.fromname}</span><br>
+							<span id="chatRoomContent">${chatRoom.chatmessage}</span><br>
 							<span id="chatRoomSendTime">${chatRoom.sendTime}</span><br>
 						</p>	
 					</c:forEach>
@@ -36,12 +36,11 @@
 						<input type="text" placeholder="Message" id="message" class="form_control"/>
 						<div class="input_group_append">
 							<button id="send" class="btn btn-primary" onclick="send()">보내기</button>
-							<input type="hidden" value="${login.getNickName()}" id="buyerName"/>
-							<input type="hidden" value="${login.getEmail()}" id="buyerId"/>
+							<input type="hidden" value="${login.getNickName()}" id="fromname"/>
+							<input type="hidden" value="${login.getEmail()}" id="fromid"/>
 							<input type="hidden" value="${chatRoomInfo.pr_id}" id="pr_id"/>
-							<input type="hidden" value="${chatRoomInfo.sellerId}" id="sellerId"/>
-							<input type="hidden" value="${chatRoomInfo.sellerName}" id="sellerName"/>						
-							<input type="hidden" value="${chatRoomInfo.id}" id="id"/>						
+							<input type="hidden" value="${chatRoomInfo.toid}" id="toid"/>
+							<input type="hidden" value="${chatRoomInfo.toname}" id="toname"/>						
 						</div>					
 					</div>				
 				</div>
@@ -55,13 +54,11 @@
 	<script type="text/javascript">
 	
 		var stompClient = null;
-		var buyerName = $('#buyerName').val();
-		var buyerId = $('#buyerId').val();
+		var fromname = $('#fromname').val();
+		var fromid = $('#fromid').val();
 		var pr_id = $('#pr_id').val();
-		var sellerName = $('#sellerName').val();
-		var sellerId = $('#sellerId').val();	
-		var senderName = $('#buyerName').val();
-		var id = $('#id').val();
+		var toname = $('#toname').val();
+		var toid = $('#toid').val();	
 		
 		<%-- invoke when DOM(Documents Object Model; HTML(<head>, <body>...etc) is ready --%>
 		$(document).ready(connect());
@@ -106,13 +103,10 @@
 		function send() {
 			var content = $('#message').val();
 			sendBroadcast({
-				'id': id,
-				'buyerName': buyerName, 'content': content,
-				'sellerName': sellerName,
-				'buyerId': buyerId, 'sellerId': sellerId,
+				'fromname': fromname, 'chatmessage': content,
+				'fromid': fromid, 'toid': toid,
 				'pr_id': pr_id,
-				'senderName': senderName,
-				'senderId': buyerId
+				'toname': toname,
 				});
 			$('#message').val("");
 		}
@@ -151,21 +145,25 @@
 		
 
 		<%-- 읽음처리 --%>
-		function ajaxChatRead() {
-
-			console.log("hi");
-			
+		function ajaxChatRead(id, reader) {
+			console.log("ajaxChatread");
+			var flag = "";
+			if (reader == buyerId) {
+				flag = "buy";
+			} else {
+				flag = "sell";
+			}
 			$.ajax({
-				url:'/chatread/product/ajax',
+				url:'/chatread/ajax',
 				type: 'POST',
 				data: JSON.stringify({
-					id: id,
-					buyerId: buyerId
+					pr_id: pr_id,
+					fromid: toid,
+					toid: fromid
 				}),
 				dataType: 'json',
 				contentType: 'application/json'
 			})
-
 		}
 
 	

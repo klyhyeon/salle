@@ -32,6 +32,7 @@ public class ProductEditController {
 	
     private ProductService productService;	
     private ProductEditService productEditService;
+    private Product productUpdate = new Product();
 
 	@Autowired
 	public ProductEditController(ProductService productService, ProductEditService productEditService) {
@@ -57,7 +58,6 @@ public class ProductEditController {
 	}
 
 	
-	Product productUpdate = new Product();
 	int exImgCnt = 0;
     @RequestMapping(value= "/productEdit/ajax", method= RequestMethod.POST)
     public Product productEdit(HttpServletRequest req) throws Exception {
