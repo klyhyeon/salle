@@ -42,19 +42,25 @@
 			</div>
 		</div>
 		
-		<div class="buy_chat">
-		<form:form id="chatSubmit_form" action="/product/chatStart" method="GET" modelAttribute="chatRoom">
-			<a href="javascript:{}" onclick="chatSubmit()">
-				<form:input type="hidden" path="sellerName" value="${nickName}"/>
-				<form:input type="hidden" path="pr_id" value="${product.pr_id}"/>
-				<form:input type="hidden" path="sellerId" value="${product.pr_email}"/>
-				<form:input type="hidden" path="pr_title" value="${product.pr_title}"/>
-				<button id="btn_chat">
-					채팅으로 거래하기
-				</button>
-			</a>
-		</form:form>
-		</div>
+		<c:choose>
+			<c:when test="${product.pr_email == login.getEmail()}">
+			</c:when>
+			<c:otherwise>
+				<div class="buy_chat">
+				<form:form id="chatSubmit_form" action="/product/chatStart" method="GET" modelAttribute="chatRoom">
+					<a href="javascript:{}" onclick="chatSubmit()">
+						<form:input type="hidden" path="sellerName" value="${nickName}"/>
+						<form:input type="hidden" path="pr_id" value="${product.pr_id}"/>
+						<form:input type="hidden" path="sellerId" value="${product.pr_email}"/>
+						<form:input type="hidden" path="pr_title" value="${product.pr_title}"/>
+						<button id="btn_chat">
+							채팅으로 거래하기
+						</button>
+					</a>
+				</form:form>
+				</div>
+			</c:otherwise>
+		</c:choose>
 	</div>
 	
 	<script type="text/javascript">

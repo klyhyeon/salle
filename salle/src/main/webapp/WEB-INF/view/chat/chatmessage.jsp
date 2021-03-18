@@ -50,52 +50,43 @@
 	<%-- STOMP와 sockjs webjars import --%>
 	<script src="/webjars/stomp-websocket/2.3.3-1/stomp.js" type="text/javascript"></script>
 	<script src="/webjars/sockjs-client/1.1.2/sockjs.js" type="text/javascript"></script>
-	
 	<script type="text/javascript">
-	
 		var stompClient = null;
 		var fromname = $('#fromname').val();
 		var fromid = $('#fromid').val();
 		var pr_id = $('#pr_id').val();
 		var toname = $('#toname').val();
 		var toid = $('#toid').val();	
+		var chatid = pr_id + fromid;
 		
 		<%-- invoke when DOM(Documents Object Model; HTML(<head>, <body>...etc) is ready --%>
 		$(document).ready(connect());
 		$(document).ready(ajaxChatRead());
 		
 		function connect() {
-			<%-- map URL using SockJS--%>
 			console.log("connected");
-			var socket = new SockJS('/broadcast');
-			var url = '/user/' + id + '/queue/messages';
-			<%-- webSocket 대신 SockJS을 사용하므로 Stomp.client()가 아닌 Stomp.over()를 사용함--%>
-			stompClient = Stomp.over(socket);
-			
-			console.log("connect ajaxRead");
+			var urlSubscribe = '/user/' + id + '/queue/messages';
+			stompClient = Stomp.over(function(){
+				return new SockJS('/broadcast');	
+			});
+		}
 			
 			<%-- connect(header, connectCallback(==연결에 성공하면 실행되는 메서드))--%>
-			stompClient.connect({}, function() {
-				
-				console.log("connected STOMP");
-
-				<%-- url: 채팅방 참여자들에게 공유되는 경로--%>
+		stompClient.connect({}, function() {
+				<%-- urlSubscribe: 채팅방 참여자들에게 공유되는 경로--%>
 				<%-- callback(function()): 클라이언트가 서버(Controller broker로부터)로부터 메시지를 수신했을 때 실행 --%>
-				stompClient.subscribe(url, function(output) {
-					<%-- JSP <body>에 append할 메시지 contents--%>
+				stompClient.subscribe(urlSubscribe, function(output) {
+				<%-- JSP <body>에 append할 메시지 contents--%>
 					showBroadcastMessage(createTextNode(JSON.parse(output.body)));
 				});
-				}, 
-					<%-- connect() 에러 발생 시 실행--%>
-						function (err) {
-							alert('error' + err);
+			}, 
+				<%-- connect() 에러 발생 시 실행--%>
+			function (err) {
+						alert('error' + err);
 			});
-
-		};
 		
 		<%-- WebSocket broker 경로로 JSON형태 String 타입 메시지 데이터를 전송함 --%>
 		function sendBroadcast(json) {
-			
 			stompClient.send("/app/broadcast", {}, JSON.stringify(json));
 		}
 		
@@ -103,10 +94,9 @@
 		function send() {
 			var content = $('#message').val();
 			sendBroadcast({
-				'fromname': fromname, 'chatmessage': content,
-				'fromid': fromid, 'toid': toid,
-				'pr_id': pr_id,
-				'toname': toname,
+				'pr_id': pr_id, 'fromname': fromname,'toname': toname,
+				'fromid': fromid, 'toid': toid, 'chatmessage': content,
+				'chatid': chatid
 				});
 			$('#message').val("");
 		}

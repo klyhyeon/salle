@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.example.salle.application.AmazonS3Service;
 import com.example.salle.application.ProductService;
-import com.example.salle.domain.ChatRoom;
+import com.example.salle.domain.Chatmessage;
 import com.example.salle.domain.Product;
 
 import lombok.RequiredArgsConstructor;
@@ -51,7 +51,7 @@ public class ProductController {
 		if (errors.hasErrors()) 
 			return "product/register";
 
-		ChatRoom chatRoom = new ChatRoom();
+		Chatmessage chatRoom = new Chatmessage();
 		model.addAttribute("chatRoom", chatRoom);
 		String url = "redirect:/productInfo/"+product.getPr_id();
     	return url;

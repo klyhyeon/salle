@@ -88,11 +88,7 @@
 	 	function addChatList(pr_id, buyerId, senderName, pr_title, messageUnread, idx) {
 
 	 		var str =
-	 		'<a href="/chatRoom/' + 
-	 		pr_id +
-	 		'/' + 
-	 		buyerId + 
-	 		'">' +
+	 		'<a href="/chatList/chatStart">' +
 	 		'<h3><span id="sellerName">' + 
 	 		senderName +
 	 		'&nbsp;</span>' +

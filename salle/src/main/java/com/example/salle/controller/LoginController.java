@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.example.salle.application.ChatRoomService;
+import com.example.salle.application.ChatService;
 import com.example.salle.application.MemberService;
 import com.example.salle.application.ProductService;
 import com.example.salle.domain.Login;
@@ -26,7 +26,7 @@ public class LoginController {
     ProductService productService;
     
     @Autowired
-    ChatRoomService chatRoomService;
+    ChatService chatRoomService;
 
     //회원가입 페이지 노출
     @RequestMapping(value = "/login", method = RequestMethod.GET)

@@ -12,19 +12,12 @@ public class WebsocketBrokerConfig implements WebSocketMessageBrokerConfigurer {
 
 	@Override
 	public void configureMessageBroker(MessageBrokerRegistry registry) {
-
-		//for subscribe prefix
 		registry.enableSimpleBroker("/user");
-		//for publish prefix
 		registry.setApplicationDestinationPrefixes("/app");
-		//user destination provides ability to have unique user queue
-		//registry.setUserDestinationPrefix("/user");
-		
 	}
 	
 	@Override
 	public void registerStompEndpoints(StompEndpointRegistry registry) {
-		
 		registry.addEndpoint("/broadcast")
 			.withSockJS()
 			.setHeartbeatTime(60_000);

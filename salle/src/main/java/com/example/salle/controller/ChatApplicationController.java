@@ -1,10 +1,6 @@
 package com.example.salle.controller;
 
 import java.io.IOException;
-import java.sql.Timestamp;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 
@@ -24,58 +20,76 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.example.salle.application.ChatRoomService;
+import com.example.salle.application.ChatService;
 import com.example.salle.domain.ChatList;
-import com.example.salle.domain.ChatRoom;
+import com.example.salle.domain.Chatmessage;
 import com.example.salle.domain.Login;
-import com.example.salle.domain.TimeUtils;
 
 @Controller
 public class ChatApplicationController {
 	
 	private SimpMessagingTemplate simpMessageTemplate;
-	private ChatRoomService chatRoomService;
+	private ChatService chatService;
 	
 	@Autowired
-	public ChatApplicationController(SimpMessagingTemplate simpMessagingTemplate, ChatRoomService chatRoomService) {
+	public ChatApplicationController(SimpMessagingTemplate simpMessagingTemplate, 
+			ChatService chatService) {
 		this.simpMessageTemplate = simpMessagingTemplate;
-		this.chatRoomService = chatRoomService;
+		this.chatService = chatService;
 	}
 
 	//채팅으로 거래하기(productInfo 화면)
 	@RequestMapping(value="/product/chatStart", method=RequestMethod.GET)
 	public String productChatMessage(Model model, HttpSession session, 
-			@ModelAttribute("chatRoom") ChatRoom chatRoom) throws IOException {
-		Login loginInfo = (Login) session.getAttribute("login");
-		String fromid = loginInfo.getEmail();
-		String fromname = loginInfo.getNickName();
-		int pr_id = chatRoom.getPr_id();
-		chatRoom.setFromid(fromid);
-		chatRoom.setFromname(fromname);
-		ChatRoom chatRoomExist = chatRoomService.findByChatId(pr_id, fromid);
-		if (chatRoomExist != null) {
-			List<ChatRoom> chatHistory = chatRoomService.readChatHistory(pr_id, fromid);
+			@ModelAttribute("chatmessage") Chatmessage chatmessage) throws IOException {
+		Chatmessage chatmessageInfoAdded = chatService.infoSetting(session, chatmessage);
+		int pr_id = chatmessage.getPr_id();
+		Chatmessage chatmessageExist = chatService.findByChatId(pr_id, chatmessageInfoAdded.getFromid());
+		if (chatmessageExist != null) {
+			List<Chatmessage> chatHistory = chatService.readChatHistory(pr_id, chatmessageInfoAdded.getFromid());
 			model.addAttribute("chatHistory", chatHistory);
 		}
-			model.addAttribute("chatRoomInfo", chatRoom);
-		
-		return "chat/chatRoom";
+			model.addAttribute("chatmessageInfo", chatmessageInfoAdded);
+		return "chat/chatmessage";
 	}
 	
+	@RequestMapping(value="/chatList/chatStart", method=RequestMethod.GET)
+	public String getchatmessage(@PathVariable Map<String, String> requestVar,
+			Model model) throws IOException {
+		
+		String buyerId = requestVar.get("buyerId");
+		int pr_id = Integer.parseInt(requestVar.get("pr_id"));
+		String chatid = pr_id + buyerId;
+			
+		//read chatHistory
+		Chatmessage chatmessageRead = chatService.findByChatId(pr_id, buyerId);
+		List<Chatmessage> chatHistory = chatService.readChatHistory(chatid);
+		model.addAttribute("chatHistory", chatHistory);
+		
+		int id = chatService.getId(pr_id, buyerId);
+		String pr_title = chatmessageRead.getPr_title();
+		String sellerId = chatmessageRead.getSellerId();
+		
+		model.addAttribute("id", id);
+		model.addAttribute("pr_id", pr_id);
+		model.addAttribute("buyerId", buyerId);
+		model.addAttribute("sellerId", sellerId);
+		model.addAttribute("pr_title", pr_title);
+		
+		return "chat/chatmessage";
+	}
 	
 	@MessageMapping("/broadcast")
-	public void send(ChatRoom chatRoom) throws IOException {
-		chatRoom.setSendtime(LocalDateTime.now().format(DateTimeFormatter.ofPattern("YYYY-MM-dd a hh:mm")));
-		//append message to txtFile
-		chatRoomService.appendMessage(chatRoom);
-		int id = chatRoom.getId();
-		String url = "/user/" + id + "/queue/messages";
-		simpMessageTemplate.convertAndSend(url, new ChatRoom(chatRoom.getChatmessage(), chatRoom.getFromname(), chatRoom.getSendtime(), chatRoom.getFromid())); 
+	public void send(Chatmessage chatmessage) throws IOException {
+		chatService.appendMessage(chatmessage);
+		int id = chatmessage.getId();
+		String urlSubscribe = "/user/" + id + "/queue/messages";
+		simpMessageTemplate.convertAndSend(urlSubscribe, new Chatmessage(chatmessage.getChatmessage(), chatmessage.getFromname(), chatmessage.getSendtime(), chatmessage.getFromid())); 
 	}
 	
 	@RequestMapping("/chatread/ajax")
-	public void ajaxChatRoomRead(@RequestBody String json) throws IOException {
-		chatRoomService.updateChatRead(json);
+	public void ajaxchatmessageRead(@RequestBody String json) throws IOException {
+		chatService.updateChatRead(json);
 	}
 
 	
@@ -85,39 +99,13 @@ public class ChatApplicationController {
 		 return "chat/chatList";
 	}
 	
-	@RequestMapping(value="/chatRoom/{pr_id}/{buyerId}", method=RequestMethod.GET)
-	public String getChatRoom(@PathVariable Map<String, String> requestVar,
-			Model model) throws IOException {
-		
-		String buyerId = requestVar.get("buyerId");
-		int pr_id = Integer.parseInt(requestVar.get("pr_id"));
-			
-		//read chatHistory
-		ChatRoom chatRoomRead = chatRoomService.findByChatId(pr_id, buyerId);
-		List<ChatRoom> chatHistory = chatRoomService.readChatHistory(chatRoomRead);
-		model.addAttribute("chatHistory", chatHistory);
-		
-		int id = chatRoomService.getId(pr_id, buyerId);
-		String pr_title = chatRoomRead.getPr_title();
-		String sellerId = chatRoomRead.getSellerId();
-		
-		model.addAttribute("id", id);
-		model.addAttribute("pr_id", pr_id);
-		model.addAttribute("buyerId", buyerId);
-		model.addAttribute("sellerId", sellerId);
-		model.addAttribute("pr_title", pr_title);
-		
-		return "chat/chatRoom";
-	}
-	
-	
 	@RequestMapping(value="/chatUnreadAlert/ajax", method=RequestMethod.POST)
 	@ResponseBody
 	public int chatUnread(@RequestBody String json) {
 		
 		JSONObject jsn = new JSONObject(json);
 		String email = (String) jsn.get("email");
-    	int messages = chatRoomService.getUnreadMessages(email);
+    	int messages = chatService.getUnreadMessages(email);
 
 		return messages;
 	}
@@ -125,19 +113,14 @@ public class ChatApplicationController {
 	@RequestMapping(value="/chatUnreadMessageInfo/ajax", method=RequestMethod.POST)
 	@ResponseBody
 	public String chatListUnread(@RequestBody String json) {
-		//ajax가 전송한 String을 key, value로 분류하기 위해 JSON Object convert
 		JSONObject jsn = new JSONObject(json);
-		//JSON.get([mapped name])으로 value 추출하기
 		String email = (String) jsn.get("email");
-		//email에 해당되는 모든 chatRoom select 받기
-		List<ChatList> chatRoomList = chatRoomService.findByEmail(email);
-		//chatRoom 정보는 JSON Array에 저장됨
+		List<ChatList> chatmessageList = chatService.getAllChatRoom(email);
 		JSONArray ja = new JSONArray();
-		//email에 해당되는 읽지 않은 chatRoom select 받기
-		List<Integer> unreadChatId = chatRoomService.getUnreadChatRoom(email);
+		List<Integer> unreadChatId = chatService.getUnreadMessages(email);
 
-		 for (ChatList chatList : chatRoomList) {
-			//chatRoom 정보를 JSON Object에 put 해줌, chatRoom이 반복문에서 넘어갈 때마다 객체 초기화 
+		 for (ChatList chatList : chatmessageList) {
+			//chatmessage 정보를 JSON Object에 put 해줌, chatmessage이 반복문에서 넘어갈 때마다 객체 초기화 
 			 JSONObject jo = new JSONObject();
 			 jo.put("pr_id", chatList.getPr_id());
 			 jo.put("buyerId", chatList.getBuyerId());
@@ -150,11 +133,11 @@ public class ChatApplicationController {
 		 }
 		 
 		 	 jo.put("pr_title", chatList.getPr_title());
-		 //읽지 않은 chatRoom이 0개일때
+		 //읽지 않은 chatmessage이 0개일때
 		 if (unreadChatId.size() == 0) {
 			 jo.put("messageUnread", "");
 		 	} else {
-		 		//읽지 않은 chatRoomId들과 현재 chatRoomId 대조 후 처리 
+		 		//읽지 않은 chatmessageId들과 현재 chatmessageId 대조 후 처리 
 				 for (int ele : unreadChatId) {
 					 	if (chatList.getId() == ele) {
 					 		jo.put("messageUnread", "새 메세지");
@@ -182,10 +165,10 @@ public class ChatApplicationController {
 		
 		JSONObject jsn = new JSONObject(json);
 		String email = (String) jsn.get("email");
-		List<ChatList> chatRoomList = chatRoomService.findByEmail(email);		 
+		List<ChatList> chatmessageList = chatService.findByEmail(email);		 
 		JSONArray ja = new JSONArray();
 
-		 for (ChatList chatList : chatRoomList) {
+		 for (ChatList chatList : chatmessageList) {
 			
 			 JSONObject jo = new JSONObject();
 			 jo.put("pr_img_1", chatList.getPr_img_1());
