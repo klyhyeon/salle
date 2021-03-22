@@ -32,7 +32,7 @@
 		        <div class="wrap_pr_img">
 			    	<c:forEach var="img" items="${imgList}" varStatus="loop">			
 				    	<div class="pr_img_${loop.index}" id="imgEx">
-				    		<img id="pr_img_ex" src="https://sallestorage.s3.ap-northeast-2.amazonaws.com/${img}" width="150px" height="150px"/>
+				    		<img id="pr_img_ex" src="${s3Url}${img}" width="150px" height="150px"/>
 				    		<button type="button" class="button_img" value="pr_img_${loop.index}" onclick="deleteImgEx(this.value)"></button>
 				    	</div>
 			    	</c:forEach>

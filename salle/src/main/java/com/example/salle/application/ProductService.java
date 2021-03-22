@@ -127,8 +127,8 @@ public class ProductService implements ProductMapper {
 	}
 
 	@Override
-	public String getMemberProductInfo(String email) {
-		return productMapper.getMemberProductInfo(email);
+	public String getNickNameByPrEmail(String email) {
+		return productMapper.getNickNameByPrEmail(email);
 	}
 
 	@Override

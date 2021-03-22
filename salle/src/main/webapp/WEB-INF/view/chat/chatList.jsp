@@ -19,10 +19,7 @@
 	</div>
 	 
 	 <script type="text/javascript">
-	 
-	 //home.jsp에 있는 email 정보를 받아줌
 	 	var email = document.getElementById('emailInput').value;
-	 //html(JSP)파일이 로드되면 바로 initialize() 메서드를 실행시킴
 		$(document).ready(initialize());
 		
 		function initialize() {
@@ -35,7 +32,7 @@
 		function getChatList() {
 			console.log("getChatList inprocess");
 			$.ajax({
-				url: "/chatList/ajax",
+				url: "/getChatList/ajax",
 				type: "POST",
 				data: JSON.stringify({
 					email: email
@@ -70,13 +67,18 @@
 						 
 						 for (var i = 0; i < length; i++) {
 							$('.wrapSellerTitle' + i).html('');
-						 	addChatList(parsed.chatList[i].pr_id, parsed.chatList[i].buyerId, parsed.chatList[i].senderName, parsed.chatList[i].pr_title, parsed.chatList[i].messageUnread, i);
+						 	addChatList(parsed.chatList[i].pr_id, parsed.chatList[i].buyerid, parsed.chatList[i].fromname, parsed.chatList[i].pr_title, parsed.chatList[i].messageUnread, i);
 						 }
 					 }
 			 });
 		 }
 	 	
-		 
+		 var pr_id = pr_id;
+		 var buyerid = buyerid;
+		 var fromname = fromname;
+		 var pr_title = pr_title;
+		 var messageUnread = messageUnread;
+		 var chatid = pr_id + buyerid;
 		 //1000milliseconds(==1초) 간격으로 getUnreadMessageInfo()를 실행시키는 반복 메서드
 	 	function unreadAlertInfinite() {
 	 		setInterval(() => {
@@ -85,10 +87,10 @@
 	 	}
 	 	
 	 	//일정 간격으로 업데이트된 데이터를 화면에 출력하는 메서드 됨
-	 	function addChatList(pr_id, buyerId, senderName, pr_title, messageUnread, idx) {
+	 	function addChatList(pr_id, buyerid, senderName, pr_title, messageUnread, idx) {
 
 	 		var str =
-	 		'<a href="/chatList/chatStart">' +
+	 		'<a href="" onclick="getChatMessage()">' +
 	 		'<h3><span id="sellerName">' + 
 	 		senderName +
 	 		'&nbsp;</span>' +
@@ -103,9 +105,18 @@
 	 	
 	 	//페이지가 로드되는 시점 한 번만 출력하면 되는 div, img를 출력하는 메서드
 	 	function addChatDivImg(idx, img) {
-	 			$(document.body).append('<div class= chatMessageInfo' + idx + '><div class="wrapPr_img"><img class="pr_img" src="https://sallestorage.s3.ap-northeast-2.amazonaws.com/' + img + '"></div><div class="wrapSellerTitle' +
+	 			$(document.body).append('<div class= chatMessageInfo' + idx + '><div class="wrapPr_img"><img class="pr_img" src="${s3Url}' + img + '"></div><div class="wrapSellerTitle' +
 	 					idx +
 	 					'"></div></div>');
+	 	}
+	 	
+	 	function getChatMessage() {
+	 		var xttp = new XMLHttpRequest();
+	 		xttp.open("GET", "/chatList/chatStart", false);
+	 		xttp.onload = function() {
+	 			console.log("status" + xttp.status);
+	 		}
+	 		xttp.send(chatid);
 	 	}
 	 	
 

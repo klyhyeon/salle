@@ -30,8 +30,8 @@
     	FROM product
     	WHERE PR_CATEGORY = #{pr_category};
     </select>
-    
-    <select id="getMemberProductInfo" resultType="String">
+
+    <select id="getNickNameByPrEmail" resultType="String">
     	SELECT m.nickname
 	    FROM member  AS m
 	    LEFT OUTER JOIN product AS p

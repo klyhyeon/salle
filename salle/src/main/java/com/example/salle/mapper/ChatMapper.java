@@ -6,17 +6,15 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.example.salle.domain.ChatList;
-import com.example.salle.domain.Chatmessage;
+import com.example.salle.domain.ChatMessage;
+import com.example.salle.domain.ChatRoom;
 
 @Mapper
 public interface ChatMapper {
 		
-	public List<ChatList> getAllChatRoom(String email);
+	public List<ChatRoom> getAllChatRoom(String email);
 	
-	public Chatmessage findByChatId(int pr_id, String buyerId);
-
-	public void appendMessage(Chatmessage chatRoom) throws FileNotFoundException, IOException;
+	public void appendMessage(ChatMessage chatRoom) throws FileNotFoundException, IOException;
 
 	public int getId(int pr_id, String buyerId);
 
@@ -28,7 +26,15 @@ public interface ChatMapper {
 	
 	public List<Integer> getUnreadChatRoom(String email);
 
-	public void insertChatMessage(Chatmessage chatmessage);
+	public void insertChatMessage(ChatMessage chatmessage);
 
-	public List<Chatmessage> getAllChatMessages(int pr_id, String fromid);
+	public List<ChatMessage> getAllChatMessages(String chatid);
+	
+	public void addChatRoom(ChatRoom chatRoom);
+	
+	public int checkChatRoomExist(String chatid);
+	
+	public ChatRoom getChatRoom(String chatid);
+	
+	public ChatMessage getChatMessageInfo(String chatid);
 }

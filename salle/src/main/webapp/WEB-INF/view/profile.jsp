@@ -28,7 +28,7 @@
 	<c:forEach var="product" items="${sellerProductList}">
 		<div class="wrap_productInfo">
 			<div class="wrap_img">
-				<img src="https://sallestorage.s3.ap-northeast-2.amazonaws.com/${product.pr_img_1}" class="pr_img"/>
+				<img src="${s3Url}${product.pr_img_1}" class="pr_img"/>
 			</div>
 			<div class="wrap_title_price_hours">
 				<a href="<c:url value="/productInfo/${product.pr_id}"/>">

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.salle.application.ProductService;
-import com.example.salle.domain.Chatmessage;
+import com.example.salle.domain.ChatMessage;
 import com.example.salle.domain.Product;
 
 @Controller
@@ -19,11 +19,11 @@ public class ProductInfoController {
 	
 	private ProductService productService;
 	private Product product;
-	private Chatmessage chatRoom;
+	private ChatMessage chatRoom;
 	
 	@Autowired
 	public ProductInfoController(ProductService productService, Product product,
-			Chatmessage chatRoom) {
+			ChatMessage chatRoom) {
 		this.productService = productService;
 		this.product = product;
 		this.chatRoom = chatRoom;

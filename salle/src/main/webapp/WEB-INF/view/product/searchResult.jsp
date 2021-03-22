@@ -19,7 +19,7 @@
 			<div class="container_product">
 			<a href="<c:url value="/productInfo/${searchProduct.pr_id}"/>">
 				<div class="div_pr_img">
-					<img src="${searchProduct.pr_img_1}" class="pr_img"/></td>
+					<img src="${s3Url}${searchProduct.pr_img_1}" class="pr_img"/></td>
 				</div>
 				<div class="div_pr_title">
 					${searchProduct.pr_title}

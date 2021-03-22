@@ -19,7 +19,7 @@
 	<div class="container_product">
 	<a href="<c:url value="/productInfo/${productHome.pr_id}"/>">
 		<div class="div_pr_img">
-			<img src="https://sallestorage.s3.ap-northeast-2.amazonaws.com/${productHome.pr_img_1}" class="pr_img"/></td>
+			<img src="${s3Url}${productHome.pr_img_1}" class="pr_img"/></td>
 		</div>
 		<div class="div_pr_title">
 			${productHome.pr_title}

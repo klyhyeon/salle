@@ -6,12 +6,13 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 
+import org.apache.commons.lang3.ObjectUtils;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.salle.domain.ChatList;
-import com.example.salle.domain.Chatmessage;
+import com.example.salle.domain.ChatMessage;
+import com.example.salle.domain.ChatRoom;
 import com.example.salle.domain.Login;
 import com.example.salle.mapper.ChatMapper;
 
@@ -20,19 +21,43 @@ import com.example.salle.mapper.ChatMapper;
 public class ChatService implements ChatMapper {
 	
 	private ChatMapper chatMapper;
+	private ProductService productService;
 	
 	@Autowired
-	public ChatService(ChatMapper chatMapper) {
+	public ChatService(ChatMapper chatMapper, ProductService productService) {
 		this.chatMapper = chatMapper;
+		this.productService = productService;
 	}
 	
-	public void appendMessage(Chatmessage chatmessage) throws IOException {
-		chatMapper.insertChatMessage(chatmessage);
+	public void appendMessage(ChatMessage chatMessage) throws IOException {
+		int pr_id = chatMessage.getPr_id();
+		String chatid = "";
+		String pr_email = productService.getProductInfo(pr_id).getPr_email();
+		if (chatMessage.getFromid().equals(pr_email)) {
+			chatid = pr_id + chatMessage.getToid();
+		} else {
+			chatid = pr_id + chatMessage.getFromid();
+		}
+		if (checkChatRoomExist(chatid) == 0) {
+			String sellerid = pr_email;
+			String pr_title = productService.getProductInfo(pr_id).getPr_title(); 
+			String buyerid = chatMessage.getToid();
+			ChatRoom chatRoom = new ChatRoom(chatid, pr_id, sellerid, buyerid, pr_title);
+			addChatRoom(chatRoom);
+		}//end chatRoom check If문
+		chatMessage.setChatid(chatid);
+		chatMapper.insertChatMessage(chatMessage);
 	}
 
-	public List<Chatmessage> readChatHistory(String chatid) throws IOException {
-		List<Chatmessage> chatHistory = chatMapper.getAllChatMessages(chatid);
+	public List<ChatMessage> readChatHistory(String chatid) {
+		List<ChatMessage> chatHistory = chatMapper.getAllChatMessages(chatid);
 		return chatHistory;
+	}
+	
+	@Override
+	public List<ChatMessage> getAllChatMessages(String chatid) {
+		chatMapper.getAllChatMessages(chatid);
+		return null;
 	}
 	
 	@Override
@@ -42,15 +67,9 @@ public class ChatService implements ChatMapper {
 	}
 	
 	@Override
-	public List<ChatList> getAllChatRoom(String email) {
+	public List<ChatRoom> getAllChatRoom(String email) {
 		
 		return chatMapper.getAllChatRoom(email);
-	}
-	
-
-	@Override
-	public Chatmessage findByChatId(int pr_id, String buyerId) {
-		return chatMapper.findByChatId(pr_id, buyerId);
 	}
 	
 	@Override
@@ -84,29 +103,65 @@ public class ChatService implements ChatMapper {
 	}
 
 	@Override
-	public void insertChatMessage(Chatmessage chatmessage) {
-		chatMapper.insertChatMessage(chatmessage);
+	public void insertChatMessage(ChatMessage ChatMessage) {
+		chatMapper.insertChatMessage(ChatMessage);
 	}
 
-	@Override
-	public List<Chatmessage> getAllChatMessages(int pr_id, String fromid) {
-		chatMapper.getAllChatMessages(pr_id, fromid);
-		return null;
-	}
 
-	public Chatmessage infoSetting(HttpSession session, Chatmessage chatmessage) {
+	public ChatMessage infoSetting(HttpSession session, ChatMessage chatMessage, 
+			List<ChatMessage> chatHistory) {
+		int pr_id = chatMessage.getPr_id();
 		Login loginInfo = (Login) session.getAttribute("login");
 		String fromid = loginInfo.getEmail();
 		String fromname = loginInfo.getNickName();
-		chatmessage.setFromid(fromid);
-		chatmessage.setFromname(fromname);	
-		return chatmessage;
+		chatMessage.setFromid(fromid);
+		chatMessage.setFromname(fromname);	
+		String chatid = pr_id + fromid; 
+		chatMessage.setChatid(chatid);
+		
+		Object chatmessageExist = ObjectUtils.defaultIfNull(getAllChatMessages(chatid), 
+				null);
+		if (chatmessageExist != null) {
+			chatHistory = readChatHistory(chatid);
+		}
+		return chatMessage;
 	}
 
+	@Override
+	public void addChatRoom(ChatRoom chatMessage) {
+		chatMapper.addChatRoom(chatMessage);
+	}
 
-	
+	@Override
+	public int checkChatRoomExist(String chatid) {
+		return chatMapper.checkChatRoomExist(chatid);
+	}
 
-	
-	
+	@Override
+	public ChatRoom getChatRoom(String chatid) {
+		return chatMapper.getChatRoom(chatid);
+	}
+
+	@Override
+	public ChatMessage getChatMessageInfo(String chatid) {
+		return chatMapper.getChatMessageInfo(chatid);
+	}
+
+	public ChatMessage insertToInfo(ChatMessage chatMessageInfo, HttpSession session) {
+		Login loginInfo = (Login) session.getAttribute("login");
+		String myEmail = loginInfo.getEmail();
+		chatMessageInfo.setToid("");
+		String toid = chatMessageInfo.getToid();
+		String fromid = chatMessageInfo.getFromid();
+		if (!myEmail.equals(chatMessageInfo.getFromid())) {
+			toid = chatMessageInfo.getFromid();
+			fromid = chatMessageInfo.getToid();
+		}
+		String toname = productService.getNickNameByPrEmail(toid);
+		chatMessageInfo.setFromid(fromid);
+		chatMessageInfo.setToid(toid);
+		chatMessageInfo.setToname(toname);
+		return chatMessageInfo;
+	}
 
 }

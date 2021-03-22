@@ -17,16 +17,16 @@
 <body>
 	<div class="container">
 		<div class="title_text">
-			<h2>${chatRoomInfo.pr_title}</h2>
+			<h2>${chatMessageInfo.pr_title}</h2>
 		</div>
 		<div class="row">	
 				<%--chatHistory와 member가 실시간 입력하는 메시지 출력 --%>
 				<div id="content">
 					<c:forEach var="chatRoom" items="${chatHistory}">
 						<p>
-							<span id="chatRoomSenderName">${chatRoom.fromname}</span><br>
-							<span id="chatRoomContent">${chatRoom.chatmessage}</span><br>
-							<span id="chatRoomSendTime">${chatRoom.sendTime}</span><br>
+							<span id="chatRoomSenderName">${chatMessage.fromname}</span><br>
+							<span id="chatRoomContent">${chatMessage.chatmessage}</span><br>
+							<span id="chatRoomSendTime">${chatMessage.sendTime}</span><br>
 						</p>	
 					</c:forEach>
 				</div>
@@ -38,9 +38,10 @@
 							<button id="send" class="btn btn-primary" onclick="send()">보내기</button>
 							<input type="hidden" value="${login.getNickName()}" id="fromname"/>
 							<input type="hidden" value="${login.getEmail()}" id="fromid"/>
-							<input type="hidden" value="${chatRoomInfo.pr_id}" id="pr_id"/>
-							<input type="hidden" value="${chatRoomInfo.toid}" id="toid"/>
-							<input type="hidden" value="${chatRoomInfo.toname}" id="toname"/>						
+							<input type="hidden" value="${chatmessageInfo.pr_id}" id="pr_id"/>
+							<input type="hidden" value="${chatmessageInfo.toid}" id="toid"/>
+							<input type="hidden" value="${chatmessageInfo.toname}" id="toname"/>						
+							<input type="hidden" value="${chatmessageInfo.pr_email}" id="pr_email"/>						
 						</div>					
 					</div>				
 				</div>
@@ -57,7 +58,7 @@
 		var pr_id = $('#pr_id').val();
 		var toname = $('#toname').val();
 		var toid = $('#toid').val();	
-		var chatid = pr_id + fromid;
+		var pr_email = $("#pr_email").val();
 		
 		<%-- invoke when DOM(Documents Object Model; HTML(<head>, <body>...etc) is ready --%>
 		$(document).ready(connect());
@@ -65,7 +66,7 @@
 		
 		function connect() {
 			console.log("connected");
-			var urlSubscribe = '/user/' + id + '/queue/messages';
+			var urlSubscribe = '/user/' + chatid + '/queue/messages';
 			stompClient = Stomp.over(function(){
 				return new SockJS('/broadcast');	
 			});

@@ -1,9 +1,7 @@
 package com.example.salle.mapper;
 
-import java.io.IOException;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -41,7 +39,7 @@ public interface ProductMapper {
 	Product getProductInfo(int pr_id);
 	
 	//Product, Member table 조합해서 모든 정보를 가져옴
-	String getMemberProductInfo(String email);
+	String getNickNameByPrEmail(String email);
 	
 	//검색어 결과 출력
 	List<Product> search(String searchWord, String searchWordNoSpace);

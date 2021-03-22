@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.example.salle.mapper.ChatMapper">
+    
+    <insert id="insertChatMessage" parameterType="com.example.salle.domain.ChatMessage">
+    	INSERT INTO 
+    	chatmessage(pr_id, fromname, toname, fromid, toid, chatmessage, chatread, chatid, pr_email)
+    	VALUES (#{pr_id}, #{fromname}, #{toname}, #{fromid}, #{toid}, #{chatmessage}, 1, #{chatid}, #{pr_email});
+    </insert>
+
+    <select id="getAllChatMessages" resultType="com.example.salle.domain.ChatMessage">
+   		SELECT fromname, chatMessage, sendtime
+   		FROM chatmessage
+    	WHERE chatid = #{chatid}
+    	ORDER BY sendtime ASC;
+   </select>
+    
+    <select id="getAllChatRoom" resultType="com.example.salle.domain.ChatRoom">
+    	SELECT *
+    	FROM chatroom
+    	WHERE sellerid = #{email}
+   		OR buyerid = #{email};
+    </select>
+    
+    <select id="getChatRoom" resultType="com.example.salle.domain.ChatRoom">
+    	SELECT *
+    	FROM chatroom
+    	WHERE chatid = #{chatid};
+    </select>
+
+    <select id="getChatMessageInfo" resultType="com.example.salle.domain.ChatMessage">
+    	SELECT *
+    	FROM chatmessage
+    	WHERE chatid = #{chatid}
+    	LIMIT 1;
+    </select>
+
+    <update id="updateFileName">
+    	UPDATE chatmessage
+    	SET FILENAME = #{fileName}
+    	WHERE ID = #{id};
+    </update>
+   
+    <update id="updateChatReadQuery">
+    	UPDATE chatmessage
+    	SET chatread = 1
+    	WHERE pr_id = #{pr_id} AND fromid = #{fromid}
+    			AND toid=#{toid};
+    </update>
+   
+   <select id="getUnreadMessages" resultType="int">
+   		SELECT COUNT(id)
+   		FROM chatmessage
+   		WHERE (SELLERID = #{email} AND CHATREADSELL = 0) OR 
+   		(BUYERID = #{email} AND CHATREADBUY = 0);
+   </select>
+   
+	<insert id="addChatRoom" parameterType="com.example.salle.domain.ChatRoom">
+		INSERT INTO
+		chatroom(chatid, pr_id, sellerid, buyerid, pr_title)
+		VALUES (#{chatid}, #{pr_id}, #{sellerid}, #{buyerid}, #{pr_title});
+	</insert>
+	
+	<select id="checkCheckRoomExist">
+		SELECT COUNT(chatid)
+		FROM chatroom
+		WHERE chatid = #{chatid};	
+	</select>
+    
+</mapper>
