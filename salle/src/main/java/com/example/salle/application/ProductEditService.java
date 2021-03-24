@@ -148,7 +148,7 @@ public class ProductEditService {
 
 	public String productDelete(int pr_id) throws UnsupportedEncodingException {
 		Product product = productService.getProductInfo(pr_id);
-		String nickName = productService.getMemberProductInfo(product.getPr_email());	
+		String nickName = productService.getNickNameByPrEmail(product.getPr_email());	
 		String nickNameEncode = URLEncoder.encode(nickName, "UTF-8");
 		return nickNameEncode;
 	}

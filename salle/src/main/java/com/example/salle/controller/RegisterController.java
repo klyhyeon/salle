@@ -20,34 +20,29 @@ public class RegisterController {
 	
 	  @Autowired
 	  MemberMapper memberService;
-	  
-	    //회원가입 페이지 노출
-	    @RequestMapping(value = "/register/main", method = RequestMethod.GET)
-	    public String registerAttempt(Model model) {
+  
+    //회원가입 페이지 노출
+    @RequestMapping(value = "/register/main", method = RequestMethod.GET)
+    public String registerAttempt(Model model) {
 
-	        model.addAttribute("member", new Member());
-	        return "register/main";
-	    }
+        model.addAttribute("member", new Member());
+        return "register/main";
+    }
 
-	    @RequestMapping(value = "/register/done", method = RequestMethod.POST)
-	    public String registerHandle(@ModelAttribute("member") Member member, 
-	    		Errors errors) {		
-	    	
-	    		if (memberService.memberInfo(member.getEmail()) != null) {
-	    			member.setEmailDuplicate(true);
-	    		}
-	    
-	    		new RegisterValidation().validate(member, errors);
-	    		
-	    		if (errors.hasErrors()) {
-	    			
-	    			return "register/main";
-	    		}
-	    		
-	    	
-		        memberService.insertMember(member);
-		   
-		        return "register/done";
-		}
-	
+    @RequestMapping(value = "/register/done", method = RequestMethod.POST)
+    public String registerHandle(@ModelAttribute("member") Member member, 
+    		Errors errors) {		
+    		if (memberService.memberInfo(member.getEmail()) != null) {
+    			member.setEmailDuplicate(true);
+    		}
+    
+    		new RegisterValidation().validate(member, errors);
+    		
+    		if (errors.hasErrors()) {
+    			return "register/main";
+    		}
+    	
+	        memberService.insertMember(member);
+	        return "register/done";
+	}
 }

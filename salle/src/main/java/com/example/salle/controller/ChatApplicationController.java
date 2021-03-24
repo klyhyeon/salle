@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.salle.application.ChatService;
 import com.example.salle.application.ProductService;
-import com.example.salle.domain.ChatList;
 import com.example.salle.domain.ChatMessage;
 import com.example.salle.domain.ChatRoom;
 import com.example.salle.domain.Product;
@@ -93,7 +92,7 @@ public class ChatApplicationController {
 		String chatid = chatmessage.getChatid();
 		//TODO: sendTime 어떻게 반환해줄건지
 		String urlSubscribe = "/user/" + chatid + "/queue/messages";
-		simpMessageTemplate.convertAndSend(urlSubscribe, new ChatMessage(chatmessage.getChatmessage(), chatmessage.getFromname(), chatmessage.getSendTime(), chatmessage.getFromid())); 
+		simpMessageTemplate.convertAndSend(urlSubscribe, new ChatMessage(chatmessage.getChatmessage(), chatmessage.getFromname(), chatmessage.getFromname(), chatmessage.getFromid())); 
 	}
 	
 	@RequestMapping("/chatread/ajax")
@@ -124,40 +123,40 @@ public class ChatApplicationController {
 	public String chatListUnread(@RequestBody String json) {
 		JSONObject jsn = new JSONObject(json);
 		String email = (String) jsn.get("email");
-		List<ChatList> chatmessageList = chatService.getAllChatRoom(email);
+		List<ChatRoom> chatmessageList = chatService.getAllChatRoom(email);
 		JSONArray ja = new JSONArray();
-		List<Integer> unreadChatId = chatService.getUnreadMessages(email);
-
-		 for (ChatList chatList : chatmessageList) {
-			//chatmessage 정보를 JSON Object에 put 해줌, chatmessage이 반복문에서 넘어갈 때마다 객체 초기화 
-			 JSONObject jo = new JSONObject();
-			 jo.put("pr_id", chatList.getPr_id());
-			 jo.put("buyerId", chatList.getBuyerId());
-			 jo.put("pr_img_1", chatList.getPr_img_1());
-		 	//리스트에 출력할 상대방 닉네임 확인
-		 if (chatList.getBuyerId().equals(email)) {
-			 jo.put("senderName", chatList.getSellerName());
-		 } else {
-			 jo.put("senderName", chatList.getBuyerName());
-		 }
-		 
-		 	 jo.put("pr_title", chatList.getPr_title());
-		 //읽지 않은 chatmessage이 0개일때
-		 if (unreadChatId.size() == 0) {
-			 jo.put("messageUnread", "");
-		 	} else {
-		 		//읽지 않은 chatmessageId들과 현재 chatmessageId 대조 후 처리 
-				 for (int ele : unreadChatId) {
-					 	if (chatList.getId() == ele) {
-					 		jo.put("messageUnread", "새 메세지");
-					 		break;
-					 	} else {
-					 		jo.put("messageUnread", "");
-					 	}
-				 }
-			}
-		 	ja.put(jo);
-		}
+//		List<Integer> unreadChatId = chatService.getUnreadMessages(email);
+//
+//		 for (ChatRoom chatList : chatmessageList) {
+//			//chatmessage 정보를 JSON Object에 put 해줌, chatmessage이 반복문에서 넘어갈 때마다 객체 초기화 
+//			 JSONObject jo = new JSONObject();
+//			 jo.put("pr_id", chatList.getPr_id());
+//			 jo.put("buyerId", chatList.getBuyerId());
+//			 jo.put("pr_img_1", chatList.getPr_img_1());
+//		 	//리스트에 출력할 상대방 닉네임 확인
+//		 if (chatList.getBuyerId().equals(email)) {
+//			 jo.put("senderName", chatList.getSellerName());
+//		 } else {
+//			 jo.put("senderName", chatList.getBuyerName());
+//		 }
+//		 
+//		 	 jo.put("pr_title", chatList.getPr_title());
+//		 //읽지 않은 chatmessage이 0개일때
+//		 if (unreadChatId.size() == 0) {
+//			 jo.put("messageUnread", "");
+//		 	} else {
+//		 		//읽지 않은 chatmessageId들과 현재 chatmessageId 대조 후 처리 
+//				 for (int ele : unreadChatId) {
+//					 	if (chatList.getId() == ele) {
+//					 		jo.put("messageUnread", "새 메세지");
+//					 		break;
+//					 	} else {
+//					 		jo.put("messageUnread", "");
+//					 	}
+//				 }
+//			}
+//		 	ja.put(jo);
+//		}
 		 //Javascript에 parsing 할 수 있도록 JSON Object에 Array를 담아줌
 		 JSONObject jsnResult = new JSONObject();
 		 jsnResult.put("chatList", ja);

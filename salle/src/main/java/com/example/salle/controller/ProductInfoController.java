@@ -42,7 +42,7 @@ public class ProductInfoController {
 		List<String> productImgList = productService.getImgList(product);
 		model.addAttribute("productInfoImg", productImgList);
 		//member nickname
-		model.addAttribute("nickName",productService.getMemberProductInfo(product.getPr_email()));		
+		model.addAttribute("nickName",productService.getNickNameByPrEmail(product.getPr_email()));		
 		//hoursfromupload
 		int hours = productService.getHoursFromUpload(product);
 		model.addAttribute("hoursFromUpload", hours);
