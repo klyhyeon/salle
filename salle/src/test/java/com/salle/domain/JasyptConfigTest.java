@@ -9,11 +9,5 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 public class JasyptConfigTest {
 	
-	@Autowired
-	JasyptConfig jasyptConfig;
-
-	@Test
-    public void verifyPropertiesEncrypt() {
-    }
 
 }
