@@ -3,10 +3,14 @@ package com.salle.domain;
 import org.jasypt.encryption.StringEncryptor;
 import org.jasypt.encryption.pbe.PooledPBEStringEncryptor;
 import org.jasypt.encryption.pbe.config.SimpleStringPBEConfig;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import com.ulisesbocchio.jasyptspringboot.annotation.EnableEncryptableProperties;
+
 @Configuration
+@EnableEncryptableProperties
 public class JasyptConfig {
 	
 	@Bean(name="jasyptStringEncryptor")
@@ -23,6 +27,4 @@ public class JasyptConfig {
 		encryptor.setConfig(config);
 		return encryptor;		
 	}
-	
-
 }

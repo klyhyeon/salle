@@ -1,10 +1,13 @@
 package com.salle.domain;
 
+import java.sql.Timestamp;
+
 import lombok.Data;
 
 public @Data class ChatMessage {
 
 	private int pr_id;
+	private Timestamp sendTime;
 	private String chatid;
 	private String fromname;
 	private String toname;
