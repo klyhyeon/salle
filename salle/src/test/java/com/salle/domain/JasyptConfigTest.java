@@ -14,8 +14,6 @@ public class JasyptConfigTest {
 
 	@Test
     public void verifyPropertiesEncrypt() {
-        String encrypt = jasyptConfig.getPwd();
-        assertEquals("salle067138", encrypt);
     }
 
 }
