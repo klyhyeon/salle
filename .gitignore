@@ -5,5 +5,5 @@ salle/src/main/resources/aws.properties
 salle/src/main/resources/db.properties
 salle/src/test/java/com/salle/ProductEditControllerTest.java
 salle/jasypt.sh
-salle/src/main/java/com/salle/domain/JasyptConfig.java
+#salle/src/main/java/com/salle/domain/JasyptConfig.java
 salle/src/test/java/com/salle/domain/JasyptConfigTest.java
