@@ -6,10 +6,7 @@ import org.jasypt.encryption.pbe.config.SimpleStringPBEConfig;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.ulisesbocchio.jasyptspringboot.annotation.EnableEncryptableProperties;
-
 @Configuration
-@EnableEncryptableProperties
 public class JasyptConfig {
 	
 	@Bean(name="jasyptStringEncryptor")
@@ -24,6 +21,6 @@ public class JasyptConfig {
 		config.setSaltGeneratorClassName("org.jasypt.salt.RandomSaltGenerator");
 		config.setStringOutputType("base64");
 		encryptor.setConfig(config);
-		return encryptor;		
+		return encryptor;
 	}
 }
