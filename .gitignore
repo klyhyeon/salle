@@ -5,3 +5,4 @@ salle/src/main/resources/aws.yml
 salle/src/main/resources/aws.properties
 salle/src/main/resources/db.properties
 salle/src/test/java/salle/ProductEditControllerTest.java
+salle/jasypt.sh
