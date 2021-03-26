@@ -1,7 +1,10 @@
 package com.salle.domain;
 
+import org.springframework.stereotype.Component;
+
 import lombok.Data;
 
+@Component
 public @Data class ChatRoom {
 
 	private String chatid;
