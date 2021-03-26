@@ -1,9 +1,8 @@
 salle/src/main/java/com/salle/application/ChatRoomService_backup.java
-salle/src/main/java/com/salle/controller/ChatApplicationController_backup.java
+salle/src/main/java/com/salle/**./backup.java
 salle/src/main/resources/aws.yml
 salle/src/main/resources/aws.properties
 salle/src/main/resources/db.properties
-salle/src/test/java/com/salle/ProductEditControllerTest.java
+salle/src/test/**
 salle/jasypt.sh
-#salle/src/main/java/com/salle/domain/JasyptConfig.java
-salle/src/test/java/com/salle/domain/JasyptConfigTest.java
+
