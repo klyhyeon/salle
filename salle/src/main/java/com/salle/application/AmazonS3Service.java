@@ -27,7 +27,6 @@ public class AmazonS3Service {
 	@Value("${cloud.aws.s3.bucket}")
 	private String bucket;
 	
-	
 	public String searchIcon() {
 		String fileName = "static/img/searchicon.png";
 		return amazonS3.getUrl(bucket, fileName).toString();
@@ -57,6 +56,11 @@ public class AmazonS3Service {
 
 	public void deleteFile(String bucket, String deleteFile) {
 		amazonS3.deleteObject(new DeleteObjectRequest(bucket, deleteFile));
+	}
+
+
+	public String getBucket() {
+		return bucket;
 	}
 
 }
