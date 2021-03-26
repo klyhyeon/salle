@@ -3,29 +3,29 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
-<mapper namespace="com.example.salle.mapper.ProductMapper">
+<mapper namespace="com.salle.mapper.ProductMapper">
 
     <!-- Product SQL-->
     <!-- parameterType: 구문에 전달될 파라미터의 패키지 경로를 포함한 전체 클래스명이나 별칭-->
-    <insert id="insertProduct" parameterType="com.example.salle.domain.Product"
+    <insert id="insertProduct" parameterType="com.salle.domain.Product"
      useGeneratedKeys="true" keyProperty="pr_id">
         INSERT INTO
         product(pr_email, pr_reg_date, pr_img_1, pr_img_2, pr_img_3, pr_img_4, pr_img_5, pr_title, pr_category, pr_region, pr_price, pr_detail, pr_title_alias)
         VALUES(#{pr_email}, #{pr_reg_date}, #{pr_img_1}, #{pr_img_2}, #{pr_img_3}, #{pr_img_4}, #{pr_img_5}, #{pr_title}, #{pr_category}, #{pr_region}, #{pr_price}, #{pr_detail}, #{pr_title_alias});
     </insert>
     
-    <select id="getProductInfo" resultType="com.example.salle.domain.Product">
+    <select id="getProductInfo" resultType="com.salle.domain.Product">
     	SELECT *
     	FROM product
     	WHERE PR_ID = #{pr_id}  
     </select>
 
-    <select id="getProductList" resultType="com.example.salle.domain.Product">
+    <select id="getProductList" resultType="com.salle.domain.Product">
     	SELECT *
     	FROM product;
     </select>
 
-    <select id="getCategoryProductList" resultType="com.example.salle.domain.Product">
+    <select id="getCategoryProductList" resultType="com.salle.domain.Product">
     	SELECT *
     	FROM product
     	WHERE PR_CATEGORY = #{pr_category};
@@ -39,7 +39,7 @@
 	    WHERE m.email = #{pr_email}
 	    LIMIT 1;
     </select>
-    <select id="search" resultType="com.example.salle.domain.Product">
+    <select id="search" resultType="com.salle.domain.Product">
     	<bind name="searchWordConcate" value="'%'+searchWord+'%'"></bind>
     	<bind name="searchWordNoSpaceConcate" value="'%'+searchWordNoSpace+'%'"></bind>
     	SELECT *

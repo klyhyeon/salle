@@ -3,9 +3,9 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
-<mapper namespace="com.example.salle.mapper.ProfileMapper">
+<mapper namespace="com.salle.mapper.ProfileMapper">
     
-    <select id="getSellerProductList" resultType="com.example.salle.domain.Product">
+    <select id="getSellerProductList" resultType="com.salle.domain.Product">
     	SELECT *
     	FROM product
     	WHERE PR_EMAIL = #{email};
