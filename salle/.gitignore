@@ -32,6 +32,4 @@ build/
 ### VS Code ###
 .vscode/
 
-### Personal Eclipse ###
-!**/src/main/java/com/salle/domain/JasyptConfig.java
 
