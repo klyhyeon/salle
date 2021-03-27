@@ -39,7 +39,7 @@ public class MemberService implements MemberMapper {
     public Login loginMember(Login login) {
     
         Member memberInfo = memberMapper.memberInfo(login.getEmail());
-        boolean checkPwd = encryptor.checkPassword(memberInfo.getPassword(), login.getPassword());
+        boolean checkPwd = encryptor.checkPassword(login.getPassword(), memberInfo.getPassword());
                 
         if (memberInfo == null) {
             throw new UnregisteredMemberException();
