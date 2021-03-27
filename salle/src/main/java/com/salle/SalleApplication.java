@@ -11,4 +11,6 @@ public class SalleApplication extends SpringBootServletInitializer {
 		new SpringApplicationBuilder(SalleApplication.class)
 			.run(args);
 	}
+	
+
 }
