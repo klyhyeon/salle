@@ -2,6 +2,7 @@ package com.salle.controller;
 
 import java.util.List;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,8 +33,6 @@ public class ProductInfoController {
 	//TODO: productInfo 뒤 seq 지정해야한다.
 	@RequestMapping(value = "/productInfo/{pr_id}", method = RequestMethod.GET)
 	public String productInfoGet(Model model, @PathVariable int pr_id) {		
-		//chatRoom ModelAttribute
-		model.addAttribute("chatRoom", chatRoom);
 		
 		//.jsp에서 ${product.pr_title}
 		product = productService.getProductInfo(pr_id);

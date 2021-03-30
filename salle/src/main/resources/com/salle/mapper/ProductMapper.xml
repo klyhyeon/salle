@@ -17,7 +17,7 @@
     <select id="getProductInfo" resultType="com.salle.domain.Product">
     	SELECT *
     	FROM product
-    	WHERE PR_ID = #{pr_id}  
+    	WHERE PR_ID = #{pr_id}
     </select>
 
     <select id="getProductList" resultType="com.salle.domain.Product">

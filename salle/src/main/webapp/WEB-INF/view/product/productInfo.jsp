@@ -46,31 +46,15 @@
 			</c:when>
 			<c:otherwise>
 				<div class="buy_chat">
-				<form:form id="chatSubmit_form" action="/product/chatStart" method="GET" modelAttribute="chatRoom">
-					<a href="javascript:{}" onclick="chatSubmit()">
-						<form:input type="hidden" path="pr_id" value="${product.pr_id}"/>
-						<form:input type="hidden" path="pr_email" value="${product.pr_email}"/>
-						<form:input type="hidden" path="pr_title" value="${product.pr_title}"/>
+					<a href="/product/chatStart/${product.pr_id}">
 						<button id="btn_chat">
 							채팅으로 거래하기
 						</button>
 					</a>
-				</form:form>
 				</div>
 			</c:otherwise>
 		</c:choose>
 	</div>
-	
-	<script type="text/javascript">
-		function formSubmit() {
-			document.getElementById('nickName_form').submit();
-		}		 	
-		
-	 	function chatSubmit() {
-	 		document.getElementById('chatSubmit_form').submit();
-	 	} 
-	</script>
-
 
 	<div class="container_info2">
 			<div class="pr_title">
@@ -95,6 +79,11 @@
 	</p>
 		
 	 <script type="text/javascript">
+	 
+		function formSubmit() {
+			document.getElementById('nickName_form').submit();
+		}		 	
+		
 	 	//div_pr_img 생성
 		 	var currSlide = 1;
 	 		showSlide(currSlide);
