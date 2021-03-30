@@ -2,7 +2,7 @@ package com.salle.application;
 
 import javax.transaction.Transactional;
 
-import org.jasypt.util.password.BasicPasswordEncryptor;
+import org.jasypt.util.password.ConfigurablePasswordEncryptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,10 +19,11 @@ public class MemberService implements MemberMapper {
     @Autowired
     MemberMapper memberMapper;
 
-    BasicPasswordEncryptor encryptor = new BasicPasswordEncryptor(); 
+    ConfigurablePasswordEncryptor encryptor = new ConfigurablePasswordEncryptor(); 
 
     @Override
     public void insertMember(Member member) {
+    	encryptor.setAlgorithm("PBEWithMD5AndDES");
     	String rawPwd = member.getPassword();
     	String encryptedPwd = encryptor.encryptPassword(rawPwd);
     	member.setPassword(encryptedPwd);
@@ -37,7 +38,7 @@ public class MemberService implements MemberMapper {
 
 
     public Login loginMember(Login login) {
-    
+    	encryptor.setAlgorithm("PBEWithMD5AndDES");
         Member memberInfo = memberMapper.memberInfo(login.getEmail());
         boolean checkPwd = encryptor.checkPassword(login.getPassword(), memberInfo.getPassword());
                 
