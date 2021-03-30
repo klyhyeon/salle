@@ -37,6 +37,14 @@
     	WHERE chatid = #{chatid}
     	LIMIT 1;
     </select>
+    
+    <select id="getHeadChatMessage">
+		SELECT chatmessage
+		FROM chatmessage
+		WHERE chatid = #{chatid}
+		ORDER BY sendtime DESC 
+		LIMIT 1;
+	</select>
 
     <update id="updateFileName">
     	UPDATE chatmessage
@@ -68,14 +76,6 @@
 		SELECT COUNT(chatid)
 		FROM chatroom
 		WHERE chatid = #{chatid};	
-	</select>
-	
-	<select id="getHeadChatMessage">
-		SELECT chatmessage
-		FROM chatmessage
-		WHERE chatid = #{chatid}
-		ORDER BY sendtime DESC 
-		LIMIT 1;
 	</select>
     
 </mapper>
