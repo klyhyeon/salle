@@ -2,6 +2,7 @@ package com.salle.application;
 
 import javax.transaction.Transactional;
 
+import org.apache.commons.lang3.ObjectUtils;
 import org.jasypt.util.password.ConfigurablePasswordEncryptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,14 +17,18 @@ import com.salle.mapper.MemberMapper;
 @Service
 public class MemberService implements MemberMapper {
 	
-    @Autowired
     MemberMapper memberMapper;
 
+    @Autowired
+    public MemberService(MemberMapper memberMapper) {
+    	this.memberMapper = memberMapper;
+    }
+    
     ConfigurablePasswordEncryptor encryptor = new ConfigurablePasswordEncryptor(); 
 
     @Override
     public void insertMember(Member member) {
-    	encryptor.setAlgorithm("PBEWithMD5AndDES");
+    	encryptor.setAlgorithm("MD5");
     	String rawPwd = member.getPassword();
     	String encryptedPwd = encryptor.encryptPassword(rawPwd);
     	member.setPassword(encryptedPwd);
@@ -32,24 +37,25 @@ public class MemberService implements MemberMapper {
 
     @Override
     public Member memberInfo(String email) {
-
         return memberMapper.memberInfo(email);
     }
 
-
     public Login loginMember(Login login) {
-    	encryptor.setAlgorithm("PBEWithMD5AndDES");
-        Member memberInfo = memberMapper.memberInfo(login.getEmail());
-        boolean checkPwd = encryptor.checkPassword(login.getPassword(), memberInfo.getPassword());
+    	encryptor.setAlgorithm("MD5");
                 
+		Object memberInfo = ObjectUtils.defaultIfNull(memberMapper.memberInfo(login.getEmail()) , 
+				null);
+		Member memberInfoConvert = (Member) memberInfo;
+		
         if (memberInfo == null) {
             throw new UnregisteredMemberException();
         } else {
+        	boolean checkPwd = encryptor.checkPassword(login.getPassword(), memberInfoConvert.getPassword());
             if (!checkPwd)
                 throw new IncorrectPasswordException();
         }
         
-        login.setNickName(memberInfo.getNickName()); 
+        login.setNickName(memberInfoConvert.getNickName()); 
 
         return login;
     }
