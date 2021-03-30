@@ -59,6 +59,17 @@
 		var toname = $('#toname').val();
 		var toid = $('#toid').val();	
 		var pr_email = $("#pr_email").val();
+		var buyerid = "";
+		var chatid = "";
+		
+		function getBuyerid(String pr_email, String fromid, String toid) {
+			if (pr_email.equals(fromid)) {
+				buyerid = toid;
+			} else {
+				buyerid = fromid;
+			}
+			chatid = pr_id + buyerid;
+		}
 		
 		<%-- invoke when DOM(Documents Object Model; HTML(<head>, <body>...etc) is ready --%>
 		$(document).ready(connect());
@@ -66,6 +77,7 @@
 		
 		function connect() {
 			console.log("connected");
+			getBuyerid(pr_email, fromid, toid);
 			var urlSubscribe = '/user/' + chatid + '/queue/messages';
 			stompClient = Stomp.over(function(){
 				return new SockJS('/broadcast');	

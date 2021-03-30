@@ -1,7 +1,5 @@
 package com.salle.mapper;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -14,8 +12,6 @@ public interface ChatMapper {
 		
 	public List<ChatRoom> getAllChatRoom(String email);
 	
-	public void appendMessage(ChatMessage chatRoom) throws FileNotFoundException, IOException;
-
 	public int getId(int pr_id, String buyerId);
 
 	public void updateFileName(int id, String fileName);
@@ -37,4 +33,6 @@ public interface ChatMapper {
 	public ChatRoom getChatRoom(String chatid);
 	
 	public ChatMessage getChatMessageInfo(String chatid);
+
+	public String getHeadChatMessage(String chatid);
 }

@@ -7,8 +7,8 @@
     
     <insert id="insertChatMessage" parameterType="com.salle.domain.ChatMessage">
     	INSERT INTO 
-    	chatmessage(pr_id, fromname, toname, fromid, toid, chatmessage, chatread, chatid, pr_email)
-    	VALUES (#{pr_id}, #{fromname}, #{toname}, #{fromid}, #{toid}, #{chatmessage}, 1, #{chatid}, #{pr_email});
+    	chatmessage(pr_id, sendtime, fromname, toname, fromid, toid, chatmessage, chatread, chatid, pr_email)
+    	VALUES (#{pr_id}, #{sendtime}, #{fromname}, #{toname}, #{fromid}, #{toid}, #{chatmessage}, 1, #{chatid}, #{pr_email});
     </insert>
 
     <select id="getAllChatMessages" resultType="com.salle.domain.ChatMessage">
@@ -21,8 +21,8 @@
     <select id="getAllChatRoom" resultType="com.salle.domain.ChatRoom">
     	SELECT *
     	FROM chatroom
-    	WHERE sellerid = #{email}
-   		OR buyerid = #{email};
+    	WHERE sellerid = #{email} OR
+    	buyerid = #{email};
     </select>
     
     <select id="getChatRoom" resultType="com.salle.domain.ChatRoom">
@@ -68,6 +68,14 @@
 		SELECT COUNT(chatid)
 		FROM chatroom
 		WHERE chatid = #{chatid};	
+	</select>
+	
+	<select id="getHeadChatMessage">
+		SELECT chatmessage
+		FROM chatmessage
+		WHERE chatid = #{chatid}
+		ORDER BY sendtime DESC 
+		LIMIT 1;
 	</select>
     
 </mapper>
