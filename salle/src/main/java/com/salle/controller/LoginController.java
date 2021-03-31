@@ -31,12 +31,12 @@ public class LoginController {
     //회원가입 페이지 노출
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String loginAttempt(@ModelAttribute("login") Login login) {
-
+    	
         return "login";
     }
 
     @RequestMapping(value = "/login/done", method = RequestMethod.POST)
-    public String loginHandle(@ModelAttribute Login login, HttpSession httpSession, Model model) {
+    public String loginHandle(@ModelAttribute("login") Login login, Model model) {
 
     	Login loginInfo;
     	
@@ -50,9 +50,9 @@ public class LoginController {
             return "login";
         }
         
-    		String email = login.getEmail();
-    		int messages = chatRoomService.getUnreadMessages(email);
-    		model.addAttribute("messageAlert", messages);    		
+//    		String email = login.getEmail();
+//    		int messages = chatRoomService.getUnreadMessages(email);
+//    		model.addAttribute("messageAlert", messages);    		
         
         model.addAttribute("productList", productService.getProductList());
         return "main";

@@ -10,8 +10,11 @@ public @Data class Login {
 
     private String email;
     private String password;
-    private boolean autoLogin;
-    private boolean rememberEmail;
     private String nickName;
+    
+    public Login(String email, String password) {
+    	this.email = email;
+    	this.password = password;
+    }
 
 }

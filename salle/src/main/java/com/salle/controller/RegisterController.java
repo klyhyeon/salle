@@ -2,7 +2,6 @@ package com.salle.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -23,9 +22,8 @@ public class RegisterController {
   
     //회원가입 페이지 노출
     @RequestMapping(value = "/register/main", method = RequestMethod.GET)
-    public String registerAttempt(Model model) {
+    public String registerAttempt(@ModelAttribute("member") Member member) {
 
-        model.addAttribute("member", new Member());
         return "register/main";
     }
 
