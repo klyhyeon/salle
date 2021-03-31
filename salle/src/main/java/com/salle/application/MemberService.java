@@ -24,10 +24,10 @@ public class MemberService implements MemberMapper {
     	this.memberMapper = memberMapper;
     }
     
-    ConfigurablePasswordEncryptor encryptor = new ConfigurablePasswordEncryptor(); 
 
     @Override
     public void insertMember(Member member) {
+    	ConfigurablePasswordEncryptor encryptor = new ConfigurablePasswordEncryptor(); 
     	encryptor.setAlgorithm("MD5");
     	String rawPwd = member.getPassword();
     	String encryptedPwd = encryptor.encryptPassword(rawPwd);
@@ -41,8 +41,8 @@ public class MemberService implements MemberMapper {
     }
 
     public Login loginMember(Login login) {
+    	ConfigurablePasswordEncryptor encryptor = new ConfigurablePasswordEncryptor(); 
     	encryptor.setAlgorithm("MD5");
-                
 		Object memberInfo = ObjectUtils.defaultIfNull(memberMapper.memberInfo(login.getEmail()) , 
 				null);
 		Member memberInfoConvert = (Member) memberInfo;
