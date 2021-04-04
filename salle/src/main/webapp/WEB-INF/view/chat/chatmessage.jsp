@@ -39,7 +39,7 @@
 							<input type="hidden" value="${chatmessageInfo.pr_id}" id="pr_id"/>
 							<input type="hidden" value="${chatmessageInfo.toid}" id="toid"/>
 							<input type="hidden" value="${chatmessageInfo.toname}" id="toname"/>						
-							<input type="hidden" value="${chatmessageInfo.pr_email}" id="pr_email"/>						
+							<input type="hidden" value="${chatmessageInfo.pr_email}" id="pr_email"/>				
 						</div>					
 					</div>				
 				</div>
@@ -57,6 +57,7 @@
 		var toid = $('#toid').val();	
 		var pr_email = $("#pr_email").val();
 		var buyerid = "";
+		var content = $("#message").val();
 		var chatid = "";
 		
 		$(document).ready(connect());
@@ -97,8 +98,12 @@
 		function send() {
 			var content = $('#message').val();
 			sendBroadcast({
-				'pr_id': pr_id, 'fromname': fromname,'toname': toname,
-				'fromid': fromid, 'toid': toid, 'chatmessage': content,
+				'pr_id': pr_id, 
+				'fromname': fromname,
+				'toname': toname,
+				'fromid': fromid, 
+				'toid': toid, 
+				'chatmessage': content,
 				'chatid': chatid
 				});
 			$('#message').val("");
