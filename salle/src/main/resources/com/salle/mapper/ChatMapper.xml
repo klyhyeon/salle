@@ -60,7 +60,7 @@
     </update>
    
    <select id="getUnreadMessages" resultType="int">
-   		SELECT COUNT(id)
+   		SELECT COUNT(chatid)
    		FROM chatmessage
    		WHERE (SELLERID = #{email} AND CHATREADSELL = 0) OR 
    		(BUYERID = #{email} AND CHATREADBUY = 0);
