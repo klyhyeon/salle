@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.salle.application.ChatService;
+import com.salle.application.ProductService;
 import com.salle.domain.ChatMessage;
 import com.salle.domain.ChatRoom;
 
@@ -28,12 +29,14 @@ public class ChatApplicationController {
 	
 	private SimpMessagingTemplate simpMessageTemplate;
 	private ChatService chatService;
+	private ProductService productService;
 	
 	@Autowired
 	public ChatApplicationController(SimpMessagingTemplate simpMessagingTemplate, 
-			ChatService chatService) {
+			ChatService chatService, ProductService productService) {
 		this.simpMessageTemplate = simpMessagingTemplate;
 		this.chatService = chatService;
+		this.productService = productService;
 	}
 
 	@RequestMapping(value="/product/chatStart/{pr_id}", method=RequestMethod.GET)
@@ -43,7 +46,9 @@ public class ChatApplicationController {
 		List<ChatMessage> chatHistory = new ArrayList<ChatMessage>();
 		ChatMessage chatMessageInfo = chatService.infoSetting(session, chatMessage, 
 											chatHistory);
+		String pr_title = productService.getProductInfo(pr_id).getPr_title();
 		model.addAttribute("chatMessageInfo", chatMessageInfo);
+		model.addAttribute("pr_title", pr_title);
 		if (chatHistory != null)
 			model.addAttribute("chatHistory", chatHistory);
 		return "chat/chatmessage";

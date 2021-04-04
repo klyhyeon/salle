@@ -17,7 +17,7 @@
 <body>
 	<div class="container">
 		<div class="title_text">
-			<h2>${chatMessageInfo.pr_title}</h2>
+			<h2>${pr_title}</h2>
 		</div>
 		<div class="row">	
 				<%--chatHistory와 member가 실시간 입력하는 메시지 출력 --%>
