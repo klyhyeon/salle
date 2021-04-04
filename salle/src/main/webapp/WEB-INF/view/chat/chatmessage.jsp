@@ -8,10 +8,8 @@
 <html>
 <head>
 <title>${pr_title}</title>
-	<!-- jQuery -->
-	<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-	<link rel="stylesheet" href="/resources/css/chatBroadcastProduct.css">
 	
+	<link rel="stylesheet" href="/resources/css/chatBroadcastProduct.css">
 
 </head>
 <body>
@@ -48,6 +46,7 @@
 	
 	<script src="/webjars/stomp-websocket/2.3.3-1/stomp.js" type="text/javascript"></script>
 	<script src="/webjars/sockjs-client/1.1.2/sockjs.js" type="text/javascript"></script>
+	<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 	<script type="text/javascript">
 		var stompClient = null;
 		var fromname = $('#fromname').val();
@@ -60,7 +59,7 @@
 		var chatid = "";
 		
 		$(document).ready(function test() {
-			console.log('test')
+			console.log('test');
 		});
 		//$(document).ready(ajaxChatRead());
 		
