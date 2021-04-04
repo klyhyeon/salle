@@ -20,7 +20,6 @@
 			<h2>${pr_title}</h2>
 		</div>
 		<div class="row">	
-				<%--chatHistory와 member가 실시간 입력하는 메시지 출력 --%>
 				<div id="content">
 					<c:forEach var="chatRoom" items="${chatHistory}">
 						<p>
@@ -30,7 +29,6 @@
 						</p>	
 					</c:forEach>
 				</div>
-				<%--메시지 입력창과 보내기 버튼 --%>
 				<div class="row_3">
 					<div class="input_group" id="sendMessage">
 						<input type="text" placeholder="Message" id="message" class="form_control"/>
@@ -48,7 +46,6 @@
 			</div>
 	</div>
 	
-	<%-- STOMP와 sockjs webjars import --%>
 	<script src="/webjars/stomp-websocket/2.3.3-1/stomp.js" type="text/javascript"></script>
 	<script src="/webjars/sockjs-client/1.1.2/sockjs.js" type="text/javascript"></script>
 	<script type="text/javascript">
@@ -62,18 +59,8 @@
 		var buyerid = "";
 		var chatid = "";
 		
-		function getBuyerid(String pr_email, String fromid, String toid) {
-			if (pr_email.equals(fromid)) {
-				buyerid = toid;
-			} else {
-				buyerid = fromid;
-			}
-			chatid = pr_id + buyerid;
-		}
-		
-		<%-- invoke when DOM(Documents Object Model; HTML(<head>, <body>...etc) is ready --%>
 		$(document).ready(connect());
-		$(document).ready(ajaxChatRead());
+		//$(document).ready(ajaxChatRead());
 		
 		function connect() {
 			console.log("connected");
@@ -84,26 +71,29 @@
 			});
 		}
 			
-			<%-- connect(header, connectCallback(==연결에 성공하면 실행되는 메서드))--%>
 		stompClient.connect({}, function() {
-				<%-- urlSubscribe: 채팅방 참여자들에게 공유되는 경로--%>
-				<%-- callback(function()): 클라이언트가 서버(Controller broker로부터)로부터 메시지를 수신했을 때 실행 --%>
 				stompClient.subscribe(urlSubscribe, function(output) {
-				<%-- JSP <body>에 append할 메시지 contents--%>
 					showBroadcastMessage(createTextNode(JSON.parse(output.body)));
 				});
 			}, 
-				<%-- connect() 에러 발생 시 실행--%>
 			function (err) {
 						alert('error' + err);
 			});
 		
-		<%-- WebSocket broker 경로로 JSON형태 String 타입 메시지 데이터를 전송함 --%>
+		
+		function getBuyerid(String pr_email, String fromid, String toid) {
+			if (pr_email.equals(fromid)) {
+				buyerid = toid;
+			} else {
+				buyerid = fromid;
+			}
+			chatid = pr_id + buyerid;
+		}
+		
 		function sendBroadcast(json) {
 			stompClient.send("/app/broadcast", {}, JSON.stringify(json));
 		}
 		
-		<%-- 보내기 버튼 클릭시 실행되는 메서드--%>
 		function send() {
 			var content = $('#message').val();
 			sendBroadcast({
@@ -114,7 +104,6 @@
 			$('#message').val("");
 		}
 		
-		<%-- 메시지 입력 창에서 Enter키가 보내기와 연동되도록 설정 --%>
 		var inputMessage = document.getElementById('message'); 
 		inputMessage.addEventListener('keyup', function enterSend(event) {
 			
@@ -127,7 +116,6 @@
 			}
 		});
 		
-		<%-- 입력한 메시지를 HTML 형태로 가공 --%>
 		function createTextNode(messageObj) {
 			console.log("createTextNode");
 			console.log("messageObj: " + messageObj.content);
@@ -140,14 +128,12 @@
             ']</div></p>';
         }
 		
-		<%-- HTML 형태의 메시지를 화면에 출력해줌 --%>
-		<%-- 해당되는 id 태그의 모든 하위 내용들을 message가 추가된 내용으로 갱신해줌 --%>
 		function showBroadcastMessage(message) {
             $("#content").html($("#content").html() + message);
         }
 		
 
-		<%-- 읽음처리 --%>
+		<%-- 읽음처리 
 		function ajaxChatRead(id, reader) {
 			console.log("ajaxChatread");
 			var flag = "";
@@ -168,7 +154,7 @@
 				contentType: 'application/json'
 			})
 		}
-
+		--%>
 	
 	</script>
 </body>
