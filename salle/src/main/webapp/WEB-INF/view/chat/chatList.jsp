@@ -12,7 +12,7 @@
 </head>
 <body>
 
-<%@include file="home.jsp" %>
+<%@include file="../home.jsp" %>
 
 	<div class="wrapper">
 	
