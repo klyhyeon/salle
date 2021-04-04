@@ -82,7 +82,7 @@
 		
 		
 		function getBuyerid(String pr_email, String fromid, String toid) {
-			if (pr_email.equals(fromid)) {
+			if (pr_email === fromid)) {
 				buyerid = toid;
 			} else {
 				buyerid = fromid;
