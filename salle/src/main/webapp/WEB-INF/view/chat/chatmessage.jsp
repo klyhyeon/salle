@@ -59,7 +59,9 @@
 		var buyerid = "";
 		var chatid = "";
 		
-		$(document).ready(connect());
+		$(document).ready(function test() {
+			console.log('test')
+		});
 		//$(document).ready(ajaxChatRead());
 		
 		function connect() {
