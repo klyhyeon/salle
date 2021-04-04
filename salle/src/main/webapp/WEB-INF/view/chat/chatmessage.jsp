@@ -57,7 +57,6 @@
 		var toid = $('#toid').val();	
 		var pr_email = $("#pr_email").val();
 		var buyerid = "";
-		var content = $("#message").val();
 		var chatid = "";
 		
 		$(document).ready(connect());
@@ -97,6 +96,7 @@
 		
 		function send() {
 			var content = $('#message').val();
+			console.log(content);
 			sendBroadcast({
 				'pr_id': pr_id, 
 				'fromname': fromname,
