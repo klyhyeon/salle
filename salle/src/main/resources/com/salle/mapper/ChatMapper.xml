@@ -59,12 +59,14 @@
     			AND toid=#{toid};
     </update>
    
+   <!-- 
    <select id="getUnreadMessages" resultType="int">
    		SELECT COUNT(chatid)
    		FROM chatmessage
    		WHERE (SELLERID = #{email} AND CHATREADSELL = 0) OR 
    		(BUYERID = #{email} AND CHATREADBUY = 0);
    </select>
+    -->
    
 	<insert id="addChatRoom" parameterType="com.salle.domain.ChatRoom">
 		INSERT INTO
