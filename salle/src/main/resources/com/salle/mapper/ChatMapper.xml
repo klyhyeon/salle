@@ -74,7 +74,7 @@
 		VALUES (#{chatid}, #{pr_id}, #{sellerid}, #{buyerid}, #{pr_title});
 	</insert>
 	
-	<select id="checkCheckRoomExist">
+	<select id="checkCheckRoomExist" resultType="int">
 		SELECT COUNT(chatid)
 		FROM chatroom
 		WHERE chatid = #{chatid};	
