@@ -92,7 +92,7 @@
 		
 		function sendBroadcast(json) {
 			console.log('Pre-sendBroadcast');
-			stompClient.send("/chat/send", {}, JSON.stringify(json));
+			stompClient.send("/chat/sockJS", {}, JSON.stringify(json));
 			console.log('Post-sendBroadcast');
 		}
 		
