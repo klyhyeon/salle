@@ -67,7 +67,7 @@ public class ChatApplicationController {
 		return "chat/chatmessage";
 	}
 	
-	@MessageMapping("send")
+	@MessageMapping("/chat")
 	public void send(ChatMessage chatMessage) throws IOException {
 		ChatMessage chatMessageAppen = chatService.appendMessage(chatMessage);
 		String chatid = chatMessageAppen.getChatid();

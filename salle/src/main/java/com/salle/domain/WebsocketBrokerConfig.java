@@ -13,12 +13,12 @@ public class WebsocketBrokerConfig implements WebSocketMessageBrokerConfigurer {
 	@Override
 	public void configureMessageBroker(MessageBrokerRegistry registry) {
 		registry.enableSimpleBroker("/subscribe");
-		registry.setApplicationDestinationPrefixes("/chat");
+		registry.setApplicationDestinationPrefixes("/send");
 	}
 	
 	@Override
 	public void registerStompEndpoints(StompEndpointRegistry registry) {
-		registry.addEndpoint("/sockJS")
+		registry.addEndpoint("/chat")
 			.withSockJS()
 			.setHeartbeatTime(60_000);
 	}
