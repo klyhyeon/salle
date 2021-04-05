@@ -64,10 +64,9 @@
 		function connect() {
 			console.log("connected");
 			getBuyerid(pr_email, fromid, toid);
+			var sockJS = new SockJS('/sockJS');
 			var urlSubscribe = '/subscribe/' + chatid;
-			stompClient = Stomp.over(function() {
-				return new SockJS('/sockJS');	
-			});
+			stompClient = Stomp.over(sockJS);
 			stompClient.connect({}, function() {
 				stompClient.subscribe(urlSubscribe, function(output) {
 					showBroadcastMessage(createTextNode(JSON.parse(output.body)));
@@ -76,7 +75,7 @@
 			function (err) {
 						alert('error' + err);
 			});
-		}
+		};
 			
 		
 		
