@@ -34,10 +34,10 @@
 							<button id="send" class="btn btn-primary" onclick="send()">보내기</button>
 							<input type="hidden" value="${login.getNickName()}" id="fromname"/>
 							<input type="hidden" value="${login.getEmail()}" id="fromid"/>
-							<input type="hidden" value="${chatmessageInfo.pr_id}" id="pr_id"/>
-							<input type="hidden" value="${chatmessageInfo.toid}" id="toid"/>
-							<input type="hidden" value="${chatmessageInfo.toname}" id="toname"/>						
-							<input type="hidden" value="${chatmessageInfo.pr_email}" id="pr_email"/>				
+							<input type="hidden" value="${chatMessageInfo.pr_id}" id="pr_id"/>
+							<input type="hidden" value="${chatMessageInfo.toid}" id="toid"/>
+							<input type="hidden" value="${chatMessageInfo.toname}" id="toname"/>						
+							<input type="hidden" value="${chatMessageInfo.pr_email}" id="pr_email"/>				
 						</div>					
 					</div>				
 				</div>
