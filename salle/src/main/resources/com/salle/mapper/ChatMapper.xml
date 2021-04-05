@@ -15,7 +15,7 @@
    		SELECT fromname, chatMessage, sendtime
    		FROM chatmessage
     	WHERE chatid = #{chatid}
-    	ORDER BY sendtime ASC;
+    	ORDER BY sendtime DESC;
    </select>
     
     <select id="getAllChatRoom" resultType="com.salle.domain.ChatRoom">

@@ -71,8 +71,8 @@ public class ChatService implements ChatMapper {
 	
 	@Override
 	public List<ChatMessage> getAllChatMessages(String chatid) {
-		chatMapper.getAllChatMessages(chatid);
-		return null;
+		
+		return chatMapper.getAllChatMessages(chatid);
 	}
 	
 	@Override
