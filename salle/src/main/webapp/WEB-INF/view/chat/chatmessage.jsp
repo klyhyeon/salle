@@ -44,7 +44,7 @@
 			</div>
 	</div>
 	
-	<script src="/src/main/resources/js/stomp.js" type="text/coffeescript"></script>
+	<script src="js/stomp.js" type="text/coffeescript"></script>
 	<script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.js"></script>
 	<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 	<script type="text/javascript">
