@@ -126,17 +126,16 @@ public class ChatService implements ChatMapper {
 			List<ChatMessage> chatHistory) {
 		int pr_id = chatMessage.getPr_id();
 		Product product = productService.getProductInfo(pr_id);
-		chatMessage.setPr_email(product.getPr_email());
+		String pr_email = product.getPr_email();
+		chatMessage.setPr_email(pr_email);
 		Login loginInfo = (Login) session.getAttribute("login");
 		String fromid = loginInfo.getEmail();
 		String fromname = loginInfo.getNickName();
-		String pr_email = product.getPr_email();
 		chatMessage.setFromid(fromid);
 		chatMessage.setFromname(fromname);	
-		String chatid = pr_id + fromid; 
+		String chatid = pr_id + fromid;
 		chatMessage.setChatid(chatid);
 		chatMessage.setPr_id(pr_id);
-		chatMessage.setPr_email(pr_email);
 		chatMessage.setToid(pr_email);
 		chatMessage.setToname(productService.getNickNameByPrEmail(pr_email));
 		
