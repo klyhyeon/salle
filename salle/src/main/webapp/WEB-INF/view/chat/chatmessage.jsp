@@ -19,11 +19,11 @@
 		</div>
 		<div class="row">	
 				<div id="content">
-					<c:forEach var="chatRoom" items="${chatHistory}">
+					<c:forEach var="chatMessage" items="${chatHistory}">
 						<p>
 							<span id="chatRoomSenderName">${chatMessage.fromname}</span><br>
 							<span id="chatRoomContent">${chatMessage.chatmessage}</span><br>
-							<span id="chatRoomSendTime">${chatMessage.sendTime}</span><br>
+							<span id="chatRoomSendTime">${chatMessage.sendtime}</span><br>
 						</p>	
 					</c:forEach>
 				</div>
