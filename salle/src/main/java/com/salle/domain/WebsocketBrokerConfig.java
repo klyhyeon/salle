@@ -18,7 +18,7 @@ public class WebsocketBrokerConfig implements WebSocketMessageBrokerConfigurer {
 	
 	@Override
 	public void registerStompEndpoints(StompEndpointRegistry registry) {
-		registry.addEndpoint("/chat")
+		registry.addEndpoint("/sockJS")
 			.withSockJS()
 			.setHeartbeatTime(60_000);
 	}
