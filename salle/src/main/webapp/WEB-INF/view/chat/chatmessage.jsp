@@ -76,8 +76,6 @@
 						alert('error' + err);
 			});
 		};
-			
-		
 		
 		function getBuyerid(pr_email, fromid, toid) {
 			if (pr_email === fromid) {

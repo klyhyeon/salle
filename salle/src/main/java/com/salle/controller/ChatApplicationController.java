@@ -7,6 +7,8 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
@@ -26,6 +28,7 @@ import com.salle.domain.ChatRoom;
 
 @Controller
 public class ChatApplicationController {
+	Logger log = LoggerFactory.getLogger(ChatApplicationController.class);
 	
 	private SimpMessagingTemplate simpMessageTemplate;
 	private ChatService chatService;
@@ -69,6 +72,7 @@ public class ChatApplicationController {
 	
 	@MessageMapping("/chat")
 	public void send(ChatMessage chatMessage) throws IOException {
+		log.info("/chat invoked");
 		ChatMessage chatMessageAppen = chatService.appendMessage(chatMessage);
 		String chatid = chatMessageAppen.getChatid();
 		String urlSubscribe = "/subscribe/" + chatid;
