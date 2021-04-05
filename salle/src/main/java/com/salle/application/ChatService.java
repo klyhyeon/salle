@@ -57,6 +57,7 @@ public class ChatService implements ChatMapper {
 			addChatRoom(chatRoom);
 		}//end chatRoom check If문
 		chatMessage.setChatid(chatid);
+		chatMessage.setPr_email(pr_email);
 		Timestamp sendtime = Timestamp.valueOf(LocalDateTime.now());
 		chatMessage.setSendtime(sendtime);
 		chatMapper.insertChatMessage(chatMessage);

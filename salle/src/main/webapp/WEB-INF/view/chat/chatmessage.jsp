@@ -123,11 +123,11 @@
 			console.log("createTextNode");
 			console.log("messageObj: " + messageObj.content);
             return '<p><div class="row alert alert-info"><div class="col_8">' +
-            messageObj.senderName +
+            messageObj.fromname +
             '</div><div class="col_4 text-right">' +
-            messageObj.content+
+            messageObj.chatmessage+
             '</div><div>[' +
-            messageObj.sendTime +
+            messageObj.sendtime +
             ']</div></p>';
         }
 		
