@@ -44,8 +44,8 @@
 			</div>
 	</div>
 	
-	<script src="/webjars/stomp-websocket/2.3.3-1/stomp.js" type="text/javascript"></script>
-	<script src="/webjars/sockjs-client/1.1.2/sockjs.js" type="text/javascript"></script>
+	<script src="/webjars/stomp-websocket/stomp.js" type="text/javascript"></script>
+	<script src="/webjars/sockjs-client/sockjs.js" type="text/javascript"></script>
 	<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 	<script type="text/javascript">
 		var stompClient = null;
@@ -69,9 +69,8 @@
 				//TODO: SockJS(URL)에서 넣어야 할 URL?
 				return new SockJS('/sockJS');	
 			});
-		}
 			
-		stompClient.connect({}, function() {
+			stompClient.connect({}, function() {
 				stompClient.subscribe(urlSubscribe, function(output) {
 					showBroadcastMessage(createTextNode(JSON.parse(output.body)));
 				});
@@ -79,6 +78,8 @@
 			function (err) {
 						alert('error' + err);
 			});
+		}
+			
 		
 		
 		function getBuyerid(pr_email, fromid, toid) {
