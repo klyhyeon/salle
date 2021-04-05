@@ -80,7 +80,7 @@
 			});
 		
 		
-		function getBuyerid(String pr_email, String fromid, String toid) {
+		function getBuyerid(pr_email, fromid, toid) {
 			if (pr_email === fromid) {
 				buyerid = toid;
 			} else {
