@@ -1,4 +1,4 @@
-package com.salle.application;
+package com.salle.domain;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
@@ -12,13 +12,13 @@ public class WebsocketBrokerConfig implements WebSocketMessageBrokerConfigurer {
 
 	@Override
 	public void configureMessageBroker(MessageBrokerRegistry registry) {
-		registry.enableSimpleBroker("/user");
-		registry.setApplicationDestinationPrefixes("/app");
+		registry.enableSimpleBroker("/subscribe");
+		registry.setApplicationDestinationPrefixes("/chat");
 	}
 	
 	@Override
 	public void registerStompEndpoints(StompEndpointRegistry registry) {
-		registry.addEndpoint("/broadcast")
+		registry.addEndpoint("/sockJS")
 			.withSockJS()
 			.setHeartbeatTime(60_000);
 	}
