@@ -66,7 +66,6 @@
 			getBuyerid(pr_email, fromid, toid);
 			var urlSubscribe = '/subscribe/' + chatid;
 			stompClient = Stomp.over(function() {
-				//TODO: SockJS(URL)에서 넣어야 할 URL?
 				return new SockJS('/sockJS');	
 			});
 			stompClient.connect({}, function() {
@@ -92,7 +91,7 @@
 		
 		function sendBroadcast(json) {
 			console.log('Pre-sendBroadcast');
-			stompClient.send("/send/chat", {}, JSON.stringify(json));
+			stompClient.send('/send/chat', {}, JSON.stringify(json));
 			console.log('Post-sendBroadcast');
 		}
 		
