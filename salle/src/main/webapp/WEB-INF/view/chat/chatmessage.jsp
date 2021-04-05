@@ -44,8 +44,8 @@
 			</div>
 	</div>
 	
-	<script src="/webjars/stomp-websocket/2.3.3-1/stomp.js" type="text/javascript"></script>
-	<script src="/webjars/sockjs-client/1.1.2/sockjs.js" type="text/javascript"></script>
+	<script src="/src/main/resources/js/stomp.js" type="text/coffeescript"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.js"></script>
 	<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 	<script type="text/javascript">
 		var stompClient = null;
@@ -64,9 +64,10 @@
 		function connect() {
 			console.log("connected");
 			getBuyerid(pr_email, fromid, toid);
-			var urlSubscribe = '/user/' + chatid + '/queue/messages';
-			stompClient = Stomp.over(function(){
-				return new SockJS('/broadcast');	
+			var urlSubscribe = '/subscribe/' + chatid;
+			stompClient = Stomp.over(function() {
+				//TODO: SockJS(URL)에서 넣어야 할 URL?
+				return new SockJS('/sockJS');	
 			});
 		}
 			
@@ -90,7 +91,9 @@
 		}
 		
 		function sendBroadcast(json) {
-			stompClient.send("/app/broadcast", {}, JSON.stringify(json));
+			console.log('Pre-sendBroadcast');
+			stompClient.send("/chat/send", {}, JSON.stringify(json));
+			console.log('Post-sendBroadcast');
 		}
 		
 		function send() {
