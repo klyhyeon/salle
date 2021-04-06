@@ -20,7 +20,7 @@
 	 
 	 <script type="text/javascript">
 	 	var email = document.getElementById('emailInput').value;
-		$(document).ready(initialize());
+		$(document).ready(initialize);
 		
 		function initialize() {
 			getChatInfoStatic();
@@ -89,7 +89,8 @@
 	 					'><a href="/chatList/chatStart/' + 
 	 					chatid + 
 	 					'"><div class="wrapPr_img"><img class="pr_img" src="' + 
-	 					${s3Url} + pr_img_1 + 
+	 					'${s3Url}' + 
+	 					pr_img_1 +
 	 					'"></div><div class="wrapChatRoomInfo' +
 	 					idx +
 	 					'"></div><span id="username">' + 
