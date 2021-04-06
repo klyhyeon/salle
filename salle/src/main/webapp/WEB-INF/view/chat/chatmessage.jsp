@@ -133,9 +133,9 @@
             messageObj.fromname +
             '</div><div class="col_4 text-right">' +
             messageObj.chatmessage+
-            '</div><div>[' +
+            '</div><div>' +
             messageObj.sendtime +
-            ']</div></p>';
+            '</div></p>';
         }
 		
 		function showBroadcastMessage(message) {
