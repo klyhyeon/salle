@@ -12,7 +12,7 @@
 	<link rel="stylesheet" href="/resources/css/chatBroadcastProduct.css">
 
 </head>
-<body>
+<body>	
 	<div class="container">
 		<div class="title_text">
 			<h2>${pr_title}</h2>
@@ -92,6 +92,11 @@
 			console.log('Post-sendBroadcast');
 		}
 		
+		var today = new Date();
+		var date = today.getFullYear()+'년'+(today.getMonth()+1)+'월'+today.getDate()+'일';
+		var time = today.getHours() + ":" + today.getMinutes();
+		var datetime = date + ' ' + time;
+		
 		function send() {
 			var content = $('#message').val();
 			console.log(content);
@@ -102,7 +107,8 @@
 				'fromid': fromid, 
 				'toid': toid, 
 				'chatmessage': content,
-				'chatid': chatid
+				'chatid': chatid,
+				'sendtime': datetime
 				});
 			$('#message').val("");
 		}

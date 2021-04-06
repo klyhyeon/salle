@@ -1,15 +1,11 @@
 package com.salle.application;
 
 import java.io.IOException;
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 
-import org.apache.commons.lang3.ObjectUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,8 +54,8 @@ public class ChatService implements ChatMapper {
 		}//end chatRoom check If문
 		chatMessage.setChatid(chatid);
 		chatMessage.setPr_email(pr_email);
-		String sendtime = String.valueOf(LocalDateTime.now().format(DateTimeFormatter.ofPattern("YYYY-MM-DD a hh:mm")));
-		chatMessage.setSendtime(sendtime);
+//		String sendtime = (LocalDateTime.now().format(DateTimeFormatter.ofPattern("YYYY-MM-dd a hh:mm"))).toString();
+//		chatMessage.setSendtime(sendtime);
 		chatMapper.insertChatMessage(chatMessage);
 		return chatMessage;
 	}
