@@ -100,6 +100,7 @@
 		function send() {
 			var content = $('#message').val();
 			console.log(content);
+			console.log(datetime);
 			sendBroadcast({
 				'pr_id': pr_id, 
 				'fromname': fromname,

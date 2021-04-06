@@ -19,7 +19,7 @@ public @Data class ChatMessage {
 	private String chatmessage;
 	private int chatread;
 	private String pr_email;
-	//DB에 없음
+
 	public ChatMessage() {
 
 	}
