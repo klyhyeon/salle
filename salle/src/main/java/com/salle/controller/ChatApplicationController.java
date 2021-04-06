@@ -71,7 +71,7 @@ public class ChatApplicationController {
 	
 	@MessageMapping("/chat")
 	public void send(ChatMessage chatMessage) throws IOException {
-		log.info("/chat invoked");
+		log.info("/chat invoked" + chatMessage.getSendtime());
 		ChatMessage chatMessageAppen = chatService.appendMessage(chatMessage);
 		String chatid = chatMessageAppen.getChatid();
 		String urlSubscribe = "/subscribe/" + chatid;
