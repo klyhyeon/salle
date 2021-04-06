@@ -3,7 +3,6 @@ package com.salle.application;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -65,8 +64,7 @@ public class ChatService implements ChatMapper {
 	}
 
 	public List<ChatMessage> readChatHistory(String chatid) {
-		List<ChatMessage> chatHistory = chatMapper.getAllChatMessages(chatid);
-		return chatHistory;
+		return chatMapper.getAllChatMessages(chatid);
 	}
 	
 	@Override
@@ -122,9 +120,7 @@ public class ChatService implements ChatMapper {
 		chatMapper.insertChatMessage(ChatMessage);
 	}
 
-
-	public ChatMessage infoSetting(HttpSession session, ChatMessage chatMessage, 
-			List<ChatMessage> chatHistory) {
+	public ChatMessage infoSetting(HttpSession session, ChatMessage chatMessage) {
 		int pr_id = chatMessage.getPr_id();
 		Product product = productService.getProductInfo(pr_id);
 		String pr_email = product.getPr_email();
@@ -139,12 +135,6 @@ public class ChatService implements ChatMapper {
 		chatMessage.setPr_id(pr_id);
 		chatMessage.setToid(pr_email);
 		chatMessage.setToname(productService.getNickNameByPrEmail(pr_email));
-		
-		Object chatmessageExist = ObjectUtils.defaultIfNull(getAllChatMessages(chatid), 
-				null);
-		if (chatmessageExist != null) {
-			chatHistory = readChatHistory(chatid);
-		}
 		return chatMessage;
 	}
 

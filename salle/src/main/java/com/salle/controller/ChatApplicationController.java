@@ -48,13 +48,15 @@ public class ChatApplicationController {
 		int pr_id = Integer.parseInt(pr_idStr);
 		ChatMessage chatMessage = new ChatMessage(pr_id);
 		List<ChatMessage> chatHistory = new ArrayList<ChatMessage>();
-		ChatMessage chatMessageInfo = chatService.infoSetting(session, chatMessage, 
-											chatHistory);
+		ChatMessage chatMessageInfo = chatService.infoSetting(session, chatMessage);
+		chatHistory = chatService.readChatHistory(chatMessageInfo.getChatid());
 		String pr_title = productService.getProductInfo(pr_id).getPr_title();
 		model.addAttribute("chatMessageInfo", chatMessageInfo);
 		model.addAttribute("pr_title", pr_title);
-		if (chatHistory != null)
+		if (chatHistory != null) {
+			log.info("chatHistory invoked");
 			model.addAttribute("chatHistory", chatHistory);
+		}
 		return "chat/chatmessage";
 	}
 	
