@@ -44,8 +44,7 @@ public class ChatApplicationController {
 
 	@RequestMapping(value="/product/chatStart/{pr_id}", method=RequestMethod.GET)
 	public String productChatMessage(Model model, HttpSession session, 
-			@PathVariable("pr_id") String pr_idStr) throws IOException {
-		int pr_id = Integer.parseInt(pr_idStr);
+			@PathVariable("pr_id") int pr_id) throws IOException {
 		ChatMessage chatMessage = new ChatMessage(pr_id);
 		List<ChatMessage> chatHistory = new ArrayList<ChatMessage>();
 		ChatMessage chatMessageInfo = chatService.infoSetting(session, chatMessage);
@@ -53,10 +52,8 @@ public class ChatApplicationController {
 		String pr_title = productService.getProductInfo(pr_id).getPr_title();
 		model.addAttribute("chatMessageInfo", chatMessageInfo);
 		model.addAttribute("pr_title", pr_title);
-		if (chatHistory != null) {
-			log.info("chatHistory invoked");
+		if (chatHistory != null)
 			model.addAttribute("chatHistory", chatHistory);
-		}
 		return "chat/chatmessage";
 	}
 	

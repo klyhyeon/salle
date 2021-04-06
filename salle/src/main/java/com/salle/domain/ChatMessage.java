@@ -10,7 +10,7 @@ import lombok.Data;
 public @Data class ChatMessage {
 
 	private int pr_id;
-	private Timestamp sendtime;
+	private String sendtime;
 	private String chatid;
 	private String fromname;
 	private String toname;
@@ -28,7 +28,7 @@ public @Data class ChatMessage {
 		this.pr_id = pr_id;
 	}
 	
-	public ChatMessage(String chatmessage, String fromname, Timestamp sendtime, String fromid) {
+	public ChatMessage(String chatmessage, String fromname, String sendtime, String fromid) {
 		this.chatmessage = chatmessage;
 		this.fromname = fromname;
 		this.sendtime = sendtime;
@@ -44,7 +44,7 @@ public @Data class ChatMessage {
 		this.toid = toid;
 	}
 
-	public ChatMessage(int pr_id, Timestamp sendtime, String fromname, String toname, String fromid, String toid,
+	public ChatMessage(int pr_id, String sendtime, String fromname, String toname, String fromid, String toid,
 			String chatmessage, int chatread, String chatid, String pr_email) {
 		super();
 		this.pr_id = pr_id;

@@ -3,6 +3,7 @@ package com.salle.application;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -57,7 +58,7 @@ public class ChatService implements ChatMapper {
 		}//end chatRoom check If문
 		chatMessage.setChatid(chatid);
 		chatMessage.setPr_email(pr_email);
-		Timestamp sendtime = Timestamp.valueOf(LocalDateTime.now());
+		String sendtime = String.valueOf(LocalDateTime.now().format(DateTimeFormatter.ofPattern("YYYY-MM-DD a hh:mm")));
 		chatMessage.setSendtime(sendtime);
 		chatMapper.insertChatMessage(chatMessage);
 		return chatMessage;
