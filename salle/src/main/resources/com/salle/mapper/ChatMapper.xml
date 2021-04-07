@@ -31,10 +31,17 @@
     	WHERE chatid = #{chatid};
     </select>
 
-    <select id="getChatMessageInfo" resultType="com.salle.domain.ChatMessage">
+    <select id="getChatMessageInfoByChatid" resultType="com.salle.domain.ChatMessage">
     	SELECT *
     	FROM chatmessage
     	WHERE chatid = #{chatid}
+    	LIMIT 1;
+    </select>
+
+    <select id="getChatMessageInfoByEmail" resultType="com.salle.domain.ChatMessage">
+    	SELECT *
+    	FROM chatmessage
+    	WHERE fromid = #{email} OR toid = #{email}
     	LIMIT 1;
     </select>
     
