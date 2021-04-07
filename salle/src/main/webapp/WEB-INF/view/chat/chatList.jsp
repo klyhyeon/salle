@@ -16,7 +16,7 @@
 
 	 
 	 <script type="text/javascript">
-	 	var email = document.getElementById('emailInput').value();
+	 	var email = document.getElementById('emailInput').value;
 		$(document).ready(initialize);
 		
 		function initialize() {
