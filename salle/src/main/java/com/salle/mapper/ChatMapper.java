@@ -32,7 +32,9 @@ public interface ChatMapper {
 	
 	public ChatRoom getChatRoom(String chatid);
 	
-	public ChatMessage getChatMessageInfo(String chatid);
+	public ChatMessage getChatMessageInfoByChatid(String chatid);
+	
+	public ChatMessage getChatMessageInfoByEmail(String email);
 
 	public String getHeadChatMessage(String chatid);
 }
