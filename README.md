@@ -17,10 +17,11 @@ ___
 - 구조 : modelAttribute로 전달받은 Member객체 DB에 저장
 - 비밀번호 암호화 : jasypt encryption
 ```
-BasicPasswordEncryptor encryptor = new BasicPasswordEncryptor(); 
-
     @Override
     public void insertMember(Member member) {
+    	ConfigurablePasswordEncryptor encryptor = new ConfigurablePasswordEncryptor(); 
+    	encryptor.setAlgorithm("MD5");
+    	encryptor.setPlainDigest(true);
     	String rawPwd = member.getPassword();
     	String encryptedPwd = encryptor.encryptPassword(rawPwd);
     	member.setPassword(encryptedPwd);
