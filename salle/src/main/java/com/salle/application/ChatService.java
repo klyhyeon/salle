@@ -149,8 +149,8 @@ public class ChatService implements ChatMapper {
 	}
 
 	@Override
-	public ChatMessage getChatMessageInfo(String chatid) {
-		return chatMapper.getChatMessageInfo(chatid);
+	public ChatMessage getChatMessageInfoByChatid(String chatid) {
+		return chatMapper.getChatMessageInfoByChatid(chatid);
 	}
 
 	public ChatMessage insertToInfo(ChatMessage chatMessageInfo, HttpSession session) {
@@ -176,7 +176,13 @@ public class ChatService implements ChatMapper {
 	}
 
 	public String chatRoomJsonArr(List<ChatRoom> chatRoomList, String email) {
-		String username = productService.getNickNameByPrEmail(email);
+		ChatMessage chatMessageInfo = getChatMessageInfoByEmail(email);
+		String username = "";
+		if (chatMessageInfo.getFromid().equals(email)) {
+			username = chatMessageInfo.getFromname();
+		} else {
+			username = chatMessageInfo.getToname();
+		}
 		JSONArray jsnArr = new JSONArray();
 		for (ChatRoom chatRoom : chatRoomList) {
 			 JSONObject jsnObj = new JSONObject(chatRoom);
@@ -220,6 +226,11 @@ public class ChatService implements ChatMapper {
 		 jsnResult.put("chatList", jsnArr);
 		 String result = jsnResult.toString();
 		return result;
+	}
+
+	@Override
+	public ChatMessage getChatMessageInfoByEmail(String email) {
+		return chatMapper.getChatMessageInfoByEmail(email);
 	}
 
 }
