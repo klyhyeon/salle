@@ -36,9 +36,9 @@ public class RegisterController {
     
     		new RegisterValidation().validate(member, errors);
     		
-    		if (errors.hasErrors()) {
+    		if (errors.hasErrors())
     			return "register/main";
-    		}
+    
     	
 	        memberService.insertMember(member);
 	        return "register/done";

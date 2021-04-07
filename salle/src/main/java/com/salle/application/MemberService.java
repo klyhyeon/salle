@@ -6,12 +6,13 @@ import org.apache.commons.lang3.ObjectUtils;
 import org.jasypt.util.password.ConfigurablePasswordEncryptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.Errors;
 
 import com.salle.domain.Login;
 import com.salle.domain.Member;
-import com.salle.exception.IncorrectPasswordException;
-import com.salle.exception.UnregisteredMemberException;
 import com.salle.mapper.MemberMapper;
+import com.salle.validation.LoginCheckEmptyAndEmailValidation;
+import com.salle.validation.LoginCheckPwdValidation;
 
 @Transactional
 @Service
@@ -40,24 +41,17 @@ public class MemberService implements MemberMapper {
         return memberMapper.memberInfo(email);
     }
 
-    public Login loginMember(Login login) {
+    public Login loginMember(Login login, Errors errors) {
     	ConfigurablePasswordEncryptor encryptor = new ConfigurablePasswordEncryptor(); 
     	encryptor.setAlgorithm("MD5");
     	encryptor.setPlainDigest(true);
 		Object memberInfo = ObjectUtils.defaultIfNull(memberMapper.memberInfo(login.getEmail()) , 
 				null);
 		Member memberInfoConvert = (Member) memberInfo;
-		
-        if (memberInfo == null) {
-            throw new UnregisteredMemberException();
-        } else {
-        	boolean checkPwd = encryptor.checkPassword(login.getPassword(), memberInfoConvert.getPassword());
-            if (!checkPwd)
-                throw new IncorrectPasswordException();
-        }
-        
+		new LoginCheckEmptyAndEmailValidation().validate(login, errors);
+		boolean checkPwd = encryptor.checkPassword(login.getPassword(), memberInfoConvert.getPassword());
+		new LoginCheckPwdValidation().validate(checkPwd, errors);
         login.setNickName(memberInfoConvert.getNickName()); 
-
         return login;
     }
 

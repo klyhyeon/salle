@@ -12,6 +12,6 @@
 </head>
 <body>
     <h2>회원가입이 완료되셨습니다 :) </h2>
-    <a href="<c:url value="/"/>">main</a>
+    <a href="<c:url value="/"/>">홈으로 가기</a>
 </body>
 </html>

@@ -16,14 +16,16 @@
     <p>
         <label>
         이메일:
-        <input type="text" name="email" placeholder="이메일을 입력하세요"/>
+       	<form:input type="text" path="email" placeholder="이메일을 입력하세요"/>
+	    <form:errors class="errors" path="email"/>
         </label>
     </p>
 
     <p>
         <label>
         비밀번호:
-        <input type="password" name="password"/>
+        <form:input type="password" path="password"/>
+        <form:errors class="errors" path="password"/>
         </label>
     </p>
     <input type="submit" value="로그인">
