@@ -50,7 +50,7 @@ public class MemberService implements MemberMapper {
 		Member memberInfoConvert = (Member) memberInfo;
 		new LoginCheckEmptyAndEmailValidation().validate(login, errors);
 		boolean checkPwd = encryptor.checkPassword(login.getPassword(), memberInfoConvert.getPassword());
-		new LoginCheckPwdValidation().validate(checkPwd, errors);
+		//new LoginCheckPwdValidation().validate(checkPwd, errors);
         login.setNickName(memberInfoConvert.getNickName()); 
         return login;
     }
