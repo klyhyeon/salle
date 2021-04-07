@@ -14,9 +14,6 @@
 
 <%@include file="../home.jsp" %>
 
-	<div class="wrapper">
-	
-	</div>
 	 
 	 <script type="text/javascript">
 	 	var email = document.getElementById('emailInput').value;
@@ -40,7 +37,7 @@
 					 var parsed = JSON.parse(data);
 					 var length = parsed.chatList.length;
 					 for (var idx = 0; idx < length; idx++) {
-						 staticInfo(idx, parsed.chatList[idx].pr_img_1, parsed.chatList[idx].pr_title, 
+						 staticInfo(idx, parsed.chatList[idx].pr_img_1,
 								 parsed.chatList[idx].username, parsed.chatList[idx].chatid);
 					 }
 				}
@@ -75,7 +72,7 @@
 	 	function updateInfo(chatMessage, messageUnread, idx) {
 	 		var str =
 	 			'<span id="message">' +
-	 			chateMessage +
+	 			chatMessage +
 	 			'&nbsp' +
 	 			messageUnread + 
 	 			'</span></h3></div></a>';
@@ -83,7 +80,7 @@
 	 	} 
 	 	
 	 	//페이지가 로드되는 시점 한 번만 출력하면 되는 div, img를 출력하는 메서드
-	 	function staticInfo(idx, pr_img_1, pr_title, username, chatid) {
+	 	function staticInfo(idx, pr_img_1, username, chatid) {
 	 			$(document.body).append('<div class= chatMessageInfo' + 
 	 					idx + 
 	 					'><a href="/chatList/chatStart/' + 
@@ -91,7 +88,7 @@
 	 					'"><div class="wrapPr_img"><img class="pr_img" src="' + 
 	 					'${s3Url}' + 
 	 					pr_img_1 +
-	 					'"></div><div class="wrapChatRoomInfo' +
+	 					'"></div><div class="pr_"></div><div class="wrapChatRoomInfo' +
 	 					idx +
 	 					'"></div><span id="username">' + 
 	 					username + 
