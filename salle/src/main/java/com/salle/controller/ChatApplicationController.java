@@ -57,13 +57,13 @@ public class ChatApplicationController {
 		return "chat/chatmessage";
 	}
 	
-	@RequestMapping(value="/chatList/chatStart/{chat_id}", method=RequestMethod.GET)
-	public String getchatmessage(Model model, @PathVariable String chatid, HttpSession session) throws IOException {
+	@RequestMapping(value="/chatList/chatStart/{chatid}", method=RequestMethod.GET)
+	public String getchatmessage(Model model, @PathVariable("chatid") String chatid, HttpSession session) throws IOException {
 		
 		List<ChatMessage> chatHistory = chatService.readChatHistory(chatid);
 		model.addAttribute("chatHistory", chatHistory);
 		
-		ChatMessage chatMessageInfo = chatService.getChatMessageInfo(chatid);
+		ChatMessage chatMessageInfo = chatService.getChatMessageInfoByChatid(chatid);
 		chatMessageInfo = chatService.insertToInfo(chatMessageInfo, session);
 		model.addAttribute("chatMessageInfo", chatMessageInfo);
 		return "chat/chatmessage";
