@@ -22,7 +22,7 @@
 					<c:forEach var="chatMessage" items="${chatHistory}">
 						<p>
 							<span id="chatRoomSenderName">${chatMessage.fromname}</span><br>
-							<span id="chatRoomContent">${chatMessage.chatmessage}</span><br>
+							<span id="chatRoomContent">${chatMessage.message}</span><br>
 							<span id="chatRoomSendTime">${chatMessage.sendtime}</span><br>
 						</p>	
 					</c:forEach>

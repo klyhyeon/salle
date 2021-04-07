@@ -73,28 +73,28 @@
 	 	
 	 	function updateInfo(message, messageUnread, idx) {
 	 		var str =
-	 			'<span id="message">' +
+	 			'<p><span id="message">' +
 	 			message +
 	 			'&nbsp' +
 	 			messageUnread + 
-	 			'</span>';
-	 		$('.wrapChatRoomInfo' + idx).append(str);
+	 			'</span></p>';
+	 		$('.wrapMessageInfo' + idx).append(str);
 	 	} 
 	 	
 	 	//페이지가 로드되는 시점 한 번만 출력하면 되는 div, img를 출력하는 메서드
 	 	function staticInfo(idx, pr_img_1, username, chatid) {
-	 			$(document.body).append('<div class= chatMessageInfo' + 
+	 			$(document.body).append('<div class= "chatRoomInfo' + 
 	 					idx + 
-	 					'><a href="/chatList/chatStart/' + 
+	 					'"><a href="/chatList/chatStart/' + 
 	 					chatid + 
 	 					'"><div class="wrapPr_img"><img class="pr_img" src="' + 
 	 					'${s3Url}' + 
 	 					pr_img_1 +
-	 					'"></div><div class="username">' + 
+	 					'"></div><div class="wrapMessageInfo' + 
+	 					idx + 
+	 					'"><p>' + 
 	 					username + 
-	 					'</div><div class="wrapChatRoomInfo' +
-	 					idx +
-	 					'"></div></a></div>');
+	 					'</p></div></a></div>');
 	 	}
 	 </script>
 </body>

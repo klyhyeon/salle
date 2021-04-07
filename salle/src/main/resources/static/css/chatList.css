@@ -6,7 +6,7 @@
 }
 
 
-div[class^="chatMessageInfo"] {
+div[class^="chatRoomInfo"] {
 	display: flex;
 	flex-direction: row;
 	width: 500px;
@@ -31,7 +31,7 @@ div[class^="chatMessageInfo"] {
 	display: block;
 }
 
-.username {
+.wrapChatMessageInfo {
 	position: absolute;
 	top: 30px;
 	left: 100px;

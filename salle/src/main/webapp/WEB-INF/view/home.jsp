@@ -115,7 +115,7 @@
 									});
 									
 									
-									function getUnread() {
+									<%-- function getUnread() {
 										$.ajax({
 											url: "/chatUnreadAlert/ajax",
 											type: "POST",
@@ -143,7 +143,7 @@
 									function showUnread(result) {
 										$('#messageAlert').html(result);
 									}
-									
+									--%>
 							</script>
 						</div>
 					</c:otherwise>
