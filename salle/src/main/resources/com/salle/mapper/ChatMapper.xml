@@ -45,7 +45,7 @@
     	LIMIT 1;
     </select>
     
-    <select id="getHeadChatMessage">
+    <select id="getHeadChatMessage" resultType="String">
 		SELECT message
 		FROM chatmessage
 		WHERE chatid = #{chatid}
