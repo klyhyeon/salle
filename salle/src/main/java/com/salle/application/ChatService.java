@@ -203,7 +203,6 @@ public class ChatService implements ChatMapper {
 	public String chatMessageJson(List<ChatRoom> chatRoomList, String email) {
 		JSONArray jsnArr = new JSONArray();
 		for (ChatRoom chatList : chatRoomList) {
-			 //TODO: chatMessage 받아오기
 			 String chatMessage = getHeadChatMessage(chatList.getChatid());
 			 JSONObject jo = new JSONObject();
 			 jo.put("chatMessage", chatMessage);

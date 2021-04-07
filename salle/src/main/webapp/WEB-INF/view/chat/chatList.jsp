@@ -16,13 +16,13 @@
 
 	 
 	 <script type="text/javascript">
-	 	var email = document.getElementById('emailInput').value;
+	 	var email = document.getElementById('emailInput').value();
 		$(document).ready(initialize);
 		
 		function initialize() {
 			getChatInfoStatic();
 			getChatInfoUpdate();
-			unreadAlertInfinite();
+			//unreadAlertInfinite();
 		}
 		 
 		function getChatInfoStatic() {
@@ -46,7 +46,7 @@
 		
 		function getChatInfoUpdate() {
 			$.ajax({
-				url:"/chatInfo/update/ajax",
+				url: "/chatInfo/update/ajax",
 				type: "POST",
 				data: JSON.stringify({
 					email: email
