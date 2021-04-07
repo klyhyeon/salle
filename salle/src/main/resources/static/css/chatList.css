@@ -27,7 +27,11 @@ div[class^="chatMessageInfo"] {
 	left: 0px;
 }
 
-div[class^="wrapSellerTitle"]{
+.wrapChatRoomInfo {
+	display: block;
+}
+
+.username {
 	position: absolute;
 	top: 30px;
 	left: 100px;

@@ -7,12 +7,12 @@
     
     <insert id="insertChatMessage" parameterType="com.salle.domain.ChatMessage">
     	INSERT INTO 
-    	chatmessage(pr_id, sendtime, fromname, toname, fromid, toid, chatmessage, chatread, chatid, pr_email)
-    	VALUES (#{pr_id}, #{sendtime}, #{fromname}, #{toname}, #{fromid}, #{toid}, #{chatmessage}, 1, #{chatid}, #{pr_email});
+    	chatmessage(pr_id, sendtime, fromname, toname, fromid, toid, message, chatread, chatid, pr_email)
+    	VALUES (#{pr_id}, #{sendtime}, #{fromname}, #{toname}, #{fromid}, #{toid}, #{message}, 1, #{chatid}, #{pr_email});
     </insert>
 
     <select id="getAllChatMessages" resultType="com.salle.domain.ChatMessage">
-   		SELECT fromname, chatMessage, sendtime
+   		SELECT fromname, message, sendtime
    		FROM chatmessage
     	WHERE chatid = #{chatid}
     	ORDER BY sendtime ASC;

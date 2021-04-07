@@ -21,8 +21,8 @@
 		
 		function initialize() {
 			getChatInfoStatic();
-			getChatInfoUpdate();
-			//unreadAlertInfinite();
+			getChatInfoUpdate();k
+			unreadAlertInfinite();
 		}
 		 
 		function getChatInfoStatic() {
@@ -77,7 +77,7 @@
 	 			message +
 	 			'&nbsp' +
 	 			messageUnread + 
-	 			'</span></h3></div></a>';
+	 			'</span>';
 	 		$('.wrapChatRoomInfo' + idx).append(str);
 	 	} 
 	 	
@@ -90,11 +90,11 @@
 	 					'"><div class="wrapPr_img"><img class="pr_img" src="' + 
 	 					'${s3Url}' + 
 	 					pr_img_1 +
-	 					'"></div><div class="wrapChatRoomInfo' +
-	 					idx +
-	 					'"></div><span id="username">' + 
+	 					'"></div><div class="username">' + 
 	 					username + 
-	 					'</span></a></div>');
+	 					'</div><div class="wrapChatRoomInfo' +
+	 					idx +
+	 					'"></div></a></div>');
 	 	}
 	 </script>
 </body>
