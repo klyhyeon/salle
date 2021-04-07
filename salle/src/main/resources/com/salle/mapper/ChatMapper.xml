@@ -46,7 +46,7 @@
     </select>
     
     <select id="getHeadChatMessage">
-		SELECT chatmessage
+		SELECT message
 		FROM chatmessage
 		WHERE chatid = #{chatid}
 		ORDER BY sendtime DESC 

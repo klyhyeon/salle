@@ -14,7 +14,7 @@ public @Data class ChatMessage {
 	private String toname;
 	private String fromid;
 	private String toid;
-	private String chatmessage;
+	private String message;
 	private int chatread;
 	private String pr_email;
 
@@ -26,8 +26,8 @@ public @Data class ChatMessage {
 		this.pr_id = pr_id;
 	}
 	
-	public ChatMessage(String chatmessage, String fromname, String sendtime, String fromid) {
-		this.chatmessage = chatmessage;
+	public ChatMessage(String message, String fromname, String sendtime, String fromid) {
+		this.message = message;
 		this.fromname = fromname;
 		this.sendtime = sendtime;
 		this.fromid = fromid;
@@ -43,7 +43,7 @@ public @Data class ChatMessage {
 	}
 
 	public ChatMessage(int pr_id, String sendtime, String fromname, String toname, String fromid, String toid,
-			String chatmessage, int chatread, String chatid, String pr_email) {
+			String message, int chatread, String chatid, String pr_email) {
 		super();
 		this.pr_id = pr_id;
 		this.sendtime = sendtime;
@@ -51,7 +51,7 @@ public @Data class ChatMessage {
 		this.toname = toname;
 		this.fromid = fromid;
 		this.toid = toid;
-		this.chatmessage = chatmessage;
+		this.message = message;
 		this.chatread = chatread;
 		this.chatid = chatid;
 		this.pr_email = pr_email;

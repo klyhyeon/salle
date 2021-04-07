@@ -58,8 +58,8 @@
 					console.log('chatInfo update invoked');
 					for (var idx = 0; idx < length; idx++) {
 						$('.wrapChatRoomInfo' + idx).html('');
-						console.log('chatMessage: ' + parsed.chatList[idx].chatMessage);
-					 	updateInfo(parsed.chatList[idx].chatMessage, 0, idx);
+						console.log('message: ' + parsed.chatList[idx].message);
+					 	updateInfo(parsed.chatList[idx].message, 0, idx);
 					}
 				}
 		 	});
@@ -71,10 +71,10 @@
 			}, 1000);
 	 	}
 	 	
-	 	function updateInfo(chatMessage, messageUnread, idx) {
+	 	function updateInfo(message, messageUnread, idx) {
 	 		var str =
 	 			'<span id="message">' +
-	 			chatMessage +
+	 			message +
 	 			'&nbsp' +
 	 			messageUnread + 
 	 			'</span></h3></div></a>';

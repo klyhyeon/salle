@@ -78,7 +78,7 @@ public class ChatApplicationController {
 		ChatMessage chatMessageAppen = chatService.appendMessage(chatMessage);
 		String chatid = chatMessageAppen.getChatid();
 		String urlSubscribe = "/subscribe/" + chatid;
-		simpMessageTemplate.convertAndSend(urlSubscribe, new ChatMessage(chatMessageAppen.getChatmessage(), chatMessageAppen.getFromname(),
+		simpMessageTemplate.convertAndSend(urlSubscribe, new ChatMessage(chatMessageAppen.getMessage(), chatMessageAppen.getFromname(),
 				chatMessageAppen.getSendtime(), chatMessageAppen.getFromid())); 
 	}
 

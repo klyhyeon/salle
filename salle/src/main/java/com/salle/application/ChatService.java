@@ -203,9 +203,9 @@ public class ChatService implements ChatMapper {
 	public String chatMessageJson(List<ChatRoom> chatRoomList, String email) {
 		JSONArray jsnArr = new JSONArray();
 		for (ChatRoom chatList : chatRoomList) {
-			 String chatMessage = getHeadChatMessage(chatList.getChatid());
+			 String message = getHeadChatMessage(chatList.getChatid());
 			 JSONObject jo = new JSONObject();
-			 jo.put("chatMessage", chatMessage);
+			 jo.put("message", message);
 			 jsnArr.put(jo);
 		}
 //		 if (unreadChatId.size() == 0) {
