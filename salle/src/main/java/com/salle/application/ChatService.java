@@ -179,9 +179,9 @@ public class ChatService implements ChatMapper {
 		ChatMessage chatMessageInfo = getChatMessageInfoByEmail(email);
 		String username = "";
 		if (chatMessageInfo.getFromid().equals(email)) {
-			username = chatMessageInfo.getFromname();
-		} else {
 			username = chatMessageInfo.getToname();
+		} else {
+			username = chatMessageInfo.getFromname();
 		}
 		JSONArray jsnArr = new JSONArray();
 		for (ChatRoom chatRoom : chatRoomList) {

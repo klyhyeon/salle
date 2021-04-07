@@ -55,8 +55,10 @@
 				success: function(data) {
 					var parsed = JSON.parse(data);
 					var length = parsed.chatList.length;
+					console.log('chatInfo update invoked');
 					for (var idx = 0; idx < length; idx++) {
 						$('.wrapChatRoomInfo' + idx).html('');
+						console.log('chatMessage: ' + parsed.chatList[idx].chatMessage);
 					 	updateInfo(parsed.chatList[idx].chatMessage, 0, idx);
 					}
 				}
