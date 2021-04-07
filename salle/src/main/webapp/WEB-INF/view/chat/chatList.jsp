@@ -90,7 +90,7 @@
 	 					'"><div class="wrapPr_img"><img class="pr_img" src="' + 
 	 					'${s3Url}' + 
 	 					pr_img_1 +
-	 					'"></div><div class="pr_"></div><div class="wrapChatRoomInfo' +
+	 					'"></div><div class="wrapChatRoomInfo' +
 	 					idx +
 	 					'"></div><span id="username">' + 
 	 					username + 

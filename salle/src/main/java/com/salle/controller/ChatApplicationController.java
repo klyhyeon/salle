@@ -101,10 +101,12 @@ public class ChatApplicationController {
 	@RequestMapping(value="/chatInfo/update/ajax", method=RequestMethod.POST)
 	@ResponseBody
 	public String chatListUnread(@RequestBody String json) {
+		log.info("chatInfo update invoked");
 		JSONObject jsn = new JSONObject(json);
 		String email = (String) jsn.get("email");
 		List<ChatRoom> chatRoomList = chatService.getAllChatRoom(email);
 		String result = chatService.chatMessageJson(chatRoomList, email);
+		log.info("chatMessage: " + result);
 		return result;
 	}
 	
