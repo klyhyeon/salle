@@ -21,8 +21,7 @@
 		
 		function initialize() {
 			getChatInfoStatic();
-			getChatInfoUpdate();k
-			unreadAlertInfinite();
+			getUpdateInfoInfinite();
 		}
 		 
 		function getChatInfoStatic() {
@@ -59,25 +58,23 @@
 					for (var idx = 0; idx < length; idx++) {
 						$('.wrapChatRoomInfo' + idx).html('');
 						console.log('message: ' + parsed.chatList[idx].message);
-					 	updateInfo(parsed.chatList[idx].message, 0, idx);
+					 	updateInfo(parsed.chatList[idx].message, idx);
 					}
 				}
 		 	});
 		}
 	 			 
-	 	function unreadAlertInfinite() {
+	 	function getUpdateInfoInfinite() {
 	 		setInterval(() => {
 	 			getChatInfoUpdate();				
 			}, 1000);
 	 	}
 	 	
-	 	function updateInfo(message, messageUnread, idx) {
+	 	function updateInfo(message, idx) {
 	 		var str =
-	 			'<p><span id="message">' +
+	 			'<p>' +
 	 			message +
-	 			'&nbsp' +
-	 			messageUnread + 
-	 			'</span></p>';
+	 			'</p>';
 	 		$('.wrapMessageInfo' + idx).append(str);
 	 	} 
 	 	
@@ -92,9 +89,9 @@
 	 					pr_img_1 +
 	 					'"></div><div class="wrapMessageInfo' + 
 	 					idx + 
-	 					'"><p>' + 
+	 					'"><p><span id="username">' + 
 	 					username + 
-	 					'</p></div></a></div>');
+	 					'</span></p></div></a></div>');
 	 	}
 	 </script>
 </body>

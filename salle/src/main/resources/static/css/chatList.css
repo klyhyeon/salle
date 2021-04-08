@@ -27,11 +27,7 @@ div[class^="chatRoomInfo"] {
 	left: 0px;
 }
 
-.wrapChatRoomInfo {
-	display: block;
-}
-
-.wrapChatMessageInfo {
+.wrapMessageInfo {
 	position: absolute;
 	top: 30px;
 	left: 100px;
@@ -42,15 +38,9 @@ div[class^="chatRoomInfo"] {
 	height: 50px;
 }
 
-#sellerName {
-	color: #0073e6;
-;
+#username {
+	font-weight: bold;
 }
-
-#message {
-	color: red;
-}
-
 
 
 
