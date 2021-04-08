@@ -17,19 +17,21 @@ div[class^="chatRoomInfo"] {
 	position: relative;
 }
 
-.chatListInfo {
-	display: block;
-}
-
 .wrapPr_img {
 	position: absolute;
 	top: 25px;
 	left: 0px;
 }
 
-.wrapMessageInfo {
+div[class^=wrapUsername] {
 	position: absolute;
 	top: 30px;
+	left: 100px;
+}
+
+div[class^=wrapMessage] {
+	position: absolute;
+	top: 50px;
 	left: 100px;
 }
 

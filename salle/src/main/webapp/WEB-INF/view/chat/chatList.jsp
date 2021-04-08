@@ -56,7 +56,7 @@
 					var length = parsed.chatList.length;
 					console.log('chatInfo update invoked');
 					for (var idx = 0; idx < length; idx++) {
-						$('.wrapChatRoomInfo' + idx).html('');
+						$('.wrapMessage' + idx).html('');
 						console.log('message: ' + parsed.chatList[idx].message);
 					 	updateInfo(parsed.chatList[idx].message, idx);
 					}
@@ -75,7 +75,7 @@
 	 			'<p>' +
 	 			message +
 	 			'</p>';
-	 		$('.wrapMessageInfo' + idx).append(str);
+	 		$('.wrapMessage' + idx).append(str);
 	 	} 
 	 	
 	 	//페이지가 로드되는 시점 한 번만 출력하면 되는 div, img를 출력하는 메서드
@@ -87,11 +87,11 @@
 	 					'"><div class="wrapPr_img"><img class="pr_img" src="' + 
 	 					'${s3Url}' + 
 	 					pr_img_1 +
-	 					'"></div><div class="wrapMessageInfo' + 
-	 					idx + 
-	 					'"><p><span id="username">' + 
+	 					'"></div><div class="wrapUsername"><p><span id="username">' + 
 	 					username + 
-	 					'</span></p></div></a></div>');
+	 					'</span></p></div><div class="wrapMessage"' +
+	 					idx +
+	 					'></div></a></div>');
 	 	}
 	 </script>
 </body>
