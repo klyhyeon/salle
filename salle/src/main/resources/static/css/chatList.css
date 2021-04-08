@@ -24,14 +24,14 @@ div[class^="chatRoomInfo"] {
 	left: 0px;
 }
 
-div[class^=wrapUsername] {
+.wrapUsername {
 	display: block;
 	position: absolute;
 	top: 5px;
 	left: 100px;
 }
 
-div[class^=wrapMessage] {
+div[class^="wrapMessage"] {
 	display: block;
 	position: absolute;
 	top: 50px;
