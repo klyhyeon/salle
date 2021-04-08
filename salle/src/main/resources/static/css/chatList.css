@@ -34,11 +34,9 @@ div[class^="chatRoomInfo"] {
 .wrapUsername {
 	display: block;
 	position: absolute;
-	top: 5px;
+	top: 15px;
 	left: 100px;
 }
-
-
 
 .pr_img {
 	width: 80px;
