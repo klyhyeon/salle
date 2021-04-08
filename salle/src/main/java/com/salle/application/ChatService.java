@@ -178,21 +178,19 @@ public class ChatService implements ChatMapper {
 	}
 
 	public String chatRoomJsonArr(List<ChatRoom> chatRoomList, String email) {
-		//TODO: modelAttribute Map<,>
-		ChatMessage chatMessageInfo = getChatMessageInfoByEmail(email);
-		String username = "";
-		if (chatMessageInfo.getFromid().equals(email)) {
-			username = chatMessageInfo.getToname();
-		} else {
-			username = chatMessageInfo.getFromname();
-		}
+		String userid = "";
 		JSONArray jsnArr = new JSONArray();
 		for (ChatRoom chatRoom : chatRoomList) {
 			 JSONObject jsnObj = new JSONObject(chatRoom);
 			 Product product = productService.getProductInfo(chatRoom.getPr_id());
+			 if (chatRoom.getSellerid().equals(email)) {
+				 userid = chatRoom.getBuyerid();
+			 } else {
+				 userid = chatRoom.getSellerid();
+			 }
 			 jsnObj.put("pr_img_1", product.getPr_img_1());
 			 jsnObj.put("pr_title", product.getPr_title());
-			 jsnObj.put("username", username);
+			 jsnObj.put("username", productService.getNickNameByPrEmail(userid));
 			 jsnObj.put("chatid", chatRoom.getChatid());
 			 jsnObj.put("pr_id", chatRoom.getPr_id());
 			 jsnArr.put(jsnObj);
