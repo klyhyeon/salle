@@ -76,6 +76,7 @@ public class ChatApplicationController {
 	public void send(ChatMessage chatMessage) throws IOException {
 		log.info("/chat invoked" + chatMessage.getSendtime());
 		ChatMessage chatMessageAppen = chatService.appendMessage(chatMessage);
+		log.info("get pr_id: "+chatMessageAppen.getPr_id());
 		String chatid = chatMessageAppen.getChatid();
 		String urlSubscribe = "/subscribe/" + chatid;
 		simpMessageTemplate.convertAndSend(urlSubscribe, new ChatMessage(chatMessageAppen.getMessage(), chatMessageAppen.getFromname(),
