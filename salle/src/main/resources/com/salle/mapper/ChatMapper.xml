@@ -77,8 +77,8 @@
    
 	<insert id="addChatRoom" parameterType="com.salle.domain.ChatRoom">
 		INSERT INTO
-		chatroom(chatid, pr_id, sellerid, buyerid, pr_title)
-		VALUES (#{chatid}, #{pr_id}, #{sellerid}, #{buyerid}, #{pr_title});
+		chatroom(chatid, pr_id, sellerid, buyerid)
+		VALUES (#{chatid}, #{pr_id}, #{sellerid}, #{buyerid});
 	</insert>
 	
 	<select id="checkChatRoomExist" resultType="int">

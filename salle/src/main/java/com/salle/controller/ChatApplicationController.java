@@ -66,7 +66,8 @@ public class ChatApplicationController {
 		
 		ChatMessage chatMessageInfo = chatService.getChatMessageInfoByChatid(chatid);
 		chatMessageInfo = chatService.insertToInfo(chatMessageInfo, session);
-		String pr_title = chatService.getChatRoom(chatid).getPr_title();
+		int pr_id = chatService.getChatRoom(chatid).getPr_id();
+		String pr_title = productService.getProductInfo(pr_id).getPr_title();
 		model.addAttribute("chatMessageInfo", chatMessageInfo);
 		model.addAttribute("pr_title", pr_title);
 		return "chat/chatmessage";
@@ -102,12 +103,10 @@ public class ChatApplicationController {
 	@RequestMapping(value="/chatInfo/update/ajax", method=RequestMethod.POST)
 	@ResponseBody
 	public String chatListUnread(@RequestBody String json) {
-		log.info("chatInfo update invoked");
 		JSONObject jsn = new JSONObject(json);
 		String email = (String) jsn.get("email");
 		List<ChatRoom> chatRoomList = chatService.getAllChatRoom(email);
 		String result = chatService.chatMessageJson(chatRoomList, email);
-		log.info("chatMessage: " + result);
 		return result;
 	}
 	

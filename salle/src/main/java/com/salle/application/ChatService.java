@@ -8,8 +8,6 @@ import javax.transaction.Transactional;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +21,6 @@ import com.salle.mapper.ChatMapper;
 @Transactional
 public class ChatService implements ChatMapper {
 	
-	Logger log = LoggerFactory.getLogger(ChatService.class);
 	
 	private ChatMapper chatMapper;
 	private ProductService productService;
@@ -36,7 +33,6 @@ public class ChatService implements ChatMapper {
 	
 	public ChatMessage appendMessage(ChatMessage chatMessage) throws IOException {
 		int pr_id = chatMessage.getPr_id();
-		log.info("pr_id: "+pr_id);
 		String chatid = "";
 		Product product = productService.getProductInfo(pr_id);
 		String pr_email = product.getPr_email();
@@ -52,15 +48,12 @@ public class ChatService implements ChatMapper {
 			sellerid = chatMessage.getToid();
 		}
 		if (checkChatRoomExist(chatid) == 0) {
-			String pr_title = product.getPr_title();
-			String pr_img_1 = product.getPr_img_1();
-			ChatRoom chatRoom = new ChatRoom(chatid, pr_id, sellerid, buyerid, pr_title, pr_img_1);
+			ChatRoom chatRoom = new ChatRoom(chatid, pr_id, sellerid, buyerid);
 			addChatRoom(chatRoom);
 		}//end chatRoom check If문
 		chatMessage.setChatid(chatid);
 		chatMessage.setPr_email(pr_email);
 		chatMapper.insertChatMessage(chatMessage);
-		log.info("get pr_id in Service: " + chatMessage.getMessage());
 		return chatMessage;
 	}
 
