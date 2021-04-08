@@ -107,7 +107,7 @@
 				'toname': toname,
 				'fromid': fromid, 
 				'toid': toid, 
-				'chatmessage': content,
+				'message': content,
 				'chatid': chatid,
 				'sendtime': datetime
 				});
@@ -128,7 +128,7 @@
 		
 		function createTextNode(messageObj) {
 			console.log("createTextNode");
-			console.log("messageObj: " + messageObj.content);
+			console.log("messageObj: " + messageObj.message);
             return '<p><div class="row alert alert-info"><div class="col_8">' +
             messageObj.fromname +
             '</div><div class="col_4 text-right">' +
