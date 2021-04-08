@@ -69,7 +69,7 @@
 			stompClient = Stomp.over(sockJS);
 			stompClient.connect({}, function() {
 				stompClient.subscribe(urlSubscribe, function(output) {
-					showBroadcastMessage(createTextNode(JSON.parse(output.body)));
+					showBroadcastMessage(createTextNode(JSON.parse(output.body)	));
 				});
 			}, 
 			function (err) {
@@ -92,13 +92,22 @@
 			console.log('Post-sendBroadcast');
 		}
 		
-		var today = new Date();
-		var date = today.getFullYear()+'년'+(today.getMonth()+1)+'월'+today.getDate()+'일';
-		var time = today.getHours() + ":" + today.getMinutes();
-		var datetime = date + ' ' + time;
+		
+		function getTime() {
+			var today = new Date();
+			var date = today.getFullYear() + '년 ' + (today.getMonth()+1)+'월 '+today.getDate()+'일';
+			var minutes = today.getMinutes() + "";
+			if (minutes.length == 1)
+				minutes = '0' + minutes;
+			var time = today.getHours() + ":" + minutes;
+			var datetime = date + ' ' + time;			
+			return datetime;
+		}
 		
 		function send() {
+			
 			var content = $('#message').val();
+			var datetime = getTime();
 			console.log(content);
 			console.log(datetime);
 			sendBroadcast({
