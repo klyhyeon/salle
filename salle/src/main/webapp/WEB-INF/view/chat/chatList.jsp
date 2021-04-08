@@ -36,7 +36,8 @@
 					 var length = parsed.chatList.length;
 					 for (var idx = 0; idx < length; idx++) {
 						 staticInfo(idx, parsed.chatList[idx].pr_img_1,
-								 parsed.chatList[idx].username, parsed.chatList[idx].chatid);
+								 parsed.chatList[idx].username, parsed.chatList[idx].chatid,
+								 parsed.chatList[idx].pr_id);
 					 }
 				}
 			});
@@ -78,9 +79,11 @@
 	 	} 
 	 	
 	 	//페이지가 로드되는 시점 한 번만 출력하면 되는 div, img를 출력하는 메서드
-	 	function staticInfo(idx, pr_img_1, username, chatid) {
+	 	function staticInfo(idx, pr_img_1, username, chatid, pr_id) {
 	 			$(document.body).append('<a href="/chatList/chatStart/' + 
 	 					chatid + 
+	 					'/' +
+	 					pr_id +
 	 					'"><div class= "chatRoomInfo' + 
 	 					idx + 
 	 					'"><div class="wrapPr_img"><img class="pr_img" src="' + 

@@ -155,17 +155,16 @@ public class ChatService implements ChatMapper {
 	public ChatMessage insertToInfo(ChatMessage chatMessageInfo, HttpSession session) {
 		Login loginInfo = (Login) session.getAttribute("login");
 		String myEmail = loginInfo.getEmail();
-		chatMessageInfo.setToid("");
-		String toid = chatMessageInfo.getToid();
-		String fromid = chatMessageInfo.getFromid();
+		String toid = "";
 		if (!myEmail.equals(chatMessageInfo.getFromid())) {
 			toid = chatMessageInfo.getFromid();
-			fromid = chatMessageInfo.getToid();
 		}
 		String toname = productService.getNickNameByPrEmail(toid);
-		chatMessageInfo.setFromid(fromid);
+		String fromname = productService.getNickNameByPrEmail(myEmail);
 		chatMessageInfo.setToid(toid);
 		chatMessageInfo.setToname(toname);
+		chatMessageInfo.setFromid(myEmail);
+		chatMessageInfo.setFromname(fromname);
 		return chatMessageInfo;
 	}
 
@@ -190,6 +189,7 @@ public class ChatService implements ChatMapper {
 			 jsnObj.put("pr_title", product.getPr_title());
 			 jsnObj.put("username", username);
 			 jsnObj.put("chatid", chatRoom.getChatid());
+			 jsnObj.put("pr_id", chatRoom.getPr_id());
 			 jsnArr.put(jsnObj);
 		}
 		 JSONObject jsnResult = new JSONObject();

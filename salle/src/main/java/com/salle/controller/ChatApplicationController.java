@@ -3,6 +3,7 @@ package com.salle.controller;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -58,15 +59,14 @@ public class ChatApplicationController {
 		return "chat/chatmessage";
 	}
 	
-	@RequestMapping(value="/chatList/chatStart/{chatid}", method=RequestMethod.GET)
-	public String getchatmessage(Model model, @PathVariable("chatid") String chatid, HttpSession session) throws IOException {
-		
+	@RequestMapping(value="/chatList/chatStart/{chatid}/{pr_id}", method=RequestMethod.GET)
+	public String getchatmessage(Model model, @PathVariable Map<String, String> pathVarMap, HttpSession session) throws IOException {
+		String chatid = pathVarMap.get("chatid");
+		int pr_id = Integer.parseInt(pathVarMap.get("pr_id"));
 		List<ChatMessage> chatHistory = chatService.readChatHistory(chatid);
 		model.addAttribute("chatHistory", chatHistory);
-		
 		ChatMessage chatMessageInfo = chatService.getChatMessageInfoByChatid(chatid);
 		chatMessageInfo = chatService.insertToInfo(chatMessageInfo, session);
-		int pr_id = chatService.getChatRoom(chatid).getPr_id();
 		String pr_title = productService.getProductInfo(pr_id).getPr_title();
 		model.addAttribute("chatMessageInfo", chatMessageInfo);
 		model.addAttribute("pr_title", pr_title);
