@@ -91,7 +91,7 @@
 	 					username + 
 	 					'</span></p></div><div class="wrapMessage' +
 	 					idx +
-	 					"'></div></div></a>');
+	 					'"></div></div></a>');
 	 	}
 	 </script>
 </body>
