@@ -44,8 +44,8 @@ public class ChatApplicationController {
 
 	@RequestMapping(value="/product/chatStart/{pr_id}", method=RequestMethod.GET)
 	public String productChatMessage(Model model, HttpSession session, 
-			@PathVariable("pr_id") int pr_id) throws IOException {
-		
+			@PathVariable("pr_id") String pr_idStr) throws IOException {
+		int pr_id = Integer.parseInt(pr_idStr);
 		ChatMessage chatMessage = new ChatMessage(pr_id);
 		List<ChatMessage> chatHistory = new ArrayList<ChatMessage>();
 		ChatMessage chatMessageInfo = chatService.infoSetting(session, chatMessage);
