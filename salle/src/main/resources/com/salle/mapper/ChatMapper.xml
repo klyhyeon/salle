@@ -49,7 +49,7 @@
 		SELECT message
 		FROM chatmessage
 		WHERE chatid = #{chatid}
-		ORDER BY sendtime DESC 
+		ORDER BY id DESC 
 		LIMIT 1;
 	</select>
 
