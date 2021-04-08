@@ -27,7 +27,7 @@ div[class^="chatRoomInfo"] {
 div[class^=wrapUsername] {
 	display: block;
 	position: absolute;
-	top: 30px;
+	top: 5px;
 	left: 100px;
 }
 
