@@ -8,6 +8,8 @@ import javax.transaction.Transactional;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +23,8 @@ import com.salle.mapper.ChatMapper;
 @Transactional
 public class ChatService implements ChatMapper {
 	
+	Logger log = LoggerFactory.getLogger(ChatService.class);
+	
 	private ChatMapper chatMapper;
 	private ProductService productService;
 	
@@ -32,6 +36,7 @@ public class ChatService implements ChatMapper {
 	
 	public ChatMessage appendMessage(ChatMessage chatMessage) throws IOException {
 		int pr_id = chatMessage.getPr_id();
+		log.info("pr_id: "+pr_id);
 		String chatid = "";
 		Product product = productService.getProductInfo(pr_id);
 		String pr_email = product.getPr_email();
