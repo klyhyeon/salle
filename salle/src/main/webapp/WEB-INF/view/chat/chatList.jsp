@@ -14,7 +14,6 @@
 
 <%@include file="../home.jsp" %>
 
-	 
 	 <script type="text/javascript">
 	 	var email = document.getElementById('emailInput').value;
 		$(document).ready(initialize);

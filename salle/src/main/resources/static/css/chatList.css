@@ -5,6 +5,13 @@
 	font-family: 'Noto Sans KR', sans-serif;	
 }
 
+div[class^="wrapMessage"] {
+	display: block;
+	position: absolute;
+	top: 50px;
+	left: 100px;
+}
+
 
 div[class^="chatRoomInfo"] {
 	display: flex;
@@ -31,12 +38,7 @@ div[class^="chatRoomInfo"] {
 	left: 100px;
 }
 
-div[class^="wrapMessage"] {
-	display: block;
-	position: absolute;
-	top: 50px;
-	left: 100px;
-}
+
 
 .pr_img {
 	width: 80px;
