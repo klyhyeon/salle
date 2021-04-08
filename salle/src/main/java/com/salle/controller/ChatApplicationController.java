@@ -2,6 +2,7 @@ package com.salle.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -36,40 +37,34 @@ public class ChatApplicationController {
 	private ProductService productService;
 	
 	@Autowired
-	public ChatApplicationController(SimpMessagingTemplate simpMessagingTemplate, 
-			ChatService chatService, ProductService productService) {
+	public ChatApplicationController(SimpMessagingTemplate simpMessagingTemplate, ChatService chatService, ProductService productService) {
 		this.simpMessageTemplate = simpMessagingTemplate;
 		this.chatService = chatService;
 		this.productService = productService;
 	}
-
+	
 	@RequestMapping(value="/product/chatStart/{pr_id}", method=RequestMethod.GET)
 	public String productChatMessage(Model model, HttpSession session, 
 			@PathVariable("pr_id") String pr_idStr) throws IOException {
 		int pr_id = Integer.parseInt(pr_idStr);
-		ChatMessage chatMessage = new ChatMessage(pr_id);
-		List<ChatMessage> chatHistory = new ArrayList<ChatMessage>();
-		ChatMessage chatMessageInfo = chatService.infoSetting(session, chatMessage);
-		chatHistory = chatService.readChatHistory(chatMessageInfo.getChatid());
-		String pr_title = productService.getProductInfo(pr_id).getPr_title();
-		model.addAttribute("chatMessageInfo", chatMessageInfo);
-		model.addAttribute("pr_title", pr_title);
+		Map<String, String> chatInfoMap = new HashMap<String, String>();
+		chatInfoMap = chatService.productInfoSetting(session, pr_id, chatInfoMap);
+		List<ChatMessage> chatHistory = chatService.readChatHistory(chatInfoMap.get("chatid"));
 		if (chatHistory != null)
 			model.addAttribute("chatHistory", chatHistory);
+		model.mergeAttributes(chatInfoMap);
 		return "chat/chatmessage";
 	}
 	
-	@RequestMapping(value="/chatList/chatStart/{chatid}/{pr_id}", method=RequestMethod.GET)
-	public String getchatmessage(Model model, @PathVariable Map<String, String> pathVarMap, HttpSession session) throws IOException {
-		String chatid = pathVarMap.get("chatid");
-		int pr_id = Integer.parseInt(pathVarMap.get("pr_id"));
+	@RequestMapping(value="/chatList/chatStart/{chatid}", method=RequestMethod.GET)
+	public String getchatmessage(Model model, @PathVariable("chatid") String chatid, 
+			HttpSession session) throws IOException {
 		List<ChatMessage> chatHistory = chatService.readChatHistory(chatid);
 		model.addAttribute("chatHistory", chatHistory);
-		ChatMessage chatMessageInfo = chatService.getChatMessageInfoByChatid(chatid);
-		chatMessageInfo = chatService.insertToInfo(chatMessageInfo, session);
-		String pr_title = productService.getProductInfo(pr_id).getPr_title();
-		model.addAttribute("chatMessageInfo", chatMessageInfo);
-		model.addAttribute("pr_title", pr_title);
+		Map<String, String> chatInfomap = new HashMap<String, String>();
+		ChatRoom chatRoom = chatService.getChatRoom(chatid);
+		chatInfomap = chatService.chatInfoSetting(chatInfomap, session, chatRoom);
+		model.mergeAttributes(chatInfomap);
 		return "chat/chatmessage";
 	}
 	

@@ -82,8 +82,6 @@
 	 	function staticInfo(idx, pr_img_1, username, chatid, pr_id) {
 	 			$(document.body).append('<a href="/chatList/chatStart/' + 
 	 					chatid + 
-	 					'/' +
-	 					pr_id +
 	 					'"><div class= "chatRoomInfo' + 
 	 					idx + 
 	 					'"><div class="wrapPr_img"><img class="pr_img" src="' + 

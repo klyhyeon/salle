@@ -34,10 +34,11 @@
 							<button id="send" class="btn btn-primary" onclick="send()">보내기</button>
 							<input type="hidden" value="${login.getNickName()}" id="fromname"/>
 							<input type="hidden" value="${login.getEmail()}" id="fromid"/>
-							<input type="hidden" value="${chatMessageInfo.pr_id}" id="pr_id"/>
-							<input type="hidden" value="${chatMessageInfo.toid}" id="toid"/>
-							<input type="hidden" value="${chatMessageInfo.toname}" id="toname"/>						
-							<input type="hidden" value="${chatMessageInfo.pr_email}" id="pr_email"/>				
+							<input type="hidden" value="${pr_id}" id="pr_id"/>
+							<input type="hidden" value="${pr_email}" id="pr_email"/>				
+							<input type="hidden" value="${toid}" id="toid"/>
+							<input type="hidden" value="${toname}" id="toname"/>
+							<input type="hidden" value="${chatid}" id="chatid"/>
 						</div>					
 					</div>				
 				</div>
@@ -55,8 +56,7 @@
 		var toname = $('#toname').val();
 		var toid = $('#toid').val();	
 		var pr_email = $("#pr_email").val();
-		var buyerid = "";
-		var chatid = "";
+		var chatid = $("#chatid").val();
 		
 		$(document).ready(connect);
 		//$(document).ready(ajaxChatRead());
@@ -76,15 +76,6 @@
 						alert('error' + err);
 			});
 		};
-		
-		function getBuyerid(pr_email, fromid, toid) {
-			if (pr_email === fromid) {
-				buyerid = toid;
-			} else {
-				buyerid = fromid;
-			}
-			chatid = pr_id + buyerid;
-		}
 		
 		function sendBroadcast(json) {
 			console.log('Pre-sendBroadcast');

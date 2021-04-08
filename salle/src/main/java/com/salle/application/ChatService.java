@@ -2,6 +2,7 @@ package com.salle.application;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
@@ -114,24 +115,6 @@ public class ChatService implements ChatMapper {
 		chatMapper.insertChatMessage(ChatMessage);
 	}
 
-	public ChatMessage infoSetting(HttpSession session, ChatMessage chatMessage) {
-		int pr_id = chatMessage.getPr_id();
-		Product product = productService.getProductInfo(pr_id);
-		String pr_email = product.getPr_email();
-		chatMessage.setPr_email(pr_email);
-		Login loginInfo = (Login) session.getAttribute("login");
-		String fromid = loginInfo.getEmail();
-		String fromname = loginInfo.getNickName();
-		chatMessage.setFromid(fromid);
-		chatMessage.setFromname(fromname);	
-		String chatid = pr_id + fromid;
-		chatMessage.setChatid(chatid);
-		chatMessage.setPr_id(pr_id);
-		chatMessage.setToid(pr_email);
-		chatMessage.setToname(productService.getNickNameByPrEmail(pr_email));
-		return chatMessage;
-	}
-
 	@Override
 	public void addChatRoom(ChatRoom chatMessage) {
 		chatMapper.addChatRoom(chatMessage);
@@ -151,21 +134,42 @@ public class ChatService implements ChatMapper {
 	public ChatMessage getChatMessageInfoByChatid(String chatid) {
 		return chatMapper.getChatMessageInfoByChatid(chatid);
 	}
+	
+	public Map<String, String> productInfoSetting(HttpSession session, int pr_id,
+			Map<String, String> map) {
+		Product product = productService.getProductInfo(pr_id);
+		String pr_email = product.getPr_email();
+		Login loginInfo = (Login) session.getAttribute("login");
+		String toname = productService.getNickNameByPrEmail(pr_email);
+		map.put("pr_id", pr_id + "");
+		map.put("pr_email", pr_email);
+		map.put("toid", pr_email);
+		map.put("toname", toname);
+		map.put("chatid", pr_id + loginInfo.getEmail());
+		map.put("pr_title", product.getPr_title());
+		return map;
+	}
 
-	public ChatMessage insertToInfo(ChatMessage chatMessageInfo, HttpSession session) {
+	public Map<String, String> chatInfoSetting(Map<String, String> map, 
+			HttpSession session, ChatRoom chatRoom) {
 		Login loginInfo = (Login) session.getAttribute("login");
 		String myEmail = loginInfo.getEmail();
+		int pr_id = chatRoom.getPr_id();
+		Product product = productService.getProductInfo(pr_id);
 		String toid = "";
-		if (!myEmail.equals(chatMessageInfo.getFromid())) {
-			toid = chatMessageInfo.getFromid();
+		if (!myEmail.equals(chatRoom.getSellerid())) {
+			toid = chatRoom.getSellerid();
+		} else {
+			toid = chatRoom.getBuyerid();
 		}
 		String toname = productService.getNickNameByPrEmail(toid);
-		String fromname = productService.getNickNameByPrEmail(myEmail);
-		chatMessageInfo.setToid(toid);
-		chatMessageInfo.setToname(toname);
-		chatMessageInfo.setFromid(myEmail);
-		chatMessageInfo.setFromname(fromname);
-		return chatMessageInfo;
+		map.put("pr_id", pr_id + "");
+		map.put("pr_email", chatRoom.getSellerid());
+		map.put("toid", toid);
+		map.put("toname", toname);
+		map.put("chatid", pr_id + chatRoom.getBuyerid());
+		map.put("pr_title", product.getPr_title());
+		return map;
 	}
 
 	@Override
@@ -174,6 +178,7 @@ public class ChatService implements ChatMapper {
 	}
 
 	public String chatRoomJsonArr(List<ChatRoom> chatRoomList, String email) {
+		//TODO: modelAttribute Map<,>
 		ChatMessage chatMessageInfo = getChatMessageInfoByEmail(email);
 		String username = "";
 		if (chatMessageInfo.getFromid().equals(email)) {
