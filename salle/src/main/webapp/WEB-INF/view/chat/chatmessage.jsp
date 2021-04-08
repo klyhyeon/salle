@@ -63,7 +63,6 @@
 		
 		function connect() {
 			console.log("connected");
-			getBuyerid(pr_email, fromid, toid);
 			var sockJS = new SockJS('/sockJS');
 			var urlSubscribe = '/subscribe/' + chatid;
 			stompClient = Stomp.over(sockJS);
