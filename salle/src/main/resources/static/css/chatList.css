@@ -18,18 +18,21 @@ div[class^="chatRoomInfo"] {
 }
 
 .wrapPr_img {
+	display: block;
 	position: absolute;
 	top: 25px;
 	left: 0px;
 }
 
 div[class^=wrapUsername] {
+	display: block;
 	position: absolute;
 	top: 30px;
 	left: 100px;
 }
 
 div[class^=wrapMessage] {
+	display: block;
 	position: absolute;
 	top: 50px;
 	left: 100px;

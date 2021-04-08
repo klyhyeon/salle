@@ -80,18 +80,18 @@
 	 	
 	 	//페이지가 로드되는 시점 한 번만 출력하면 되는 div, img를 출력하는 메서드
 	 	function staticInfo(idx, pr_img_1, username, chatid) {
-	 			$(document.body).append('<div class= "chatRoomInfo' + 
-	 					idx + 
-	 					'"><a href="/chatList/chatStart/' + 
+	 			$(document.body).append('<a href="/chatList/chatStart/' + 
 	 					chatid + 
+	 					'"><div class= "chatRoomInfo' + 
+	 					idx + 
 	 					'"><div class="wrapPr_img"><img class="pr_img" src="' + 
 	 					'${s3Url}' + 
 	 					pr_img_1 +
 	 					'"></div><div class="wrapUsername"><p><span id="username">' + 
 	 					username + 
-	 					'</span></p></div><div class="wrapMessage"' +
+	 					'</span></p></div><div class="wrapMessage' +
 	 					idx +
-	 					'></div></a></div>');
+	 					"'></div></div></a>');
 	 	}
 	 </script>
 </body>
