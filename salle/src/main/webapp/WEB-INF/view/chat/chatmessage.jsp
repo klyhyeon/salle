@@ -132,7 +132,7 @@
             return '<p><div class="row alert alert-info"><div class="col_8">' +
             messageObj.fromname +
             '</div><div class="col_4 text-right">' +
-            messageObj.chatmessage+
+            messageObj.message+
             '</div><div>' +
             messageObj.sendtime +
             '</div></p>';

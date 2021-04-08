@@ -60,7 +60,7 @@ public class ChatService implements ChatMapper {
 		chatMessage.setChatid(chatid);
 		chatMessage.setPr_email(pr_email);
 		chatMapper.insertChatMessage(chatMessage);
-		log.info("get pr_id in Service: " + chatMessage.getPr_id());
+		log.info("get pr_id in Service: " + chatMessage.getMessage());
 		return chatMessage;
 	}
 
