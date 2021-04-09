@@ -16,6 +16,7 @@ ___
 ### 회원관리(Member)
 - 구조 : modelAttribute로 전달받은 Member객체 DB에 저장
 - 비밀번호 암호화 : jasypt encryption
+`jasypt encryption`
 ```
     @Override
     public void insertMember(Member member) {
@@ -105,15 +106,17 @@ public void send(ChatMessage chatMessage) throws IOException {
 }
 ```
 
-- 채팅리스트(chatList)
-<img width="415" alt="210409_salle_chatList" src="https://user-images.githubusercontent.com/61368705/114120918-6b210600-9928-11eb-9bd8-b5d00c46049b.png">
+`chatList View`
+<img width="414" alt="210409_salle_chatList" src="https://user-images.githubusercontent.com/61368705/114121427-4c6f3f00-9929-11eb-9d71-a2757463e35c.png">
 
 
-- 채팅방(chatRoom)
-<img width="290" alt="210409_salle_chatRoom" src="https://user-images.githubusercontent.com/61368705/114120908-678d7f00-9928-11eb-86be-c78519e36d5c.png">
+
+`chatRoom View(GIF)`
+![chatRoom2](https://user-images.githubusercontent.com/61368705/114122927-3f078400-992c-11eb-88f2-d845cabe8183.gif)
 
 
-- 채팅 DB 테이블
+
+`chat DB Table`
 <img width="352" alt="210409_salle_chatDB" src="https://user-images.githubusercontent.com/61368705/114120413-67d94a80-9927-11eb-972a-e2ed65141907.png">
 
 
