@@ -73,7 +73,7 @@ ___
 	- 네트워크 이상, DB오류 발생 시 fallback 받을 수 있도록 SockJS 사용
 	- DB 테이블 : 채팅메시지(ChatMessage), 채팅방(ChatRoom) 이원화 관리
 
-WebSocketMessageBroker & MessageMapping Controller
+`WebSocket Config`
 ```
 @Configuration
 @EnableWebSocketMessageBroker
@@ -93,7 +93,9 @@ public class WebsocketBrokerConfig implements WebSocketMessageBrokerConfigurer {
 	}
 
 }
-
+```
+`MessageMapping Controller`
+```
 @MessageMapping("/chat")
 public void send(ChatMessage chatMessage) throws IOException {
 	ChatMessage chatMessageInfo = chatService.appendMessage(chatMessage);
@@ -103,13 +105,15 @@ public void send(ChatMessage chatMessage) throws IOException {
 }
 ```
 
-채팅리스트(chatList)
-<img width="608" alt="210409_salle_chatList" src="https://user-images.githubusercontent.com/61368705/114111496-1b850f00-9915-11eb-88d5-35d37c12b9a3.png">
+- 채팅리스트(chatList)
+<img width="415" alt="210409_salle_chatList" src="https://user-images.githubusercontent.com/61368705/114120918-6b210600-9928-11eb-9bd8-b5d00c46049b.png">
 
-채팅방(chatRoom)
-<img width="443" alt="210409_salle_chatRoom" src="https://user-images.githubusercontent.com/61368705/114111661-86364a80-9915-11eb-8351-70d3ba8d4b28.png">
 
-채팅 DB 테이블
+- 채팅방(chatRoom)
+<img width="290" alt="210409_salle_chatRoom" src="https://user-images.githubusercontent.com/61368705/114120908-678d7f00-9928-11eb-86be-c78519e36d5c.png">
+
+
+- 채팅 DB 테이블
 <img width="352" alt="210409_salle_chatDB" src="https://user-images.githubusercontent.com/61368705/114120413-67d94a80-9927-11eb-972a-e2ed65141907.png">
 
 
