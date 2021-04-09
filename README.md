@@ -72,8 +72,44 @@ ___
 	- STOMP를 이용해 View에서 전달해준 message payload를 Controller에서 처리 후 SimpMessagingTemplate API로 View에 전송
 	- 네트워크 이상, DB오류 발생 시 fallback 받을 수 있도록 SockJS 사용
 	- DB 테이블 : 채팅메시지(ChatMessage), 채팅방(ChatRoom) 이원화 관리
-- 채팅리스트(chatList)
+
+WebSocketMessageBroker & MessageMapping Controller
+```
+@Configuration
+@EnableWebSocketMessageBroker
+public class WebsocketBrokerConfig implements WebSocketMessageBrokerConfigurer {
+
+	@Override
+	public void configureMessageBroker(MessageBrokerRegistry registry) {
+		registry.enableSimpleBroker("/subscribe");
+		registry.setApplicationDestinationPrefixes("/send");
+	}
+	
+	@Override
+	public void registerStompEndpoints(StompEndpointRegistry registry) {
+		registry.addEndpoint("/sockJS")
+			.withSockJS()
+			.setHeartbeatTime(60_000);
+	}
+
+}
+
+@MessageMapping("/chat")
+public void send(ChatMessage chatMessage) throws IOException {
+	ChatMessage chatMessageInfo = chatService.appendMessage(chatMessage);
+	String urlSubscribe = "/subscribe/" + chatMessageInfo.getChatid();
+	simpMessageTemplate.convertAndSend(urlSubscribe, new ChatMessage(chatMessageInfo.getMessage(), chatMessageInfo.getFromname(),
+			chatMessageInfo.getSendtime(), chatMessageInfo.getFromid())); 
+}
+```
+
+채팅리스트(chatList)
 <img width="608" alt="210409_salle_chatList" src="https://user-images.githubusercontent.com/61368705/114111496-1b850f00-9915-11eb-88d5-35d37c12b9a3.png">
 
-- 채팅방(chatRoom)
-<img width="608" alt="210409_salle_chatList" src="https://user-images.githubusercontent.com/61368705/114111539-38214700-9915-11eb-9be9-8ac88e4d5715.png">
+채팅방(chatRoom)
+<img width="443" alt="210409_salle_chatRoom" src="https://user-images.githubusercontent.com/61368705/114111661-86364a80-9915-11eb-8351-70d3ba8d4b28.png">
+
+채팅 DB 테이블
+<img width="352" alt="210409_salle_chatDB" src="https://user-images.githubusercontent.com/61368705/114120413-67d94a80-9927-11eb-972a-e2ed65141907.png">
+
+
