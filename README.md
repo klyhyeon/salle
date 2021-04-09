@@ -108,13 +108,15 @@ public void send(ChatMessage chatMessage) throws IOException {
 
 `chatList View`
 
-<img width="414" alt="210409_salle_chatList" src="https://user-images.githubusercontent.com/61368705/114121427-4c6f3f00-9929-11eb-9d71-a2757463e35c.png">
+<img width="410" alt="210409_salle_chatList" src="https://user-images.githubusercontent.com/61368705/114123998-6a8b6e00-992e-11eb-961e-e91fee49cfa9.png">
+
 
 
 
 `chatRoom View(GIF)`
 
-![chatRoom2](https://user-images.githubusercontent.com/61368705/114122927-3f078400-992c-11eb-88f2-d845cabe8183.gif)
+![chatRoom](https://user-images.githubusercontent.com/61368705/114124009-70814f00-992e-11eb-989c-75cc37d6dc23.gif | width=352)
+
 
 
 
