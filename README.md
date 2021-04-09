@@ -107,16 +107,19 @@ public void send(ChatMessage chatMessage) throws IOException {
 ```
 
 `chatList View`
+
 <img width="414" alt="210409_salle_chatList" src="https://user-images.githubusercontent.com/61368705/114121427-4c6f3f00-9929-11eb-9d71-a2757463e35c.png">
 
 
 
 `chatRoom View(GIF)`
+
 ![chatRoom2](https://user-images.githubusercontent.com/61368705/114122927-3f078400-992c-11eb-88f2-d845cabe8183.gif)
 
 
 
 `chat DB Table`
+
 <img width="352" alt="210409_salle_chatDB" src="https://user-images.githubusercontent.com/61368705/114120413-67d94a80-9927-11eb-972a-e2ed65141907.png">
 
 
