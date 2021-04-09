@@ -18,8 +18,7 @@ ___
 - 비밀번호 암호화 : jasypt encryption
 
 `jasypt encryption`
-```
-java
+```java
     @Override
     public void insertMember(Member member) {
     	ConfigurablePasswordEncryptor encryptor = new ConfigurablePasswordEncryptor(); 
@@ -37,8 +36,7 @@ ___
 - 한 버튼으로 이미지 여러개 저장 : Javascript FileReader, FormData 사용해 ajax로 비동기전송
 
 `Javascript fileUpload & ajax send`
-```
-javascript
+```javascript
  var img_count = 1;
  var formData = new FormData();
 
@@ -80,8 +78,7 @@ ___
 	- DB 테이블 : 채팅메시지(ChatMessage), 채팅방(ChatRoom) 이원화 관리
 
 `WebSocket Config`
-```
-java
+```java
 @Configuration
 @EnableWebSocketMessageBroker
 public class WebsocketBrokerConfig implements WebSocketMessageBrokerConfigurer {
@@ -102,8 +99,7 @@ public class WebsocketBrokerConfig implements WebSocketMessageBrokerConfigurer {
 }
 ```
 `MessageMapping Controller`
-```
-java
+```java
 @MessageMapping("/chat")
 public void send(ChatMessage chatMessage) throws IOException {
 	ChatMessage chatMessageInfo = chatService.appendMessage(chatMessage);
