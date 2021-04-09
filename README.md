@@ -19,6 +19,7 @@ ___
 
 `jasypt encryption`
 ```
+java
     @Override
     public void insertMember(Member member) {
     	ConfigurablePasswordEncryptor encryptor = new ConfigurablePasswordEncryptor(); 
@@ -37,6 +38,7 @@ ___
 
 `Javascript fileUpload & ajax send`
 ```
+javascript
  var img_count = 1;
  var formData = new FormData();
 
@@ -79,6 +81,7 @@ ___
 
 `WebSocket Config`
 ```
+java
 @Configuration
 @EnableWebSocketMessageBroker
 public class WebsocketBrokerConfig implements WebSocketMessageBrokerConfigurer {
@@ -100,6 +103,7 @@ public class WebsocketBrokerConfig implements WebSocketMessageBrokerConfigurer {
 ```
 `MessageMapping Controller`
 ```
+java
 @MessageMapping("/chat")
 public void send(ChatMessage chatMessage) throws IOException {
 	ChatMessage chatMessageInfo = chatService.appendMessage(chatMessage);
