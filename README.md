@@ -113,9 +113,9 @@ public void send(ChatMessage chatMessage) throws IOException {
 
 
 
-`chatRoom View(GIF)`
+`chatRoom GIF`
 
-![chatRoom](https://user-images.githubusercontent.com/61368705/114124009-70814f00-992e-11eb-989c-75cc37d6dc23.gif | width=352)
+<img width="352" alt="chatRoom" src="https://user-images.githubusercontent.com/61368705/114124009-70814f00-992e-11eb-989c-75cc37d6dc23.gif">
 
 
 
