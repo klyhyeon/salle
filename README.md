@@ -16,6 +16,7 @@ ___
 ### 회원관리(Member)
 - 구조 : modelAttribute로 전달받은 Member객체 DB에 저장
 - 비밀번호 암호화 : jasypt encryption
+
 `jasypt encryption`
 ```
     @Override
@@ -33,6 +34,8 @@ ___
 ### 상품등록(Product)
 - 구조 : modelAttribute로 전달받은 Member객체 DB에 저장
 - 한 버튼으로 이미지 여러개 저장 : Javascript FileReader, FormData 사용해 ajax로 비동기전송
+
+`Javascript fileUpload & ajax send`
 ```
  var img_count = 1;
  var formData = new FormData();
