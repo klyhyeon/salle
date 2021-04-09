@@ -66,3 +66,14 @@ ___
     	formData.delete;
 	}
 ```
+___
+### 채팅(Chat)
+- 구조 : 
+	- STOMP를 이용해 View에서 전달해준 message payload를 Controller에서 처리 후 SimpMessagingTemplate API로 View에 전송
+	- 네트워크 이상, DB오류 발생 시 fallback 받을 수 있도록 SockJS 사용
+	- DB 테이블 : 채팅메시지(ChatMessage), 채팅방(ChatRoom) 이원화 관리
+- 채팅리스트(chatList)
+<img width="608" alt="210409_salle_chatList" src="https://user-images.githubusercontent.com/61368705/114111496-1b850f00-9915-11eb-88d5-35d37c12b9a3.png">
+
+- 채팅방(chatRoom)
+<img width="608" alt="210409_salle_chatList" src="https://user-images.githubusercontent.com/61368705/114111539-38214700-9915-11eb-9be9-8ac88e4d5715.png">
