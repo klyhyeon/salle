@@ -7,18 +7,21 @@ import org.jasypt.util.password.ConfigurablePasswordEncryptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.Errors;
+import org.springframework.validation.ValidationUtils;
 
 import com.salle.domain.Login;
 import com.salle.domain.Member;
 import com.salle.mapper.MemberMapper;
-import com.salle.validation.LoginCheckEmptyAndEmailValidation;
-import com.salle.validation.LoginCheckPwdValidation;
 
 @Transactional
 @Service
 public class MemberService implements MemberMapper {
 	
     MemberMapper memberMapper;
+    
+    public MemberService() {
+    	
+    }
 
     @Autowired
     public MemberService(MemberMapper memberMapper) {
@@ -48,11 +51,25 @@ public class MemberService implements MemberMapper {
 		Object memberInfo = ObjectUtils.defaultIfNull(memberMapper.memberInfo(login.getEmail()) , 
 				null);
 		Member memberInfoConvert = (Member) memberInfo;
-		new LoginCheckEmptyAndEmailValidation().validate(login, errors);
-		boolean checkPwd = encryptor.checkPassword(login.getPassword(), memberInfoConvert.getPassword());
-		//new LoginCheckPwdValidation().validate(checkPwd, errors);
-        login.setNickName(memberInfoConvert.getNickName()); 
+		boolean pwdVerify = encryptor.checkPassword(login.getPassword(), memberInfoConvert.getPassword());
+		checkEmptyAndEmail(login, errors);
+		checkPwd(pwdVerify, errors);
+		login.setNickName(memberInfoConvert.getNickName()); 
         return login;
+    }
+    
+    public void checkPwd(boolean pwdVerify, Errors errors) {
+        if (!pwdVerify) {
+        	errors.rejectValue("password", "incorrect");
+        }
+        
+    }
+    
+    public void checkEmptyAndEmail(Login loginInfo, Errors errors) {
+        if (loginInfo.getEmail() == null)
+        	errors.rejectValue("email", "unregistered");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors,"password","required");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors,"email","required");
     }
 
 }
