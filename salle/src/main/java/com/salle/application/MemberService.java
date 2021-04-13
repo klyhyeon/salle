@@ -48,11 +48,12 @@ public class MemberService implements MemberMapper {
     	ConfigurablePasswordEncryptor encryptor = new ConfigurablePasswordEncryptor(); 
     	encryptor.setAlgorithm("MD5");
     	encryptor.setPlainDigest(true);
-		Object memberInfo = ObjectUtils.defaultIfNull(memberMapper.memberInfo(login.getEmail()) , 
-				null);
-		Member memberInfoConvert = (Member) memberInfo;
-		boolean pwdVerify = encryptor.checkPassword(login.getPassword(), memberInfoConvert.getPassword());
-		checkEmptyAndEmail(login, errors);
+		Member memberInfoConvert = memberMapper.memberInfo(login.getEmail());
+		boolean pwdVerify = false;
+		if (memberInfoConvert != null) {
+			pwdVerify = encryptor.checkPassword(login.getPassword(), memberInfoConvert.getPassword());
+		}
+		checkEmail(memberInfoConvert, errors);
 		checkPwd(pwdVerify, errors);
 		login.setNickName(memberInfoConvert.getNickName()); 
         return login;
@@ -62,13 +63,11 @@ public class MemberService implements MemberMapper {
         if (!pwdVerify) {
         	errors.rejectValue("password", "incorrect");
         }
-        
     }
     
-    public void checkEmptyAndEmail(Login loginInfo, Errors errors) {
-        if (loginInfo.getEmail() == null)
+    public void checkEmail(Member memberInfo, Errors errors) {
+        if (memberInfo == null)
         	errors.rejectValue("email", "unregistered");
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors,"password","required");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors,"email","required");
     }
 

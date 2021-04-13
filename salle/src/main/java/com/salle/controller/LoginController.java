@@ -40,9 +40,6 @@ public class LoginController {
     	memberService.loginMember(login, errors);
     	if (errors.hasErrors())
     		return "/login";
-//    		String email = login.getEmail();
-//    		int messages = chatRoomService.getUnreadMessages(email);
-//    		model.addAttribute("messageAlert", messages);    		
         model.addAttribute("productList", productService.getProductList());
         return "main";
     }
