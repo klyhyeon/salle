@@ -52,10 +52,10 @@ public class MemberService implements MemberMapper {
 		boolean pwdVerify = false;
 		if (memberInfoConvert != null) {
 			pwdVerify = encryptor.checkPassword(login.getPassword(), memberInfoConvert.getPassword());
+			login.setNickName(memberInfoConvert.getNickName()); 
 		}
 		checkEmail(memberInfoConvert, errors);
 		checkPwd(pwdVerify, errors);
-		login.setNickName(memberInfoConvert.getNickName()); 
         return login;
     }
     
