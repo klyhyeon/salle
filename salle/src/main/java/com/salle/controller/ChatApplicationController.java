@@ -1,7 +1,6 @@
 package com.salle.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,7 +23,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.salle.application.ChatService;
-import com.salle.application.ProductService;
 import com.salle.domain.ChatMessage;
 import com.salle.domain.ChatRoom;
 
@@ -34,13 +32,11 @@ public class ChatApplicationController {
 	
 	private SimpMessagingTemplate simpMessageTemplate;
 	private ChatService chatService;
-	private ProductService productService;
 	
 	@Autowired
-	public ChatApplicationController(SimpMessagingTemplate simpMessagingTemplate, ChatService chatService, ProductService productService) {
+	public ChatApplicationController(SimpMessagingTemplate simpMessagingTemplate, ChatService chatService) {
 		this.simpMessageTemplate = simpMessagingTemplate;
 		this.chatService = chatService;
-		this.productService = productService;
 	}
 	
 	@RequestMapping(value="/product/chatStart/{pr_id}", method=RequestMethod.GET)
@@ -70,13 +66,10 @@ public class ChatApplicationController {
 	
 	@MessageMapping("/chat")
 	public void send(ChatMessage chatMessage) throws IOException {
-		log.info("/chat invoked" + chatMessage.getMessage());
-		ChatMessage chatMessageAppen = chatService.appendMessage(chatMessage);
-		log.info("get pr_id: "+chatMessageAppen.getMessage());
-		String chatid = chatMessageAppen.getChatid();
-		String urlSubscribe = "/subscribe/" + chatid;
-		simpMessageTemplate.convertAndSend(urlSubscribe, new ChatMessage(chatMessageAppen.getMessage(), chatMessageAppen.getFromname(),
-				chatMessageAppen.getSendtime(), chatMessageAppen.getFromid())); 
+		ChatMessage chatMessageInfo = chatService.appendMessage(chatMessage);
+		String urlSubscribe = "/subscribe/" + chatMessageInfo.getChatid();
+		simpMessageTemplate.convertAndSend(urlSubscribe, new ChatMessage(chatMessageInfo.getMessage(), chatMessageInfo.getFromname(),
+				chatMessageInfo.getSendtime(), chatMessageInfo.getFromid())); 
 	}
 
 	@RequestMapping(value="/chatList", method=RequestMethod.GET)

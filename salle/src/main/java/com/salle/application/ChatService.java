@@ -210,19 +210,6 @@ public class ChatService implements ChatMapper {
 			 jo.put("message", message);
 			 jsnArr.put(jo);
 		}
-//		 if (unreadChatId.size() == 0) {
-//			 jo.put("messageUnread", "");
-//		 	} else {
-//		 		//읽지 않은 chatmessageId들과 현재 chatmessageId 대조 후 처리 
-//				 for (int ele : unreadChatId) {
-//					 	if (chatList.getId() == ele) {
-//					 		jo.put("messageUnread", "새 메세지");
-//					 		break;
-//					 	} else {
-//					 		jo.put("messageUnread", "");
-//					 	}
-//				 }
-//			}
 		 JSONObject jsnResult = new JSONObject();
 		 jsnResult.put("chatList", jsnArr);
 		 String result = jsnResult.toString();

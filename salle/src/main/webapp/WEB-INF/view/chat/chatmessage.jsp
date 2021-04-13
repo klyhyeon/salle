@@ -49,6 +49,8 @@
 	<script src="/webjars/sockjs-client/1.1.2/sockjs.js" type="text/javascript"></script>
 	<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 	<script type="text/javascript">
+		$(document).ready(connect);
+
 		var stompClient = null;
 		var fromname = $('#fromname').val();
 		var fromid = $('#fromid').val();
@@ -58,8 +60,6 @@
 		var pr_email = $("#pr_email").val();
 		var chatid = $("#chatid").val();
 		
-		$(document).ready(connect);
-		//$(document).ready(ajaxChatRead());
 		
 		function connect() {
 			console.log("connected");
@@ -77,9 +77,7 @@
 		};
 		
 		function sendBroadcast(json) {
-			console.log('Pre-sendBroadcast');
 			stompClient.send('/send/chat', {}, JSON.stringify(json));
-			console.log('Post-sendBroadcast');
 		}
 		
 		
@@ -95,11 +93,8 @@
 		}
 		
 		function send() {
-			
 			var content = $('#message').val();
 			var datetime = getTime();
-			console.log(content);
-			console.log(datetime);
 			sendBroadcast({
 				'pr_id': pr_id, 
 				'fromname': fromname,
@@ -115,19 +110,15 @@
 		
 		var inputMessage = document.getElementById('message'); 
 		inputMessage.addEventListener('keyup', function enterSend(event) {
-			
 			if (event.keyCode === null) {
 				event.preventDefault();
 			}
-			
 			if (event.keyCode === 13) {
 				send();
 			}
 		});
 		
 		function createTextNode(messageObj) {
-			console.log("createTextNode");
-			console.log("messageObj: " + messageObj.message);
             return '<p><div class="row alert alert-info"><div class="col_8">' +
             messageObj.fromname +
             '</div><div class="col_4 text-right">' +
@@ -140,30 +131,6 @@
 		function showBroadcastMessage(message) {
             $("#content").html($("#content").html() + message);
         }
-		
-
-		<%-- 읽음처리 
-		function ajaxChatRead(id, reader) {
-			console.log("ajaxChatread");
-			var flag = "";
-			if (reader == buyerId) {
-				flag = "buy";
-			} else {
-				flag = "sell";
-			}
-			$.ajax({
-				url:'/chatread/ajax',
-				type: 'POST',
-				data: JSON.stringify({
-					pr_id: pr_id,
-					fromid: toid,
-					toid: fromid
-				}),
-				dataType: 'json',
-				contentType: 'application/json'
-			})
-		}
-		--%>
 	
 	</script>
 </body>
