@@ -32,8 +32,7 @@ ___
 ```
 ___
 ### 상품등록(Product)
-- 구조 : modelAttribute로 전달받은 Member객체 DB에 저장
-- 한 버튼으로 이미지 여러개 저장 : Javascript FileReader, FormData 사용해 ajax로 비동기전송
+- 구조 : 한 버튼으로 이미지 여러개 저장 -> Javascript FileReader, FormData 사용해 ajax로 비동기전송
 
 `Javascript fileUpload & ajax send`
 ```javascript
