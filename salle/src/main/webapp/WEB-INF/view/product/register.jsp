@@ -7,36 +7,27 @@
 <!DOCTYPE html>
 <html>
 <head>
-<!-- .jsp <head> 통일시켜주기 위해서 주석처리(12/29)
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
--->
     <title>판매하기</title>
-	<!-- CSS -->
 	<link rel="stylesheet" href="/resources/css/productRegister.css">
-	<!-- jQuery -->
-	<script src="https://code.jquery.com/jquery-3.5.1.js">
-	</script>
-
+	<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 </head>
-<body>
 
+<body>
 	<%@include file="../home.jsp" %>
 
-
     <form:form action="done" method="post" enctype="multipart/form-data" id="form" modelAttribute="product">
-    
     <section class="pr_img">
   		<p>	
     		<label for="img"><h2>상품 이미지</h2></label>
     	</p>
 	    	<input type="file" id="img" name="pr_img_files"/>	    	
     		<div class="wrap_pr_img">
-	    
+    		
     		</div>
 	    <form:errors id="errors" path="pr_img_1"/>
 	    <p></p>
 	    <p></p>
-    	<input type="button" id="btn_img" value="이미지 확정하기" onclick="fileUpload()"/>
+    	<%-- <input type="button" id="btn_img" value="이미지 확정하기" onclick="fileUpload()"/> --%>
     </section>
     
     <section class="pr_title">
@@ -100,32 +91,24 @@
     	<input type="button" id="btn_submit" value="등록하기" onclick="fileUpload()"/>
     </form:form>
     
-    <!-- Daum 주소 api -->
-    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js">
-    </script>
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <script type="text/javascript">
-    
     var img_count = 1;
     var formData = new FormData();
-	    
 	$("#img").change(function fileadd() {
 		var reader = new FileReader;
 		var showImg = "<div class='pr_img_"+ (img_count)+"'><img id='img_"+(img_count)+"' src=''/><button type='button' class='button_img' value='pr_img_"+(img_count)+"' onclick='deleteImg(this.value)'></button></div>";
 		var img_count_string = img_count.toString();
 		$(".wrap_pr_img").append(showImg);
-	
 		reader.onload = function(data) {
 			$('#img_' + img_count_string).attr('src', data.target.result).width(150).height(150);
 		};
-
 		reader.readAsDataURL(this.files[0]); 
 		formData.append('pr_img_' + img_count_string, this.files[0]);
 		img_count++;
-			
     });
     
 	function fileUpload() {
-
 		$.ajax({
     		url:"/productReg/ajax",
    			type: 'POST',
@@ -148,7 +131,6 @@
 				alret("submit error");
 			}
 		}); 
-   		
     	formData.delete;
 	}
 	
@@ -156,26 +138,17 @@
     		$('#form').submit();		
 	}
 
-	//pr_price
 	function priceCommas(x) {
-	    	//입력값 가공
-	    	
 	    	x = x.replace(/[^0-9]/ig,'');
 	    	x = x.replace(/,/ig,'');
-	    	
 	    	commaX = x.replace(/\B(?=(\d{3})+(?!\d))/g,',');
-	    	
 	    	$('#pr_price').val(commaX);
 	    }
 		
-	//daum 주소 api
    	function daumPostcode() {
-   		
    		new daum.Postcode({
-			
    			oncomplete: function(data) {
     		var addr = '';
-   				
    			if (data.userSelectedType === 'R') {
    				addr = data.roadAddress;
    			} else {
@@ -183,19 +156,13 @@
   				}
     		document.getElementById('addr').value = addr;
   			}
-   		
   		}).open();
   	}
 	
-	//delete img
 	function deleteImg(val) {
-		
-			//formData remove
-		
 			formData.delete(val);
 			console.log('deleteImg(): ' + val);
 			$('.' + val).remove();	
-			
 		}
     </script>
    
