@@ -37,7 +37,7 @@
 			</div>
 		
 			<div class="pr_region">
-				${product.pr_region} 
+				${product.pr_region1} ${product.pr_region2} 
 			</div>
 		</div>
 		
