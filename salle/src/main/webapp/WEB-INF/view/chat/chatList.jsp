@@ -8,7 +8,7 @@
 <html>
 <head>
 <title>ChatList</title>
-<link rel="stylesheet" href="/resources/css/chatList.css">
+<link rel="stylesheet" href="css/chatList.css">
 </head>
 <body>
 
