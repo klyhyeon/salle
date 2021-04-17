@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.salle.application.AmazonS3Service;
 import com.salle.application.ProductService;
 import com.salle.domain.ChatMessage;
+import com.salle.domain.Login;
 import com.salle.domain.Product;
 
 import lombok.RequiredArgsConstructor;
@@ -34,8 +35,10 @@ public class ProductController {
 
 	
 	@RequestMapping(value = "/product/register", method = RequestMethod.GET)
-	public String productRegister(Model model) {
-		
+	public String productRegister(Model model, HttpSession httpSession) {
+		Login loginInfo = (Login) httpSession.getAttribute("login");
+		if (loginInfo == null)
+			return "login";
 		Product product = new Product();
 		
 		model.addAttribute("product", product);	
