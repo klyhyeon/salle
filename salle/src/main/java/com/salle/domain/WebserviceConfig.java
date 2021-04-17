@@ -13,6 +13,6 @@ public class WebserviceConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new LoginInterceptor())
                 .addPathPatterns("/**")
-                .excludePathPatterns("/register/**", "/login");
+                .excludePathPatterns("/member/register/**", "/login");
     }
 }

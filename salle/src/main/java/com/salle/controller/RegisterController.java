@@ -21,13 +21,13 @@ public class RegisterController {
 	  MemberMapper memberService;
   
     //회원가입 페이지 노출
-    @RequestMapping(value = "/register/main", method = RequestMethod.GET)
+    @RequestMapping(value = "/member/register/main", method = RequestMethod.GET)
     public String registerAttempt(@ModelAttribute("member") Member member) {
 
-        return "register/main";
+        return "member/register/main";
     }
 
-    @RequestMapping(value = "/register/done", method = RequestMethod.POST)
+    @RequestMapping(value = "/member/register/done", method = RequestMethod.POST)
     public String registerHandle(@ModelAttribute("member") Member member, 
     		Errors errors) {		
     		if (memberService.memberInfo(member.getEmail()) != null) {
@@ -37,7 +37,7 @@ public class RegisterController {
     		new RegisterValidation().validate(member, errors);
     		
     		if (errors.hasErrors())
-    			return "register/main";
+    			return "member/register/main";
     
     	
 	        memberService.insertMember(member);
