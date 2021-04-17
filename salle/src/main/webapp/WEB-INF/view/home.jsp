@@ -9,7 +9,7 @@
 <html>
 <head>
 <!-- CSS -->
-<link rel="stylesheet" href="css/home.css">
+<link rel="stylesheet" href="/static/css/home.css">
 <!-- JS, jQuery -->
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <script src="/resources/js/home.js"></script>
