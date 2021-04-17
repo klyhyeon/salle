@@ -78,8 +78,9 @@
 	    	<h2>거래지역</h2>
 	    </p>
 	    <p>
-		<input type="button" id="button" onclick="daumPostcode()" value="주소검색"><br>
-		<form:input type="text" id="addr" placeholder="주소" width="200" path="pr_region"/>
+			<input type="button" id="button" onclick="daumPostcode()" value="주소검색"><br>
+			<form:input type="text" id="addr" placeholder="주소" width="200" path="pr_region1"/><br>
+			<form:input type="text" id="addr" placeholder="상세주소" width="200" path="pr_region2"/>
 	    </p>
     </section>
     

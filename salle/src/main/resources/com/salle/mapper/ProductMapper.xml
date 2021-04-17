@@ -10,8 +10,8 @@
     <insert id="insertProduct" parameterType="com.salle.domain.Product"
      useGeneratedKeys="true" keyProperty="pr_id">
         INSERT INTO
-        product(pr_email, pr_reg_date, pr_img_1, pr_img_2, pr_img_3, pr_img_4, pr_img_5, pr_title, pr_category, pr_region, pr_price, pr_detail, pr_title_alias)
-        VALUES(#{pr_email}, #{pr_reg_date}, #{pr_img_1}, #{pr_img_2}, #{pr_img_3}, #{pr_img_4}, #{pr_img_5}, #{pr_title}, #{pr_category}, #{pr_region}, #{pr_price}, #{pr_detail}, #{pr_title_alias});
+        product(pr_email, pr_reg_date, pr_img_1, pr_img_2, pr_img_3, pr_img_4, pr_img_5, pr_title, pr_category, pr_region1, pr_price, pr_detail, pr_title_alias, pr_region2)
+        VALUES(#{pr_email}, #{pr_reg_date}, #{pr_img_1}, #{pr_img_2}, #{pr_img_3}, #{pr_img_4}, #{pr_img_5}, #{pr_title}, #{pr_category}, #{pr_region1}, #{pr_price}, #{pr_detail}, #{pr_title_alias}, #{pr_region2});
     </insert>
     
     <select id="getProductInfo" resultType="com.salle.domain.Product">
@@ -63,8 +63,8 @@
     	UPDATE product
     	SET
     	pr_email=#{pr_email}, pr_img_1=#{pr_img_1}, pr_img_2=#{pr_img_2}, 
-    	pr_img_3=#{pr_img_3}, pr_img_4=#{pr_img_4}, pr_img_5=#{pr_img_5}, pr_title=#{pr_title}, pr_category=#{pr_category}, pr_region=#{pr_region}, 
-    	pr_price=#{pr_price}, pr_detail=#{pr_detail}, pr_title_alias=#{pr_title_alias}
+    	pr_img_3=#{pr_img_3}, pr_img_4=#{pr_img_4}, pr_img_5=#{pr_img_5}, pr_title=#{pr_title}, pr_category=#{pr_category}, pr_region1=#{pr_region1}, 
+    	pr_price=#{pr_price}, pr_detail=#{pr_detail}, pr_title_alias=#{pr_title_alias}, pr_region2=#{pr_region2}
     	WHERE PR_ID = #{pr_id};
     </update>
     
