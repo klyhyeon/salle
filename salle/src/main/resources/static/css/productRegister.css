@@ -22,16 +22,6 @@ div[class^="pr_img"] {
 	position: relative;
 }
 
-#btn_img {
-	background-color: #70b8ff;
-	border: 2px solid #70b8ff;
-	width: 110px;
-	height: 30px;
-	border-radius: 3px;
-	color: #ffffff;
-	cursor: pointer;
-}
-
 /* button */
 .button_img {
 	background-image: url(/resources/img/210114_Salle_exiticon2.png);
@@ -47,4 +37,13 @@ div[class^="pr_img"] {
 	cursor: pointer;
 }
 
+#btn_submit {
+	background-color: #70b8ff;
+	border: 2px solid #70b8ff;
+	width: 70px;
+	height: 20px;
+	border-radius: 3px;
+	color: #ffffff;
+	cursor: pointer;
+}
 

@@ -97,7 +97,7 @@
 		</label>
 	    </p>
     </section>       	
-    	<input type="button" id="button" value="등록하기" onclick="submit()"/>
+    	<input type="button" id="btn_submit" value="등록하기" onclick="fileUpload()"/>
     </form:form>
     
     <!-- Daum 주소 api -->
@@ -130,13 +130,25 @@
     		url:"/productReg/ajax",
    			type: 'POST',
     		data: formData,
-    			processData: false,
-    			contentType: false,
-    			success: function(data) {
-    				console.log('jQuery ajax form submit success');
-    				}
-    		}); //end ajax
-    		
+   			contentType: 'multipart/form-data'
+<%--   			complete: function(data) {
+   				console.log('jQuery ajax form submit success');
+   				if (data == "success")
+   					submit();
+   				},
+   			error: function() {
+   				alert("submit error");	
+   			}
+--%>
+   		})//end ajax
+   		.done(function (data) {
+			if (data == "success") {
+				submit();
+			} else {
+				alret("submit error");
+			}
+		}); 
+   		
     	formData.delete;
 	}
 	

@@ -11,6 +11,7 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.salle.application.AmazonS3Service;
 import com.salle.application.ProductService;
@@ -62,9 +63,11 @@ public class ProductController {
     
     //상품등록 이미지파일 업로드
     Product product_file = new Product();
+    @ResponseBody
     @RequestMapping(value= "/productReg/ajax", method= RequestMethod.POST)
-    public void productRegAjax(HttpServletRequest req) throws Exception {
+    public String productRegAjax(HttpServletRequest req) throws Exception {
     	productService.insertImg(req, product_file, bucket, 0);
+    	return "success";
     }
 
 	
