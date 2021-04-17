@@ -49,22 +49,18 @@
 				</div>
 			</div>
 		<div class="nav-bar-wrap">
-			<!-- 인접요소 선택자로 연계 -->
-
 			<div class="logo-search-wrap">
-				<h1 class="logo-title">
 				<a href="<c:url value="/"/>"> 
-					<img id="logo-img" alt="logo" src="/resources/img/Salle.png">
+					<h1 class="logo-title">
+						살래?
+					</h1>
 				</a>
-				</h1>
-				
 				<form action="/search/result" method="GET">
-				<input type="text" id="searchWord" name="searchWord" placeholder="검색어를 입력하세요"
-					maxlength="50" size="60">
-				<!-- <input id="searchButton" type="image" src="" style="width:25px; height:25px;" alt="Submit Form"/> -->
-				<button class="searchButton">
-					<img class="searchButtonImg" alt="Submit Form" src="https://sallestorage.s3.ap-northeast-2.amazonaws.com/static/img/searchicon.png"/>
-				</button>
+					<input type="text" id="searchWord" name="searchWord" placeholder="검색어를 입력하세요"
+						maxlength="50" size="60">
+					<button class="searchButton">
+						<img class="searchButtonImg" alt="Submit Form" src="https://sallestorage.s3.ap-northeast-2.amazonaws.com/static/img/searchicon.png"/>
+					</button>
 				</form>
 			</div>
 			<div class="member-info-wrap">
