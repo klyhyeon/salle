@@ -8,7 +8,7 @@
 <html>
 <head>
 	<title>${product.pr_title}</title>
-	<link rel="stylesheet" href="css/productInfo.css">
+	<link rel="stylesheet" href="/css/productInfo.css">
 	<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 </head>
 <body>
