@@ -8,7 +8,7 @@
 <html>
 <head>
 <title>Main</title>
-<link rel="stylesheet" href="css/productList.css">
+<link rel="stylesheet" href="/css/productList.css">
 </head>
 <body>
 

@@ -8,7 +8,7 @@
 <html>
 <head>
     <title>판매하기</title>
-	<link rel="stylesheet" href="css/productRegister.css">
+	<link rel="stylesheet" href="/css/productRegister.css">
 	<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 </head>
 

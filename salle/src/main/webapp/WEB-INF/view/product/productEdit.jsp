@@ -12,7 +12,7 @@
 -->
     <title>판매하기</title>
 	<!-- CSS -->
-	<link rel="stylesheet" href="css/productRegister.css">
+	<link rel="stylesheet" href="/css/productRegister.css">
 	<!-- jQuery -->
 
 

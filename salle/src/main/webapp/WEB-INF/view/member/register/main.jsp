@@ -9,7 +9,7 @@
 <html>
 <head>
     <title>회원가입</title>
-    <link rel="stylesheet" href="css/register_main.css">
+    <link rel="stylesheet" href="/css/register_main.css">
 </head>
 <body>
 
