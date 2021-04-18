@@ -144,19 +144,19 @@ div[class="category-list"] {
 .logo-title {
     font-size: 20px;
     color: #ffffff;
+    position: absolute;
+    top: -5px;
 }
 
 /* searchWord */
 
-.searchWord-form {
-	margin: 0;
-	padding: 0;
-	display: none;
+#searchWord {
+	position: absolute;
 }
 
 input[id="searchWord"] {
 	margin-left: 100px;
-	border-radius: 3px;
+	border-radius: 7px;
 	border: 1px solid #a8a4a8;
 	padding: 6px;
 	font-size: 11px;
@@ -172,9 +172,10 @@ input[id="searchWord"] {
 }
 
 .searchButton img {
+    position: relative;
 	width: 20px;
-	right: 50;
-	top: 50;
+	right: -450px;
+	top: -3px;
 	color: #a8a4a8;
 }
 
