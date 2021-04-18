@@ -9,7 +9,7 @@
 <head>
 <title>${pr_title}</title>
 	
-	<link rel="stylesheet" href="/resources/css/chatBroadcastProduct.css">
+	<link rel="stylesheet" href="css/chatBroadcastProduct.css">
 
 </head>
 <body>	

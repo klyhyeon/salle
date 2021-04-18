@@ -51,9 +51,9 @@
 		<div class="nav-bar-wrap">
 			<div class="logo-search-wrap">
 				<a href="<c:url value="/"/>"> 
-					<h1 class="logo-title">
-						살래?
-					</h1>
+					<span class="logo-title">
+						Salle?
+					</span>
 				</a>
 				<form action="/search/result" method="GET">
 					<input type="text" id="searchWord" name="searchWord" placeholder="검색어를 입력하세요"

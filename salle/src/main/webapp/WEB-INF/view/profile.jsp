@@ -8,7 +8,7 @@
 <html>
 <head>
 <title>Profile</title>
-<link rel="stylesheet" href="/resources/css/profile.css">
+<link rel="stylesheet" href="css/profile.css">
 </head>
 <body>
 

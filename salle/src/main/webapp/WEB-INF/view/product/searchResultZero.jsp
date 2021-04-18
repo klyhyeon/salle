@@ -8,7 +8,7 @@
 <html>
 <head>
 <title>ProductList</title>
-<link rel="stylesheet" href="/resources/css/searchResultZero.css">
+<link rel="stylesheet" href="css/searchResultZero.css">
 </head>
 <body>
 
