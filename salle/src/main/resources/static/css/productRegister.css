@@ -24,7 +24,7 @@ div[class^="pr_img"] {
 
 /* button */
 .button_img {
-	background-image: url(/resources/img/210114_Salle_exiticon2.png);
+	background-image: url(https://sallestorage.s3.ap-northeast-2.amazonaws.com/static/img/salle_exiticon.png);
 	background-size: 20px;
 	width: 20px;
 	height: 20px;
