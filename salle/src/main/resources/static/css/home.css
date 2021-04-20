@@ -41,6 +41,7 @@ html, body {
 	height: 70px;
     top: 0px;
 	background-color: rgb(153, 204, 255, 255);
+	margin-bottom: 10px;
 }
 
 .nav-bar-wrap {	

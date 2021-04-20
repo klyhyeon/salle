@@ -15,21 +15,21 @@
 <%@include file="home.jsp" %>
 
 	<div class="wrap_product">
-	<c:forEach var="productHome" items="${productList}">
-	<div class="container_product">
-	<a href="<c:url value="/productInfo/${productHome.pr_id}"/>">
-		<div class="div_pr_img">
-			<img src="${s3Url}${productHome.pr_img_1}" class="pr_img"/></td>
+		<c:forEach var="productHome" items="${productList}">
+		<div class="container_product">
+			<a href="<c:url value="/productInfo/${productHome.pr_id}"/>">
+				<div class="div_pr_img">
+					<img src="${s3Url}${productHome.pr_img_1}" class="pr_img"/>
+				</div>
+				<div class="div_pr_title">
+					${productHome.pr_title}
+				</div>	
+				<div class="div_pr_price">
+					${productHome.pr_price}원
+				</div>
+			</a>
 		</div>
-		<div class="div_pr_title">
-			${productHome.pr_title}
-		</div>	
-		<div class="div_pr_price">
-			${productHome.pr_price}원
-		</div>
-	</div>
-	</a>
-	</c:forEach>
+		</c:forEach>
 	</div>
 
 </body>
