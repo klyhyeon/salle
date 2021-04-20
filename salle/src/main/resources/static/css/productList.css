@@ -24,6 +24,11 @@ a {
 	height: 150px;
 }
 
+.div_pr_img {
+	width: 200px;
+	height: 150px;
+}
+
 .div_pr_title {
 	font-size: 13px;
 	font-weight: bold; 

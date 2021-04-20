@@ -14,13 +14,15 @@ a {
 	height: 350px;
 	display: flex;
 	position: relative;
+	margin-left: 10px;
 }
 
 .div_pr_img {
 	width: 500px;
 	height: 350px;
-	background-size: cover;
+	background-size: contain;
 	background-repeat: no-repeat;
+	background-position: center;
 	animation: fade 0.5s;
 	display: none;
 }
@@ -30,7 +32,7 @@ a {
 }
 
 .button_img {
-	background-image: url(/resources/img/210211_salle_add.png);
+	background-image: url(https://sallestorage.s3.ap-northeast-2.amazonaws.com/static/img/salle_zoom.png);
 	background-size: 30px;
 	width: 30px;
 	height: 30px;
@@ -65,10 +67,11 @@ a {
 
 .container_info1 {
 	display: flex;
-	width: 400px;
+	width: 500px;
 	padding: 20px 0;
 	border-bottom: 1px solid #e9ecef;
 	justify-content: space-between;
+	margin-left: 10px;
 }
 
 .wrap_nickName_pr_region {
@@ -82,7 +85,7 @@ a {
 #btn_chat {
 	background-color: #70b8ff;
 	border: 2px solid #70b8ff;
-	width: 110px;
+	width: 130px;
 	height: 30px;
 	border-radius: 3px;
 	color: #ffffff;
@@ -92,6 +95,13 @@ a {
 .container_info2 {
 	padding: 20px 0;
 	border-bottom: 1px solid #e9ecef;
+	width: 500px;
+	margin-left: 10px;
+}
+
+.container_info3 {
+	width: 500px;
+	margin-left: 10px;
 }
 
 .nickName {
