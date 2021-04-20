@@ -18,7 +18,7 @@ a {
 	color: inherit;
 }
 
-a:hover {
+nav a:hover {
 	background-color:#cccccc;
 	border-radius: 3px;
 	padding: 3px; 
