@@ -8,7 +8,7 @@ a {
 	text-decoration: none;
 }
 
-.article_product {
+.wrap_product {
 	display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;

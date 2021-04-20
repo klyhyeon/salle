@@ -20,7 +20,7 @@
 </head>
 <body>
 	<c:set var="s3Url" scope="application" value="https://sallestorage.s3.ap-northeast-2.amazonaws.com/"></c:set>
-	<header class="nav-bar">
+	<nav class="nav-bar">
 			<div class="categoryicon-wrap">
 				<input type="checkbox" id="categoryicon" onclick="showCategory()"> 	
 				<label id="categoryicon-label" for="categoryicon"> 
@@ -146,7 +146,7 @@
 				</c:choose>
 			</div>
 	</div>
-	</header>
+	</nav>
 		
 
 	

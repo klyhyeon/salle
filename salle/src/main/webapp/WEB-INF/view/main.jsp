@@ -14,7 +14,7 @@
 
 <%@include file="home.jsp" %>
 
-	<article class="article_product">
+	<div class="wrap_product">
 	<c:forEach var="productHome" items="${productList}">
 	<div class="container_product">
 	<a href="<c:url value="/productInfo/${productHome.pr_id}"/>">
@@ -30,7 +30,7 @@
 	</div>
 	</a>
 	</c:forEach>
-	</article>
+	</div>
 
 </body>
 </html>
