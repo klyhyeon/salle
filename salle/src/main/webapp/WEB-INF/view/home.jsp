@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="/css/home.css">
 <!-- JS, jQuery -->
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-<script src="js/home.js"></script>
+<script src="/js/home.js"></script>
 <!-- fontAwesome -->  
 <script src="https://use.fontawesome.com/46a3662715.js"></script>
 

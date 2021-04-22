@@ -1,10 +1,3 @@
-/**
- * 
- */
-
-		//activate hamburger-bar
-
-
 	
 		//activate Enterkey for Search
 			var searchWord = document.getElementById('searchWord');
