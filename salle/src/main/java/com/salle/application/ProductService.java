@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 
@@ -70,9 +69,8 @@ public class ProductService implements ProductMapper {
 	}
 	
 	
-	public void insertImg(HttpServletRequest req, Product product_file, String bucket, int reps) throws IOException {
+	public void insertImg(MultipartHttpServletRequest multiReq, Product product_file, String bucket, int reps) throws IOException {
 		log.info("insertImg in processing");
-    	MultipartHttpServletRequest multiReq = (MultipartHttpServletRequest) req;
     	Iterator<String> iterator = multiReq.getFileNames(); 	
     	MultipartFile multipartFile = null;
     	
