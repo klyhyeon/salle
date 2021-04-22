@@ -4,7 +4,6 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.json.JSONObject;
@@ -18,11 +17,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.salle.application.ProductEditService;
 import com.salle.application.ProductService;
 import com.salle.domain.Product;
-import com.salle.domain.UuidImgname;
 
 import lombok.RequiredArgsConstructor;
 
@@ -60,7 +59,7 @@ public class ProductEditController {
 	
 	int exImgCnt = 0;
     @RequestMapping(value= "/productEdit/ajax", method= RequestMethod.POST)
-    public Product productEdit(HttpServletRequest req) throws Exception {
+    public Product productEdit(MultipartHttpServletRequest req) throws Exception {
     	productUpdate = productEditService.imgEdit(req, productUpdate, bucket);
     	return productUpdate;
     }
