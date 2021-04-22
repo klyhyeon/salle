@@ -112,8 +112,9 @@
 		$.ajax({
     		url:"/productReg/ajax",
    			type: 'POST',
-    		data: formData,
-   			contentType: 'multipart/form-data'
+    		data: 'text',
+   			contentType: 'multipart/form-data',
+   			processType: false
 <%--   			complete: function(data) {
    				console.log('jQuery ajax form submit success');
    				if (data == "success")
