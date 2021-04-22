@@ -45,7 +45,7 @@ public class ChatApplicationController {
 			@PathVariable("pr_id") String pr_idStr) throws IOException {
 		Login loginInfo = (Login) session.getAttribute("login");
 		if (loginInfo == null)
-			return "login";
+			return "/login";
 		int pr_id = Integer.parseInt(pr_idStr);
 		Map<String, String> chatInfoMap = new HashMap<String, String>();
 		chatInfoMap = chatService.productInfoSetting(session, pr_id, chatInfoMap);

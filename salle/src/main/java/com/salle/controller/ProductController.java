@@ -39,7 +39,7 @@ public class ProductController {
 	public String productRegister(Model model, HttpSession httpSession, Errors errors) {
 		Login loginInfo = (Login) httpSession.getAttribute("login");
 		if (loginInfo == null)
-			return "login";
+			return "/login";
 		Product product = new Product();
 		
 		model.addAttribute("product", product);	
