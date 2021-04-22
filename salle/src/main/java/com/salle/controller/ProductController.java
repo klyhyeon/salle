@@ -36,10 +36,11 @@ public class ProductController {
 
 	
 	@RequestMapping(value = "/product/add", method = RequestMethod.GET)
-	public String productRegister(Model model, HttpSession httpSession, Errors errors) {
+	public String productRegister(Model model, HttpSession httpSession) {
 		Login loginInfo = (Login) httpSession.getAttribute("login");
-		if (loginInfo == null)
+		if (httpSession.getAttribute("login") == null) {
 			return "/login";
+		}
 		Product product = new Product();
 		
 		model.addAttribute("product", product);	
