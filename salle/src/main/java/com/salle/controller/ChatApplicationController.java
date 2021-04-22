@@ -43,11 +43,10 @@ public class ChatApplicationController {
 	public String productChatMessage(Model model, HttpSession session, 
 			@PathVariable("pr_id") String pr_idStr) throws IOException {
 		
-		try {
-			session.getAttribute("login");
-		} catch (Exception e) {
-			return "/login";			
+		if (session.getAttribute("login") == null) {
+			return "/login";
 		}
+		
 		int pr_id = Integer.parseInt(pr_idStr);
 		Map<String, String> chatInfoMap = new HashMap<String, String>();
 		chatInfoMap = chatService.productInfoSetting(session, pr_id, chatInfoMap);
