@@ -44,7 +44,7 @@ public class ChatApplicationController {
 			@PathVariable("pr_id") String pr_idStr) throws IOException {
 		
 		if (session.getAttribute("login") == null) {
-			return "/login";
+			return "redirect:/login";
 		}
 		
 		int pr_id = Integer.parseInt(pr_idStr);
