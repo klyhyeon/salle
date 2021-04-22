@@ -26,7 +26,7 @@ public class SellProductValidation implements Validator{
 		
 		//어떤 정보가 비어있을 경우
         ValidationUtils.rejectIfEmptyOrWhitespace(errors,"pr_title", "required");
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors,"pr_region", "required");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors,"pr_region1", "required");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors,"pr_price", "required");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors,"pr_detail", "required");
 

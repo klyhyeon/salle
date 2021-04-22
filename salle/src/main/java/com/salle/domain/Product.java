@@ -23,7 +23,6 @@ public @Data class Product {
 	private String pr_category;
 	private String pr_region1;
 	private String pr_region2;	
-	private String pr_quality;
 	private String pr_price;
 	private String pr_detail;
 	private int pr_id; //seq 생성
