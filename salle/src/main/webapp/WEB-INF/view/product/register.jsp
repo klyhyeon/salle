@@ -115,7 +115,7 @@
     		data: formData,
     		dataType: "text",
    			contentType: 'multipart/form-data',
-   			processType: false
+   			processData: false
    		})//end ajax
    		.done(function (data) {
 			if (data == "success") {
