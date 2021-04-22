@@ -113,7 +113,7 @@
     		url:"/productReg/ajax",
    			type: 'POST',
     		data: formData,
-    		dataType: 'text',
+    		dataType: "text",
    			contentType: 'multipart/form-data',
    			processType: false
    		})//end ajax
