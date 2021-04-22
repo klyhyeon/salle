@@ -4,12 +4,11 @@ import java.sql.Timestamp;
 
 import org.springframework.stereotype.Component;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+
 @NoArgsConstructor //기본생성자
-@AllArgsConstructor //모든 전역변수 포함시킨 생성자
 @Component
 public @Data class Product {
 
