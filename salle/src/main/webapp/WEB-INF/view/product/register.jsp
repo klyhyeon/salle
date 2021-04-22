@@ -114,7 +114,7 @@
    			type: 'POST',
     		data: formData,
     		dataType: "text",
-   			contentType: 'multipart/form-data',
+   			contentType: false,
    			processData: false
    		})//end ajax
    		.done(function (data) {

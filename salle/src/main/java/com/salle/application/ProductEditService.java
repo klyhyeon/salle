@@ -6,6 +6,7 @@ import java.net.URLEncoder;
 import java.util.List;
 import java.util.Optional;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.json.JSONException;
@@ -14,7 +15,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.Errors;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.salle.domain.Login;
 import com.salle.domain.Product;
@@ -50,7 +50,7 @@ public class ProductEditService {
 	}
 
 	
-	public Product imgEdit(MultipartHttpServletRequest req, Product productUpdate, String bucket) throws JSONException, IOException {
+	public Product imgEdit(HttpServletRequest req, Product productUpdate, String bucket) throws JSONException, IOException {
 		log.info("insertEdit in processing");
 		Optional<String[]> exImgArrOpt = Optional.ofNullable(req.getParameterValues("imgExArr")); 
 		String[] exImgArr = exImgArrOpt.orElse(null);

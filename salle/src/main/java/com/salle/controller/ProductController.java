@@ -1,5 +1,6 @@
 package com.salle.controller;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.salle.application.AmazonS3Service;
 import com.salle.application.ProductService;
@@ -65,8 +65,8 @@ public class ProductController {
     Product product_file = new Product();
     @ResponseBody
     @RequestMapping(value= "/productReg/ajax", method= RequestMethod.POST)
-    public String productRegAjax(MultipartHttpServletRequest multiReq) throws Exception {
-    	productService.insertImg(multiReq, product_file, bucket, 0);
+    public String productRegAjax(HttpServletRequest req) throws Exception {
+    	productService.insertImg(req, product_file, bucket, 0);
     	return "success";
     }
 
