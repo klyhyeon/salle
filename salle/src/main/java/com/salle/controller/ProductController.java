@@ -37,9 +37,10 @@ public class ProductController {
 	
 	@RequestMapping(value = "/product/add", method = RequestMethod.GET)
 	public String productRegister(Model model, HttpSession httpSession) {
-		Login loginInfo = (Login) httpSession.getAttribute("login");
 		if (httpSession.getAttribute("login") == null) {
 			return "/login";
+		} else {
+			Login loginInfo = (Login) httpSession.getAttribute("login");
 		}
 		Product product = new Product();
 		
