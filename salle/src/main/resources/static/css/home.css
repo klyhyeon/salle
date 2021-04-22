@@ -128,7 +128,7 @@ div[class="category-list"] {
 	height: 100vh;
 	padding-top: 60px;
 	padding-left: 35px;
-	background-color: rgb(153, 204, 255,0.6);
+	background-color: rgb(153, 204, 255, 255);
 	top: 0;
 	left: -300px;
 	z-index: 1; /*�켱���� 0������ ��ư*/
