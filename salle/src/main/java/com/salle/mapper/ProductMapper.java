@@ -47,7 +47,7 @@ public interface ProductMapper {
 	//검색어 결과 유무
 	int searchCount(String searchWord, String searchWordNoSpace);
 
-	void registerProduct(HttpSession httpsession, Product product, Product product_file, Errors errors);	
+	void addProduct(HttpSession httpsession, Product product, Product product_file, Errors errors);	
 
 	
 }

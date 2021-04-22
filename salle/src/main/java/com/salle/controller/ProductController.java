@@ -35,25 +35,25 @@ public class ProductController {
 	private String bucket;
 
 	
-	@RequestMapping(value = "/product/register", method = RequestMethod.GET)
-	public String productRegister(Model model, HttpSession httpSession) {
+	@RequestMapping(value = "/product/add", method = RequestMethod.GET)
+	public String productRegister(Model model, HttpSession httpSession, Errors errors) {
 		Login loginInfo = (Login) httpSession.getAttribute("login");
 		if (loginInfo == null)
 			return "login";
 		Product product = new Product();
 		
 		model.addAttribute("product", product);	
-		return "product/register";
+		return "product/add";
 	}
     
 	//상품등록완료 페이지
     @RequestMapping(value = "/product/done", method = RequestMethod.POST)
     public String productRegisterDone(@ModelAttribute("product") Product product, Errors errors,
     	HttpSession httpSession, Model model) throws Exception {
-		productService.registerProduct(httpSession, product, product_file, errors);
+		productService.addProduct(httpSession, product, product_file, errors);
 		
 		if (errors.hasErrors()) 
-			return "product/register";
+			return "product/add";
 
 		ChatMessage chatRoom = new ChatMessage();
 		model.addAttribute("chatRoom", chatRoom);

@@ -43,7 +43,7 @@ public class ProductService implements ProductMapper {
     Timestamp productRegTime;
     
 	@Override
-	public void registerProduct(HttpSession httpSession, Product product, Product product_file, Errors errors) {	
+	public void addProduct(HttpSession httpSession, Product product, Product product_file, Errors errors) {	
 		log.info("pr_img_1" + product_file.getPr_img_1());
     	Login loginInfo = (Login) httpSession.getAttribute("login");
     	product.setPr_email(loginInfo.getEmail());    	

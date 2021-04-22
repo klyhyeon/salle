@@ -64,7 +64,7 @@
 				</form>
 			</div>
 			<div class="member-info-wrap">
-					<a class="sell" href="<c:url value="/product/register"/>"> 
+					<a class="sell" href="<c:url value="/product/add"/>"> 
 						판매하기
 					</a>
 				<c:choose>
