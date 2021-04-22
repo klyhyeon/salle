@@ -43,7 +43,7 @@ public class ChatApplicationController {
 	@RequestMapping(value="/product/chatStart/{pr_id}", method=RequestMethod.GET)
 	public String productChatMessage(Model model, HttpSession session, 
 			@PathVariable("pr_id") String pr_idStr) throws IOException {
-		if (session.getAttribute("login") == null)
+		if (session == null)
 			return "/login";
 		int pr_id = Integer.parseInt(pr_idStr);
 		Map<String, String> chatInfoMap = new HashMap<String, String>();
