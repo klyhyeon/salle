@@ -25,7 +25,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.salle.application.ChatService;
 import com.salle.domain.ChatMessage;
 import com.salle.domain.ChatRoom;
-import com.salle.domain.Login;
 
 @Controller
 public class ChatApplicationController {
@@ -43,8 +42,12 @@ public class ChatApplicationController {
 	@RequestMapping(value="/product/chatStart/{pr_id}", method=RequestMethod.GET)
 	public String productChatMessage(Model model, HttpSession session, 
 			@PathVariable("pr_id") String pr_idStr) throws IOException {
-		if (session == null)
-			return "/login";
+		
+		try {
+			session.getAttribute("login");
+		} catch (Exception e) {
+			return "/login";			
+		}
 		int pr_id = Integer.parseInt(pr_idStr);
 		Map<String, String> chatInfoMap = new HashMap<String, String>();
 		chatInfoMap = chatService.productInfoSetting(session, pr_id, chatInfoMap);
