@@ -38,7 +38,7 @@ public class ProductController {
 	@RequestMapping(value = "/product/add", method = RequestMethod.GET)
 	public String productRegister(Model model, HttpSession httpSession) {
 		if (httpSession.getAttribute("login") == null) {
-			return "login";
+			return "redirect:/login";
 		} else {
 			Login loginInfo = (Login) httpSession.getAttribute("login");
 		}
