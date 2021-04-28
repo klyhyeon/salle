@@ -7,6 +7,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -48,12 +49,16 @@ public class ProductEditController {
 	//profile에서 판매글 수정, 삭제하기
 	@RequestMapping(value= "/product/{pr_id}/edit", method = RequestMethod.GET)
 	public String productEdit(Model model, @PathVariable int pr_id) {
-		List<String> imgList = new ArrayList<String>();
-		Product product = productEditService.productEdit(pr_id, imgList);
+		Product product = productService.getProductInfo(pr_id);
 		model.addAttribute("product", product);
-		model.addAttribute("imgList", imgList);
-//		imgList = null;
 		return "product/productEdit"; 
+	}
+	
+	@RequestMapping(value= "/get/imgList", method= RequestMethod.GET)
+	public JSONArray sendImgList(String pr_idStr) {
+		int pr_id = Integer.parseInt(pr_idStr);
+		JSONArray jsnImgList = productEditService.getImgList(pr_id);
+		return jsnImgList;
 	}
 
 	

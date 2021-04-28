@@ -3,12 +3,13 @@ package com.salle.application;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.util.List;
+import java.util.ArrayList;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,20 +34,20 @@ public class ProductEditService {
 		this.amazonS3 = amazonS3;
 	}
 	
-	public Product productEdit(int pr_id, List<String> imgList) {
+	public JSONArray getImgList(int pr_id) {
 		Product product = productService.getProductInfo(pr_id);
-		//get ProductInfo and get img list
 		String[] imgs = new String[5];				
 		imgs[0] = product.getPr_img_1();				
 		imgs[1] = product.getPr_img_2();				
 		imgs[2] = product.getPr_img_3();				
 		imgs[3] = product.getPr_img_4();				
 		imgs[4] = product.getPr_img_5();				
-		for (int i = 0; i < 5; i++) {
+		JSONArray jsnImgList = new JSONArray();
+		for(int i = 0; i < 5; i++) {
 			if (imgs[i] != null)
-				imgList.add(imgs[i]);
+				jsnImgList.put(i, imgs[i]);
 		}
-		return product;
+		return jsnImgList;
 	}
 
 	

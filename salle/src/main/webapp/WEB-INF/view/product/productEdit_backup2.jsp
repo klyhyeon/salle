@@ -21,8 +21,88 @@
 
 	<%@include file="../home.jsp" %>
 
-	<%@include file="add.jsp" %>
-	<input type="hidden" id="s3Url" value="${s3Url}"/>
+
+    <form:form action="save" method="post" id="form" enctype="multipart/form-data" modelAttribute="product">
+    <form:input type="hidden" value="${product.pr_id}" id="pr_id" path="pr_id"/>
+    <section class="pr_img">
+  		<p>	
+    		<label for="img"><h2>상품 이미지</h2></label>
+    	</p>
+	    	<input type="file" id="img" name="pr_img_files"/>	    	
+		        <div class="wrap_pr_img">
+			    	<c:forEach var="img" items="${imgList}" varStatus="loop">			
+				    	<div class="pr_img_${loop.index}" id="imgEx">
+				    		<img id="pr_img_ex" src="${s3Url}${img}" width="150px" height="150px"/>
+				    		<button type="button" class="button_img" value="pr_img_${loop.index}" onclick="deleteImgEx(this.value)"></button>
+				    	</div>
+			    	</c:forEach>
+	    		</div>
+	    <form:errors id="errors" path="pr_img_1"/>
+	    <p></p>
+	    <p></p>
+    	<input type="button" id="btn_img" value="이미지 확정하기" onclick="fileUpload()"/>
+    </section>
+    
+    <section class="pr_title">
+	    <p>
+	    	<h2>제목</h2>
+	   		<form:input type="text" name="pr_title" size="50" path="pr_title"/>
+	   		<form:errors id="errors" path="pr_title"/>
+	    </p>
+    </section>
+
+    <section class="pr_category">
+	    <p>
+	    	<h2>상품 카테고리</h2>
+		    <select id="pr_category" name="pr_category" required>
+		    	<option value="digital"><spring:message code="digital"/></option>
+		    	<option value="furniture"><spring:message code="furniture"/></option>
+		    	<option value="kids"><spring:message code="kids"/></option>
+		    	<option value="lifestyle"><spring:message code="lifestyle"/></option>
+		    	<option value="sports"><spring:message code="sports"/></option>
+		    	<option value="womengoods"><spring:message code="womengoods"/></option>
+		    	<option value="womenclothes"><spring:message code="womenclothes"/></option>
+		    	<option value="menclothes"><spring:message code="menclothes"/></option>
+		    	<option value="games"><spring:message code="games"/></option>
+		    	<option value="beauty"><spring:message code="beauty"/></option>
+		    	<option value="pets"><spring:message code="pets"/></option>
+		    	<option value="books"><spring:message code="books"/></option>
+		    	<option value="plants"><spring:message code="plants"/></option>
+		    	<option value="etc"><spring:message code="etc"/></option>
+			</select>
+	    </p>
+    </section>
+    
+    <section class="pr_region">
+	    <p>
+	    	<h2>거래지역</h2>
+	    </p>
+	    <p>
+			<input type="button" id="button" onclick="daumPostcode()" value="주소검색"><br>
+			<form:input type="text" id="addr" placeholder="주소" width="200" path="pr_region1"/><br>
+			<form:input type="text" id="addr" placeholder="상세주소" width="200" path="pr_region2"/>
+	    </p>
+    </section>
+    
+    <section class="pr_price">
+	    <p>
+	    	<h2>상품 가격</h2>
+	   		<form:input type="text" id="pr_price" onkeyup="priceCommas(this.value)" name="pr_price" path="pr_price"/>원
+		    <form:errors id="errors" path="pr_price"/>
+	    </p>
+    </section>
+
+    <section class="pr_detail">
+	    <p>
+	    <label>
+	    	<h2>상품 설명</h2>
+	   		<form:textarea id="pr_detail" placeholder="상품 설명을 입력하세요. 최대 500자" maxlength="1000" rows="10" cols="80" name="pr_detail" path="pr_detail"/>
+		    <form:errors id="errors" path="pr_detail"/>
+		</label>
+	    </p>
+    </section>
+    	<input type="button" id="button" value="등록하기" onclick="submit()"/>
+    </form:form>
     
     <!-- Javascript -->
     <!-- <script type="text/javascript" scr="/resources/static/js/sell.js"></script> -->
@@ -36,34 +116,6 @@
     var img_count = 10;
     var formData = new FormData();
     var pr_id = document.getElementById('pr_id').value;
-    var s3Url = document.getElementById('s3Url').value;
-    
-    $(document).ready(
-    	$.ajax({
-    		url: "/get/imgList",
-    		type: "GET",
-    		data: pr_id,
-    		contentType: "application/x-www-form-urlencoded",
-    		dataType: "text" 		
-    	}, success(data) {
-    		var imgListArr = JSON.parse(data);
-    		if (imgListArr != null) {    			
-    			var idx = 0;
-    			for (idx = 0; idx < imgListArr.length; idx++) {
-    				let div = document.createElement("div");
-    				div.className = "pr_img_" + idx;
-    				div.id = "imgEx";
-					document.getElementByClassName('wrap_pr_img').appendChild(div);
-					let img = document.createElement("IMG");
-					img.id = "pr_img_ex";
-					img.src = s3Url + data[0];
-					document.getElementByClassName('pr_img_' + idx).appendChild(img);
-    			}
-    		}
-    	}
-    	
-    	)    
-    );
 	    
     //pr_img
 	//input 파일첨부 버튼 클릭하면 실행되는 change 메서드
