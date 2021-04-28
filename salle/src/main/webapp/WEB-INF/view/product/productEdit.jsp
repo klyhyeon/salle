@@ -40,10 +40,8 @@
     
     $(document).ready(
     	$.ajax({
-    		url: "/get/imgList",
+    		url: "/get/imgList"+pr_id,
     		type: "GET",
-    		data: pr_id,
-    		dataType: "text" 		
     	}, success(data) {
     		var imgListArr = JSON.parse(data);
     		if (imgListArr != null) {    			

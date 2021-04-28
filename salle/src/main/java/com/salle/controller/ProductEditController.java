@@ -54,8 +54,8 @@ public class ProductEditController {
 		return "product/productEdit"; 
 	}
 	
-	@RequestMapping(value= "/get/imgList", method= RequestMethod.GET)
-	public JSONArray sendImgList(String pr_idStr) {
+	@RequestMapping(value= "/get/imgList/{pr_idStr}", method= RequestMethod.GET)
+	public JSONArray sendImgList(@PathVariable("pr_idStr") String pr_idStr) {
 		int pr_id = Integer.parseInt(pr_idStr);
 		JSONArray jsnImgList = productEditService.getImgList(pr_id);
 		return jsnImgList;
