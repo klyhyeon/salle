@@ -43,7 +43,6 @@
     		url: "/get/imgList",
     		type: "GET",
     		data: pr_id,
-    		contentType: "application/x-www-form-urlencoded",
     		dataType: "text" 		
     	}, success(data) {
     		var imgListArr = JSON.parse(data);
