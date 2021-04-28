@@ -19,8 +19,6 @@
 </head>
 <body>
 
-	<%@include file="../home.jsp" %>
-
 	<%@include file="add.jsp" %>
 	<input type="hidden" id="s3Url" value="${s3Url}"/>
     
@@ -42,25 +40,23 @@
     	$.ajax({
     		url: "/get/imgList"+pr_id,
     		type: "GET",
-    	}, success(data) {
-    		var imgListArr = JSON.parse(data);
-    		if (imgListArr != null) {    			
-    			var idx = 0;
-    			for (idx = 0; idx < imgListArr.length; idx++) {
-    				let div = document.createElement("div");
-    				div.className = "pr_img_" + idx;
-    				div.id = "imgEx";
-					document.getElementByClassName('wrap_pr_img').appendChild(div);
-					let img = document.createElement("IMG");
-					img.id = "pr_img_ex";
-					img.src = s3Url + data[0];
-					document.getElementByClassName('pr_img_' + idx).appendChild(img);
+    		success( function(data) {
+	    		var imgListArr = JSON.kparse(data);
+	    		if (imgListArr != null) {    			
+	    			var idx = 0;
+	    			for (idx = 0; idx < imgListArr.length; idx++) {
+	    				let div = document.createElement("div");
+	    				div.className = "pr_img_" + idx;
+	    				div.id = "imgEx";
+						document.getElementByClassName('wrap_pr_img').appendChild(div);
+						let img = document.createElement("IMG");
+						img.id = "pr_img_ex";
+						img.src = s3Url + data[0];
+						document.getElementByClassName('pr_img_' + idx).appendChild(img);
+	    			}
     			}
-    		}
-    	}
-    	
-    	)    
-    );
+    		})
+    	});//end ajax
 	    
     //pr_img
 	//input 파일첨부 버튼 클릭하면 실행되는 change 메서드

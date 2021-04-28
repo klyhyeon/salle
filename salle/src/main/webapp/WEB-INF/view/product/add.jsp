@@ -74,7 +74,7 @@
     <section class="pr_price">
 	    <p>
 	    	<h2>상품 가격</h2>
-	   		<form:input type="text" id="pr_price" onkeyup="priceCommas(this.value)" name="pr_price" path="pr_price"/>원
+	   		<form:input type="text" id="pr_price" onkeyup="priceCommas(this.value)" path="pr_price"/>원
 		    <form:errors id="errors" path="pr_price"/>
 	    </p>
     </section>
@@ -83,7 +83,7 @@
 	    <p>
 	    <label>
 	    	<h2>상품 설명</h2>
-	   		<textarea id="pr_detail" placeholder="상품 설명을 입력하세요. 최대 500자" maxlength="1000" rows="10" cols="80" name="pr_detail" ></textarea>
+	   		<form:textarea id="pr_detail" placeholder="상품 설명을 입력하세요. 최대 500자" maxlength="1000" rows="10" cols="80" path="pr_detail"/>
 		    <form:errors id="errors" path="pr_detail"/>
 		</label>
 	    </p>
