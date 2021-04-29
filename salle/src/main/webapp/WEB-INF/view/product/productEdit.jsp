@@ -57,6 +57,7 @@
     			}
     		}
     	});//end ajax
+    );//end $document ready
 	    
     //pr_img
 	//input 파일첨부 버튼 클릭하면 실행되는 change 메서드
