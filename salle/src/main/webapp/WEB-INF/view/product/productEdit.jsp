@@ -38,7 +38,7 @@
     
     $(document).ready(
     	$.ajax({
-    		url: "/get/imgList"+pr_id,
+    		url: "/get/imgList/"+pr_id,
     		type: "GET",
     		success: function(data) {
 	    		var imgListArr = JSON.parse(data);
