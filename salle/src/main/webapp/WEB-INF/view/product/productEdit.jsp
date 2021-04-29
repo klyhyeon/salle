@@ -40,9 +40,9 @@
     	$.ajax({
     		url: "/get/imgList"+pr_id,
     		type: "GET",
-    		success( function(data) {
-	    		var imgListArr = JSON.kparse(data);
-	    		if (imgListArr != null) {    			
+    		success: function(data) {
+	    		var imgListArr = JSON.parse(data);
+	    		if (imgListArr != null) {		
 	    			var idx = 0;
 	    			for (idx = 0; idx < imgListArr.length; idx++) {
 	    				let div = document.createElement("div");
@@ -55,7 +55,7 @@
 						document.getElementByClassName('pr_img_' + idx).appendChild(img);
 	    			}
     			}
-    		})
+    		}
     	});//end ajax
 	    
     //pr_img
