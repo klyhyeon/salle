@@ -56,7 +56,7 @@
 	    			}
     			}
     		}
-    	});//end ajax
+    	})//end ajax
     );//end $document ready
 	    
     //pr_img
