@@ -21,6 +21,7 @@
 
 	<%@include file="add.jsp" %>
 	<input type="hidden" id="s3Url" value="${s3Url}"/>
+	<input type="hidden" id="pr_id" value="${product.pr_id}"/>
     
     <!-- Javascript -->
     <!-- <script type="text/javascript" scr="/resources/static/js/sell.js"></script> -->
