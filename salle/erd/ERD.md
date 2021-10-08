@@ -1,5 +1,5 @@
 ## ERD
 
-1.1v (211004)
+1.2v (211008)
 
-![Salle_DB_ERD-1 1v_ERD](https://user-images.githubusercontent.com/61368705/135789157-9dbbc808-2698-4c7c-b6dd-59eb333503a2.jpg)
+![Salle_DB_ERD-1 2v_ERD](https://user-images.githubusercontent.com/61368705/136555006-b4346539-6cab-4544-af53-23074b423e98.jpg)
