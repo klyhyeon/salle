@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.salle.domain.Member;
 import com.salle.mapper.MemberMapper;
 import com.salle.validation.RegisterValidation;
 

@@ -1,31 +1,43 @@
 package com.salle.domain;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.util.List;
 
 import org.springframework.stereotype.Component;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.*;
 
-@NoArgsConstructor //기본생성자
-@Component
-public @Data class Product {
 
-	private String pr_email;
-	private Timestamp pr_reg_date;
-	private String pr_img_1;
-	private String pr_img_2;
-	private String pr_img_3;
-	private String pr_img_4;
-	private String pr_img_5;
-	private String pr_title;
-	private String pr_category;
-	private String pr_region1;
-	private String pr_region2;	
-	private String pr_price;
-	private String pr_detail;
-	private int pr_id; //seq 생성
+@Entity
+@Table(name = "PRODUCT")
+public class Product {
+
+	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "product_id")
+	private int id; //자동생성
+	private LocalDateTime createdDate;
+	private LocalDateTime updatedDate;
+	private LocalDateTime deletedDate;
+	private int status; //판매완료, 삭제, 판매중
+	private String title;
+	private String titleAlias;
+
+	@Embedded
+	private Address address;
+	private int price;
+	private String description;
 	private int hoursFromUpload;
-	private String pr_title_alias;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	private Member member;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	private Category category;
+
+	@OneToMany(mappedBy = "product")
+	private List<ProductImage> productImages;
 }

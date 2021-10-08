@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.salle.domain.Member;
 import com.salle.domain.Product;
 
 @Mapper
