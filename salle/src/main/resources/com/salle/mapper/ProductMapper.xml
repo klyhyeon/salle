@@ -1,103 +1,103 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper
-        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!--<?xml version="1.0" encoding="UTF-8"?>-->
+<!--<!DOCTYPE mapper-->
+<!--        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"-->
+<!--        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >-->
 
-<mapper namespace="com.salle.mapper.ProductMapper">
+<!--<mapper namespace="com.salle.mapper.ProductMapper">-->
 
-    <!-- Product SQL-->
-    <!-- parameterType: 구문에 전달될 파라미터의 패키지 경로를 포함한 전체 클래스명이나 별칭-->
-    <insert id="insertProduct" parameterType="com.salle.domain.Product"
-     useGeneratedKeys="true" keyProperty="pr_id">
-        INSERT INTO
-        product(pr_email, pr_reg_date, pr_img_1, pr_img_2, pr_img_3, pr_img_4, pr_img_5, pr_title, pr_category, pr_region1, pr_price, pr_detail, pr_title_alias, pr_region2)
-        VALUES(#{pr_email}, #{pr_reg_date}, #{pr_img_1}, #{pr_img_2}, #{pr_img_3}, #{pr_img_4}, #{pr_img_5}, #{pr_title}, #{pr_category}, #{pr_region1}, #{pr_price}, #{pr_detail}, #{pr_title_alias}, #{pr_region2});
-    </insert>
-    
-    <select id="getProductInfo" resultType="com.salle.domain.Product">
-    	SELECT *
-    	FROM product
-    	WHERE PR_ID = #{pr_id}
-    </select>
+<!--    &lt;!&ndash; Product SQL&ndash;&gt;-->
+<!--    &lt;!&ndash; parameterType: 구문에 전달될 파라미터의 패키지 경로를 포함한 전체 클래스명이나 별칭&ndash;&gt;-->
+<!--    <insert id="insertProduct" parameterType="com.salle.domain.Product"-->
+<!--     useGeneratedKeys="true" keyProperty="pr_id">-->
+<!--        INSERT INTO-->
+<!--        product(pr_email, pr_reg_date, pr_img_1, pr_img_2, pr_img_3, pr_img_4, pr_img_5, pr_title, pr_category, pr_region1, pr_price, pr_detail, pr_title_alias, pr_region2)-->
+<!--        VALUES(#{pr_email}, #{pr_reg_date}, #{pr_img_1}, #{pr_img_2}, #{pr_img_3}, #{pr_img_4}, #{pr_img_5}, #{pr_title}, #{pr_category}, #{pr_region1}, #{pr_price}, #{pr_detail}, #{pr_title_alias}, #{pr_region2});-->
+<!--    </insert>-->
+<!--    -->
+<!--    <select id="getProductInfo" resultType="com.salle.domain.Product">-->
+<!--    	SELECT *-->
+<!--    	FROM product-->
+<!--    	WHERE PR_ID = #{pr_id}-->
+<!--    </select>-->
 
-    <select id="getProductList" resultType="com.salle.domain.Product">
-    	SELECT *
-    	FROM product;
-    </select>
+<!--    <select id="getProductList" resultType="com.salle.domain.Product">-->
+<!--    	SELECT *-->
+<!--    	FROM product;-->
+<!--    </select>-->
 
-    <select id="getCategoryProductList" resultType="com.salle.domain.Product">
-    	SELECT *
-    	FROM product
-    	WHERE PR_CATEGORY = #{pr_category};
-    </select>
+<!--    <select id="getCategoryProductList" resultType="com.salle.domain.Product">-->
+<!--    	SELECT *-->
+<!--    	FROM product-->
+<!--    	WHERE PR_CATEGORY = #{pr_category};-->
+<!--    </select>-->
 
-    <select id="getNickNameByPrEmail" resultType="String">
-    	SELECT m.nickname
-	    FROM member  AS m
-	    LEFT OUTER JOIN product AS p
-	    ON p.pr_email = m.email
-	    WHERE m.email = #{pr_email}
-	    LIMIT 1;
-    </select>
-    <select id="search" resultType="com.salle.domain.Product">
-    	<bind name="searchWordConcate" value="'%'+searchWord+'%'"></bind>
-    	<bind name="searchWordNoSpaceConcate" value="'%'+searchWordNoSpace+'%'"></bind>
-    	SELECT *
-    	FROM product
-    	WHERE PR_TITLE LIKE #{searchWordConcate} OR PR_TITLE LIKE #{searchWordNoSpaceConcate}
-    	OR
-    	PR_TITLE_ALIAS LIKE #{searchWordConcate} OR PR_TITLE_ALIAS LIKE #{searchWordNoSpaceConcate};
-    </select>
+<!--    <select id="getNickNameByPrEmail" resultType="String">-->
+<!--    	SELECT m.nickname-->
+<!--	    FROM member  AS m-->
+<!--	    LEFT OUTER JOIN product AS p-->
+<!--	    ON p.pr_email = m.email-->
+<!--	    WHERE m.email = #{pr_email}-->
+<!--	    LIMIT 1;-->
+<!--    </select>-->
+<!--    <select id="search" resultType="com.salle.domain.Product">-->
+<!--    	<bind name="searchWordConcate" value="'%'+searchWord+'%'"></bind>-->
+<!--    	<bind name="searchWordNoSpaceConcate" value="'%'+searchWordNoSpace+'%'"></bind>-->
+<!--    	SELECT *-->
+<!--    	FROM product-->
+<!--    	WHERE PR_TITLE LIKE #{searchWordConcate} OR PR_TITLE LIKE #{searchWordNoSpaceConcate}-->
+<!--    	OR-->
+<!--    	PR_TITLE_ALIAS LIKE #{searchWordConcate} OR PR_TITLE_ALIAS LIKE #{searchWordNoSpaceConcate};-->
+<!--    </select>-->
 
-    <select id="searchCount" resultType="int">
-    	<bind name="searchWordConcate" value="'%'+searchWord+'%'"></bind>
-    	<bind name="searchWordNoSpaceConcate" value="'%'+searchWordNoSpace+'%'"></bind>
-    	SELECT COUNT(*)
-    	FROM product
-    	WHERE PR_TITLE LIKE #{searchWordConcate} OR PR_TITLE LIKE #{searchWordNoSpaceConcate}
-    	OR
-    	PR_TITLE_ALIAS LIKE #{searchWordConcate} OR PR_TITLE_ALIAS LIKE #{searchWordNoSpaceConcate};
-    </select>
-    
-    <update id="updateProduct">
-    	UPDATE product
-    	SET
-    	pr_email=#{pr_email}, pr_img_1=#{pr_img_1}, pr_img_2=#{pr_img_2}, 
-    	pr_img_3=#{pr_img_3}, pr_img_4=#{pr_img_4}, pr_img_5=#{pr_img_5}, pr_title=#{pr_title}, pr_category=#{pr_category}, pr_region1=#{pr_region1}, 
-    	pr_price=#{pr_price}, pr_detail=#{pr_detail}, pr_title_alias=#{pr_title_alias}, pr_region2=#{pr_region2}
-    	WHERE PR_ID = #{pr_id};
-    </update>
-    
-    <delete id="deleteProduct">
-    	DELETE FROM product
-    	WHERE pr_id = #{pr_id};
-    </delete>
-    
-    <update id="deleteImg1">
-    	UPDATE product
-    	SET PR_IMG_1 = null
-    	WHERE PR_ID = #{pr_id};
-    </update>
-    <update id="deleteImg2">
-    	UPDATE product
-    	SET PR_IMG_2 = null
-    	WHERE PR_ID = #{pr_id};
-    </update>
-    <update id="deleteImg3">
-    	UPDATE product
-    	SET PR_IMG_3 = null
-    	WHERE PR_ID = #{pr_id};
-    </update>
-    <update id="deleteImg4">
-    	UPDATE product
-    	SET PR_IMG_4 = null
-    	WHERE PR_ID = #{pr_id};
-    </update>
-    <update id="deleteImg5">
-    	UPDATE product
-    	SET PR_IMG_5 = null
-    	WHERE PR_ID = #{pr_id};
-    </update>
-    
-    
-</mapper>
+<!--    <select id="searchCount" resultType="int">-->
+<!--    	<bind name="searchWordConcate" value="'%'+searchWord+'%'"></bind>-->
+<!--    	<bind name="searchWordNoSpaceConcate" value="'%'+searchWordNoSpace+'%'"></bind>-->
+<!--    	SELECT COUNT(*)-->
+<!--    	FROM product-->
+<!--    	WHERE PR_TITLE LIKE #{searchWordConcate} OR PR_TITLE LIKE #{searchWordNoSpaceConcate}-->
+<!--    	OR-->
+<!--    	PR_TITLE_ALIAS LIKE #{searchWordConcate} OR PR_TITLE_ALIAS LIKE #{searchWordNoSpaceConcate};-->
+<!--    </select>-->
+<!--    -->
+<!--    <update id="updateProduct">-->
+<!--    	UPDATE product-->
+<!--    	SET-->
+<!--    	pr_email=#{pr_email}, pr_img_1=#{pr_img_1}, pr_img_2=#{pr_img_2}, -->
+<!--    	pr_img_3=#{pr_img_3}, pr_img_4=#{pr_img_4}, pr_img_5=#{pr_img_5}, pr_title=#{pr_title}, pr_category=#{pr_category}, pr_region1=#{pr_region1}, -->
+<!--    	pr_price=#{pr_price}, pr_detail=#{pr_detail}, pr_title_alias=#{pr_title_alias}, pr_region2=#{pr_region2}-->
+<!--    	WHERE PR_ID = #{pr_id};-->
+<!--    </update>-->
+<!--    -->
+<!--    <delete id="deleteProduct">-->
+<!--    	DELETE FROM product-->
+<!--    	WHERE pr_id = #{pr_id};-->
+<!--    </delete>-->
+<!--    -->
+<!--    <update id="deleteImg1">-->
+<!--    	UPDATE product-->
+<!--    	SET PR_IMG_1 = null-->
+<!--    	WHERE PR_ID = #{pr_id};-->
+<!--    </update>-->
+<!--    <update id="deleteImg2">-->
+<!--    	UPDATE product-->
+<!--    	SET PR_IMG_2 = null-->
+<!--    	WHERE PR_ID = #{pr_id};-->
+<!--    </update>-->
+<!--    <update id="deleteImg3">-->
+<!--    	UPDATE product-->
+<!--    	SET PR_IMG_3 = null-->
+<!--    	WHERE PR_ID = #{pr_id};-->
+<!--    </update>-->
+<!--    <update id="deleteImg4">-->
+<!--    	UPDATE product-->
+<!--    	SET PR_IMG_4 = null-->
+<!--    	WHERE PR_ID = #{pr_id};-->
+<!--    </update>-->
+<!--    <update id="deleteImg5">-->
+<!--    	UPDATE product-->
+<!--    	SET PR_IMG_5 = null-->
+<!--    	WHERE PR_ID = #{pr_id};-->
+<!--    </update>-->
+<!--    -->
+<!--    -->
+<!--</mapper>-->
