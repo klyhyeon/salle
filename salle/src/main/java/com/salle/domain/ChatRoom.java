@@ -1,27 +1,30 @@
 package com.salle.domain;
 
-import org.springframework.stereotype.Component;
+import javax.persistence.*;
+import java.util.List;
 
-import lombok.Data;
+@Entity
+@Table(name = "CHAT_ROOM")
+public class ChatRoom {
 
-@Component
-public @Data class ChatRoom {
+	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
 
-	private String chatid;
-	private int pr_id;
-	private String sellerid;
-	private String buyerid;	
-	
-	public ChatRoom() {
-		
+	@ManyToOne(fetch = FetchType.LAZY)
+	private Product product;
+
+	@OneToMany(mappedBy = "chatRoom")
+	private List<MemberChatRoom> memberChatRooms;
+
+	@OneToMany(mappedBy = "chatRoom")
+	private List<ChatMessageLog> chatMessageLogs;
+
+	public void setChatMessageLogs(List<ChatMessageLog> chatMessageLogs) {
+		this.chatMessageLogs = chatMessageLogs;
 	}
 
-	public ChatRoom(String chatid, int pr_id, String sellerid, String buyerid) {
-		super();
-		this.chatid = chatid;
-		this.pr_id = pr_id;
-		this.sellerid = sellerid;
-		this.buyerid = buyerid;
+	public List<ChatMessageLog> getChatMessageLogs() {
+		return chatMessageLogs;
 	}
 
 }
