@@ -1,19 +1,30 @@
 package com.salle.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+`import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.util.List;
 
-@NoArgsConstructor //기본생성자
-@AllArgsConstructor //모든 전역변수 포함시킨 생성자
-public @Data class Member {
+@Entity
+@Table(name = "MEMBER")
+public class Member {
 
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "member_id")
     private int id; //자동생성
-    private String phoneNum;
+    private String phone;
+    @Column(name = "member_name")
     private String name;
     private String email;
     private String nickName;
     private String password;
-    private String confirmPassword;
-    private boolean emailDuplicate;
+    private LocalDateTime createdTime;
+    private LocalDateTime updatedTime;
+    private LocalDateTime deletedTime;
+    private int status; //휴면, 탈퇴, 활동
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "member")
+    private List<Product> products;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "member")
+    private List<MemberChatRoom> memberChatRooms;
 }
