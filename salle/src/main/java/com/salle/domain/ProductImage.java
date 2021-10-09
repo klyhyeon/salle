@@ -2,8 +2,8 @@ package com.salle.domain;
 
 import javax.persistence.*;
 
-@Table(name = "PRODUCT_IMAGE")
 @Entity
+@Table(name = "PRODUCT_IMAGE")
 public class ProductImage {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -13,12 +13,4 @@ public class ProductImage {
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Product product;
-
-    public Product getProduct() {
-        return product;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
-    }
 }

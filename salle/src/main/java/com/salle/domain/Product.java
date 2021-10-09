@@ -1,15 +1,8 @@
 package com.salle.domain;
 
-import java.sql.Timestamp;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
-
-import org.springframework.stereotype.Component;
-
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-import javax.persistence.*;
 
 
 @Entity
@@ -19,9 +12,9 @@ public class Product {
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "product_id")
 	private int id; //자동생성
-	private LocalDateTime createdDate;
-	private LocalDateTime updatedDate;
-	private LocalDateTime deletedDate;
+	private LocalDateTime createdTime;
+	private LocalDateTime updatedTime;
+	private LocalDateTime deletedTime;
 	private int status; //판매완료, 삭제, 판매중
 	private String title;
 	private String titleAlias;
@@ -37,6 +30,9 @@ public class Product {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Category category;
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "product")
+	private List<ChatRoom> chatRooms;
 
 	@OneToMany(mappedBy = "product")
 	private List<ProductImage> productImages;
