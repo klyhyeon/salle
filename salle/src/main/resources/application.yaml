@@ -1,0 +1,35 @@
+server:
+  port: 8080
+
+cloud:
+  aws:
+    s3:
+      bucket: sallestorage
+    region:
+      static: ap-northeast-2
+    stack:
+      auto: false
+    credentials:
+      instanceProfile: true
+
+spring:
+  datasource:
+    driver-class-name: org.mariadb.jdbc.Driver
+    #password:ENC(UE/iZiFPfRCBFdpEf9yDNoCPp44nvvYM)
+    #spring.datasource.url= jdbc:mariadb://sallenew.cv59rxxz14yg.ap-northeast-2.rds.amazonaws.com:3306/salle_new
+    url: jdbc:mariadb://localhost:3306/salle?useSSL=false&characterEncoding=UTF-8&serverTimezone=UTC
+    username: root
+    password: 1234
+    jpa:
+      properties:
+        hibernate:
+          format_sql: true
+      show-sql: true
+  servlet:
+    multipart:
+      max-file-size: 15MB
+
+jasypt:
+  encryptor:
+    algorithm: PBEWithMD5AndDES
+
