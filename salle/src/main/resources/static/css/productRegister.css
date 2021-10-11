@@ -1,0 +1,49 @@
+
+*{
+	box-sizing: border-box;
+	font-size: 11px;
+}
+
+textarea {
+	resize: none;	
+}
+
+#errors {
+	color: red;
+}
+
+.wrap_pr_img {
+	display: flex;
+	width: 800px;
+}
+
+div[class^="pr_img"] {
+	display: block;
+	position: relative;
+}
+
+/* button */
+.button_img {
+	background-image: url(https://sallestorage.s3.ap-northeast-2.amazonaws.com/static/img/salle_exiticon.png);
+	background-size: 20px;
+	width: 20px;
+	height: 20px;
+	position: absolute;
+	top: 0;
+	left: 0;
+	border-style: none;
+	border-radius: 20px;
+	background-color: rgba(255,255,255,0.5);
+	cursor: pointer;
+}
+
+#btn_submit {
+	background-color: #70b8ff;
+	border: 2px solid #70b8ff;
+	width: 70px;
+	height: 20px;
+	border-radius: 3px;
+	color: #ffffff;
+	cursor: pointer;
+}
+
