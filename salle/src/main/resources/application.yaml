@@ -29,6 +29,15 @@ spring:
     multipart:
       max-file-size: 15MB
 
+logging:
+  level:
+    org:
+      springframework:
+        web:
+          client: DEBUG
+      hibernate:
+        type: trace
+
 jasypt:
   encryptor:
     algorithm: PBEWithMD5AndDES
