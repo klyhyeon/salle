@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.salle.application.ProductService;
 import com.salle.application.ProfileService;
-import com.salle.domain.Login;
 import com.salle.domain.Product;
 
 @Controller

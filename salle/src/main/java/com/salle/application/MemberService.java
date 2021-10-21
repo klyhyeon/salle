@@ -9,7 +9,7 @@
 //import org.springframework.validation.Errors;
 //import org.springframework.validation.ValidationUtils;
 //
-//import com.salle.domain.Login;
+//import com.salle.dto.Login;
 //import com.salle.mapper.MemberMapper;
 //
 //@Transactional

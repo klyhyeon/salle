@@ -23,7 +23,6 @@ public class Product {
 	private Address address;
 	private int price;
 	private String description;
-	private int hoursFromUpload;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Member member;

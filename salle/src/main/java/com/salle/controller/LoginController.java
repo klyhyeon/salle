@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.salle.application.ChatService;
 import com.salle.application.MemberService;
 import com.salle.application.ProductService;
-import com.salle.domain.Login;
 
 @Controller
 public class LoginController {

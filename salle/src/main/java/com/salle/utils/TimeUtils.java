@@ -1,4 +1,4 @@
-package com.salle.domain;
+package com.salle.utils;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

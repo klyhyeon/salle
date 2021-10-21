@@ -1,4 +1,4 @@
-package com.salle.domain;
+package com.salle.config;
 
 import java.util.Locale;
 

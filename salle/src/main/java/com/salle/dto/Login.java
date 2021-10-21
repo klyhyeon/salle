@@ -1,4 +1,4 @@
-package com.salle.domain;
+package com.salle.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

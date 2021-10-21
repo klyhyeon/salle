@@ -1,10 +1,9 @@
 package com.salle.validation;
 
+import com.salle.dto.Login;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
-
-import com.salle.domain.Login;
 
 public class LoginCheckEmptyAndEmailValidation implements Validator {
 	

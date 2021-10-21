@@ -1,6 +1,6 @@
 package com.salle.domain;
 
-`import javax.persistence.*;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
 

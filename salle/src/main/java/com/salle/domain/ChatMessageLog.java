@@ -12,6 +12,7 @@ public class ChatMessageLog {
     private String content;
     private LocalDateTime createdTime;
     private LocalDateTime updateTime;
+    private LocalDateTime deletedTime;
     private int sendStatus; //발송완료, 실패
     private int readStatus; //읽음 안읽음;
 

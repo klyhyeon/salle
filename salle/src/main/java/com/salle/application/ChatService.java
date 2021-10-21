@@ -13,7 +13,7 @@
 //import org.springframework.stereotype.Service;
 //
 //import com.salle.domain.ChatRoom;
-//import com.salle.domain.Login;
+//import com.salle.dto.Login;
 //import com.salle.domain.Product;
 //import com.salle.mapper.ChatMapper;
 //

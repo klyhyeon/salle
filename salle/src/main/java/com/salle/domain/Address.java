@@ -18,7 +18,7 @@ public class Address {
         this.region2 = region2;
     }
 
-    private String region1; //주소검색
+    private String region1; //주소검색 결과
 
     private String region2; //상세주소
 

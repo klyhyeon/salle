@@ -19,9 +19,8 @@ import org.springframework.validation.Errors;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartRequest;
 
-import com.salle.domain.Login;
 import com.salle.domain.Product;
-import com.salle.domain.UuidImgname;
+import com.salle.utils.UuidImgname;
 import com.salle.mapper.ProductMapper;
 import com.salle.validation.SellProductValidation;
 
